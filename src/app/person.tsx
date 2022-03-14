@@ -1,16 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
+import { ButtonLoader } from "./components/Button";
+import { Loader } from "./components/Loader";
+import { NavButton } from "./components/NavButton";
 import { IState, actions } from "./store";
 
 const mapStateToProps = (state: IState) => state;
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof actions & { caption: string };
+type Props = ReturnType<typeof mapStateToProps> & typeof actions & { caption: string };
 
-const component: React.FC<Props> = props => (
+const component: React.FC<Props> = (props) => (
   <>
+    <NavButton></NavButton>
+    <Loader caption={"dddddddd"} />
     <h1>{props.caption}</h1>
     <div>
-      <button onClick={() => props.getPersonRequest()}>GET PERSON</button>
+      <ButtonLoader onClick={() => props.getPersonRequest()} loader={props.fetching} text={"GET PERSON"} />
     </div>
     {props.fetching ? (
       <div>Fetching data</div>

@@ -1,0 +1,53 @@
+import React from "react";
+import styled from "styled-components";
+
+interface Props {
+  loader: boolean | undefined;
+  text?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+}
+const Button = styled.button<Props>`
+  background: ${(props) => (props.loader ? "blue" : "green")};
+  color: ${(props) => (props.loader ? "white" : "palevioletred")};
+  font-size: 1em;
+  padding: 0.25em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+  display: flex;
+`;
+export const Row = styled.div`
+  display: flex;
+`;
+export const ButtonLoader: React.FC<Props> = (props) => {
+  return (
+    <Button loader={props.loader} onClick={props.onClick}>
+      <Row>
+        {props.loader && (
+          <svg
+            version="1.1"
+            id="L9"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 100 100"
+            xmlSpace="preserve"
+          >
+            <path fill="#fff" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+              <animateTransform
+                attributeName="transform"
+                attributeType="XML"
+                type="rotate"
+                dur="1s"
+                from="0 50 50"
+                to="360 50 50"
+                repeatCount="indefinite"
+              />
+            </path>
+          </svg>
+        )}
+        {props.text}
+      </Row>
+    </Button>
+  );
+};
