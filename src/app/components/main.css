@@ -87,4 +87,7 @@ nav {
   main {
     box-shadow: none;
   }
+  nav {
+    border-radius: 0;
+  }
 }
