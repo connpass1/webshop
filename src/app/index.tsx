@@ -6,6 +6,8 @@ import Wrapper from "./components/Wrapper";
 import { BrowserRouter, Route } from "react-router-dom";
 import TestPage from "./pages/TestPage";
 
+import Catalog from "./components/Catalog";
+
 const store = initialize();
 
 const component: React.FC = () => (
@@ -18,6 +20,9 @@ const component: React.FC = () => (
 
         <Route path="/test">
           <TestPage />
+        </Route>
+        <Route path="/catalog">
+          <Catalog />
         </Route>
       </Wrapper>
     </BrowserRouter>

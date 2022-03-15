@@ -1,6 +1,7 @@
 body {
   --main-bg-color: brown;
   --button-icon-size: 40px;
+  --shadow: -1px 1px 12px -2px rgba(1, 1, 1, 0.6);
   background-color: white;
   color: black;
   margin: 0;
@@ -25,26 +26,65 @@ a {
 
 main {
   grid-area: main;
-  border: 2px solid grey;
+  box-shadow: var(--shadow);
   padding: 10px;
+  border-radius: 4px;
 }
-
+nav {
+  grid-area: nav;
+  border-right: 1px solid rgba(1, 1, 1, 0.2);
+  border-left: 1px solid rgba(1, 1, 1, 0.2);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: columns;
+  min-width: 240px;
+  padding: 8px;
+  grid-area: nav;
+  background-color: white;
+  border-radius: 8px;
+}
 .wrapper {
   display: grid;
-
-  grid-template-columns: 1fr minmax(min-content, 240px) minmax(800px, 800px) 1fr;
+  grid-template-columns: 1fr 240px 48px 980px 1fr;
   grid-template-rows: min-content minmax(90vh, max-content) min-content;
-  gap: 0 0;
+  gap: 12px 12px;
   grid-template-areas:
-    "appBar appBar appBar appBar"
-    ". nav main ."
-    "footer  footer  footer footer";
+    "appBar appBar appBar appBar appBar"
+    ". nav . main ."
+    "footer  footer footer footer footer";
   padding: 0;
   min-height: 100vh;
 }
-@media (min-width: 1980px) {
+@media (max-width: 1980px) {
   .wrapper {
-    grid-template-columns: 1fr 240px 1024px 1fr;
-    gap: 1em 0.5em;
+    grid-template-areas:
+      "appBar  appBar appBar appBar appBar "
+      " . nav  .  main  .   "
+      "footer footer footer  footer footer";
+    grid-template-columns: 1fr 240px 12px 800px 1fr;
+    gap: 12px 12px;
+  }
+}
+@media (max-width: 1200px) {
+  .wrapper {
+    grid-template-areas:
+      "appBar   appBar   "
+      "  nav   main "
+      "footer  footer   ";
+    grid-template-columns: 1fr 4fr;
+    gap: 12px 12px;
+  }
+}
+@media (max-width: 992px) {
+  .wrapper {
+    grid-template-areas:
+      "appBar  "
+      "  main "
+      "footer ";
+    grid-template-columns: 100%;
+    gap: 12px 12px;
+  }
+  main {
+    box-shadow: none;
   }
 }

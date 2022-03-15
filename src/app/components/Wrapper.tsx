@@ -22,13 +22,6 @@ const outAnimation = keyframes`
 `;
 
 const Nav = styled.nav<{ large: boolean; open: boolean }>`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: columns;
-  min-width: 240px;
-  padding: 8px;
-  grid-area: nav;
-  background-color: rgb(116, 98, 98);
   position: ${(props) => (props.large ? "relative" : "absolute")};
   left: ${(props) => (props.large || props.open ? "0" : "-100%")};
   animation-name: ${(props) => (props.large ? undefined : props.open ? inAnimation : outAnimation)};
