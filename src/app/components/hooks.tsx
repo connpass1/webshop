@@ -8,9 +8,7 @@ export function useIsSmall() {
     }
 
     window.addEventListener("resize", handleResize);
-    console.log(window.innerWidth);
     handleResize();
-    // Remove event listener on cleanup
   });
   return small;
 }

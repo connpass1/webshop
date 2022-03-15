@@ -1,7 +1,10 @@
 import React from "react";
 import { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobilMenu, webMenu } from "../data";
+import Icon from "./Icon";
+
 import { ISmall } from "./Wrapper";
 
 const Styled = styled.div<{ large: boolean }>`
@@ -9,26 +12,22 @@ const Styled = styled.div<{ large: boolean }>`
   padding: 10px;
   display: flex;
   justify-content: space-between;
-  color: var(--main-bg-color);
-
-  .outer {
+  color: white;
+  align-items: center;
+  background-color: var(--main-bg-color);
+  .logo {
+    height: 100%;
     display: flex;
     flex-direction: columns;
     align-items: center;
-    .logo {
-      height: 100%;
-      display: flex;
-      flex-direction: columns;
-      align-items: center;
-      background-repeat: no-repeat center center fixed;
-      background-image: url("logo192.png");
-      width: ${(props) => (props.large ? "120px" : "60px")};
-      height: ${(props) => (props.large ? "120px" : "60px")};
-      background-size: cover;
-    }
+    background-repeat: no-repeat center center fixed;
+    background-image: ${(props) => (props.large ? "url(logo120.png)" : "url(logo48.png)")};
+    width: ${(props) => (props.large ? "120px" : "48px")};
+    height: ${(props) => (props.large ? "120px" : "48px")};
+    background-size: cover;
+    cursor: pointer;
   }
   a {
-    color: var(--main-bg-color);
     font-size: 1.3rem;
     padding: 8px;
   }
@@ -36,6 +35,7 @@ const Styled = styled.div<{ large: boolean }>`
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex: 1;
   }
   .menuButton {
     width: var(--button-icon-size);
@@ -48,15 +48,14 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
   const menu = small ? mobilMenu : webMenu;
   return (
     <Styled large={!small}>
-      <div className="outer">
+      <Link to="/">
         <div className="logo" />
-      </div>
+      </Link>
       <div className="menuLinks">
-        <p>{"small" + small}</p>;
         {menu.map((item, key) => (
-          <a key={key} href="link">
+          <Link key={key} to={item.link}>
             {item.text}
-          </a>
+          </Link>
         ))}
       </div>
       {children}

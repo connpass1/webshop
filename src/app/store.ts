@@ -36,11 +36,11 @@ export interface IState {
   fetching?: boolean;
   person?: IPersonDto;
   isOld?: boolean;
-  navbar?: boolean;
+
 }
 
 const fetchReducer: Reducer<IState>=(
-  state={fetching: false, navbar: false},
+  state={fetching: false, },
   action: any
 ): IState => {
   switch (action.type) {
@@ -50,11 +50,6 @@ const fetchReducer: Reducer<IState>=(
       return {...state, fetching: false, person: action.person, isOld: action.isOld};
     case ActionTypes.IsFetching:
       return {fetching: true};
-    case actions.isNavOpen:
-      return {navbar: state.navbar};
-    case ActionTypes.setNavOpen:
-      state={...state, navbar: !state.navbar};
-      return state;
     default:
       return state;
   }

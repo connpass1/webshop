@@ -2,18 +2,21 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
-  loader: boolean | undefined;
+  loader?: boolean;
   text?: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  onClick: any;
 }
-const Button = styled.button<Props>`
-  background: ${(props) => (props.loader ? "blue" : "green")};
-  color: ${(props) => (props.loader ? "white" : "palevioletred")};
+
+const Button = styled.div<Props>`
+  background-color: var(--main-bg-color);
+  color: white;
   font-size: 1em;
   padding: 0.25em;
   border: 2px solid palevioletred;
   border-radius: 3px;
-  display: flex;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
 `;
 export const Row = styled.div`
   display: flex;
