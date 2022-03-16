@@ -11,9 +11,7 @@ const Button = styled.div<Props>`
   background-color: var(--main-bg-color);
   color: white;
   font-size: 1em;
-  padding: 0.25em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
+  padding: 0.5em;
   display: inline-block;
   user-select: none;
   cursor: pointer;

@@ -1,9 +1,8 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-type Props = { link: string };
 const P = () => <p>Заготовка статической страницы</p>;
-const component: React.FC<Props> = (props) => {
+const component: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/">
