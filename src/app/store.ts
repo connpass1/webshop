@@ -38,8 +38,6 @@ export const actions={
 
   }),
 
-
-
 };
 export interface IStateItems {
   fetchingItems?: boolean;
@@ -71,7 +69,7 @@ const fetchReducer: Reducer<any>=(
       };
     // items
     case ActionTypes.GetItemsRequest:
-      delete state.errorItemsPerson;
+      delete state.errorFetchingItems;
       delete state.items;
       return {...state, fetchingItems: true};
     case ActionTypes.GetItemsSuccess:
