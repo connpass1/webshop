@@ -1,14 +1,11 @@
-export const mobilMenu = [
-  { text: "mob11", link: "link1" },
-  { text: "mob1", link: "link2" },
-];
 export const webMenu = [
-  { text: "web1", link: "link1" },
-  { text: "web2", link: "link2" },
-  { text: "web3", link: "link2" },
+  { txt: "Контакты", link: "contacts" },
+  { txt: "Доставка", link: "cargo" },
+  { txt: "Гарантия", link: "warranty" },
 ];
 export const footerLinks = [
-  { text: "main", link: "/" },
-  { text: "test", link: "/test" },
+  { txt: "main", link: "/" },
+  { txt: "test", link: "/test" },
 ];
 export const footerMessage = "footer Message";
+export const phoneNumber = "111111111";

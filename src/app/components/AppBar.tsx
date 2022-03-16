@@ -2,10 +2,11 @@ import React from "react";
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { mobilMenu, webMenu } from "../data";
-import Icon from "./Icon";
+import { phoneNumber, webMenu } from "../data";
+import Icon, { IconTypes, SvgCart } from "./Icon";
 
 import { ISmall } from "./Wrapper";
+import { SvgProfile, SvgPhone } from "./Icon";
 
 const Styled = styled.div<{ large: boolean }>`
   grid-area: appBar;
@@ -28,15 +29,21 @@ const Styled = styled.div<{ large: boolean }>`
     cursor: pointer;
   }
   a {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     padding: 8px;
+    color: #ffffff;
   }
-  .menuLinks {
+  a:hover {
+    color: #ffffff77;
+  }
+  .links {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    flex: 1;
+
+    direction: columns;
+    font-size: 1.2rem;
   }
+
   .menuButton {
     width: var(--button-icon-size);
     height: var(--button-icon-size);
@@ -45,18 +52,40 @@ const Styled = styled.div<{ large: boolean }>`
 `;
 
 const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
-  const menu = small ? mobilMenu : webMenu;
   return (
     <Styled large={!small}>
       <Link to="/">
         <div className="logo" />
       </Link>
-      <div className="menuLinks">
-        {menu.map((item, key) => (
-          <Link key={key} to={item.link}>
-            {item.text}
+
+      <div className="column" style={{ width: "100%" }}>
+        {!small && (
+          <div className="links" style={{ justifyContent: "space-around" }}>
+            {webMenu.map((item, key) => (
+              <Link key={key} to={item.link}>
+                {item.txt}
+              </Link>
+            ))}
+          </div>
+        )}
+        <div className="links" style={{ justifyContent: "center" }}>
+          <a href={`tel:${phoneNumber}`}>
+            <Icon type={IconTypes.smallTextRight} caption={!small ? phoneNumber : undefined}>
+              <SvgPhone />
+            </Icon>
+          </a>
+
+          <Link to="cart">
+            <Icon type={IconTypes.smallTextRight} caption={!small ? "корзина" : undefined}>
+              <SvgCart />
+            </Icon>
           </Link>
-        ))}
+          <a href="profile">
+            <Icon type={IconTypes.smallTextRight} caption={!small ? "личный кабинет" : undefined}>
+              <SvgProfile />
+            </Icon>
+          </a>
+        </div>
       </div>
       {children}
     </Styled>

@@ -7,6 +7,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import TestPage from "./pages/TestPage";
 
 import Catalog from "./components/Catalog";
+import StaticPages from "./pages/StaticPages";
 
 const store = initialize();
 
@@ -15,9 +16,8 @@ const component: React.FC = () => (
     <BrowserRouter>
       <Wrapper>
         <Route path="/">
-          <h1>main</h1>
+          <StaticPages link=" " />
         </Route>
-
         <Route path="/test">
           <TestPage />
         </Route>

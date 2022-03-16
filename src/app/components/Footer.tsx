@@ -5,10 +5,6 @@ import styled from "styled-components";
 import { footerLinks, footerMessage } from "../data";
 import { ISmall } from "./Wrapper";
 const Styled = styled.footer`
-  grid-area: footer;
-  background-color: grey;
-  padding: 10px;
-  color: white;
   min-height: 100px;
   display: flex;
   flex-direction: column;
@@ -26,7 +22,7 @@ const Component: FunctionComponent<ISmall> = ({ small }) => {
       <div className="inner">
         {footerLinks.map((l, key) => (
           <Link key={`f${key}l`} to={l.link}>
-            {l.text}
+            {l.txt}
           </Link>
         ))}
       </div>
