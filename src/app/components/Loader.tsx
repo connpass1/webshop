@@ -8,23 +8,23 @@ type Props = ReturnType<typeof mapStateToProps> & typeof actions & { caption: st
 
 const component: React.FC<Props> = (props) => {
   const fetching = props.fetchingPerson;
-
+  const { person, caption } = props;
   return (
     <>
-      <h1>{"xx" + fetching}</h1>
+      <h1>{caption}</h1>
       <div>
         <ButtonLoader onClick={() => props.getPersonRequest()} loader={fetching} text="GET PERSON loader" />
       </div>
-      {props.errorFetchingPerson && <div>{props.errorFetchingPerson}</div>}
+      {fetching && <div>{fetching}</div>}
       {fetching ? (
         <div>Fetching data</div>
       ) : (
         <div>
-          {props.person && (
+          {person && (
             <div>
-              <div>ID: {props.person.id}</div>
-              <div>Name: {props.person.name}</div>
-              <div>Age: {props.person.age}</div>
+              <div>ID: {person.id}</div>
+              <div>Name: {person.name}</div>
+              <div>Age: {person.age}</div>
             </div>
           )}
         </div>

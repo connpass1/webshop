@@ -14,20 +14,28 @@ function getStatus(param: any) {
   catch (e) {return 0}
 }
 
-
-
 function* getPerson() {
   try {
-    const {data}=yield call(axios.get, 'http://localhost:3000/json/user1.json')
-    const isMale=data.sex===1; // This property doesn't exist on IPersonDto, but no error.
-    const isOld=data.age>=30||isMale;
+    const {data}=yield call(axios.get, 'http://localhost:3000/json/user.json')
+
     yield put(actions.getPersonSuccess(data))
   } catch (e) {
     yield put(actions.personRequestFiled(getStatus(e)))
   }
 }
+
+function* getItems() {
+  try {
+    const {data}=yield call(axios.get, 'http://localhost:3000/json/user1.json')
+    yield put(actions.getItemsSuccess(data))
+  } catch (e) {
+    yield put(actions.ItemsRequestFiled(getStatus(e)))
+  }
+}
+
 function* watchGetPersonRequest() {
   yield takeEvery(ActionTypes.GetPersonRequest, getPerson);
+  yield takeEvery(ActionTypes.GetItemsRequest, getItems);
 }
 
 export {watchGetPersonRequest};

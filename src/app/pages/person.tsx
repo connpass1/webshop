@@ -2,34 +2,41 @@ import React from "react";
 import { connect } from "react-redux";
 import { ButtonLoader } from "../components/Button";
 import { Loader } from "../components/Loader";
-import { actions, IStatePerson } from "../store";
+import { actions, IStateItems } from "../store";
 
-const mapStateToProps = (state: IStatePerson) => state;
+const mapStateToProps = (state: IStateItems) => state;
 type Props = ReturnType<typeof mapStateToProps> & typeof actions & { caption: string };
 
-const component: React.FC<Props> = (props) => (
-  <>
-    <Loader caption={props.caption} />
-    <h1>{props.caption}</h1>
-    <div>
-      <ButtonLoader onClick={() => props.getPersonRequest()} loader={props.fetchingPerson} text={"GET PERSON"} />
-    </div>
-    {props.errorFetchingPerson && <div>{props.errorFetchingPerson}</div>}
-    {props.fetchingPerson ? (
-      <div>Fetching data</div>
-    ) : (
+const component: React.FC<Props> = (props) => {
+  const fetching = props.fetchingItems;
+  const errorFetching = props.errorFetchingItems;
+  const item = props.items;
+
+  return (
+    <>
+      <Loader caption={"loader"} />
+      <h1>{props.caption}</h1>
       <div>
-        {props.person && (
-          <div>
-            <div>ID: {props.person.id}</div>
-            <div>Name: {props.person.name}</div>
-            <div>Age: {props.person.age}</div>
-          </div>
-        )}
+        <ButtonLoader onClick={() => props.getItemsRequest()} loader={fetching} text={"GET Items"} />
       </div>
-    )}
-  </>
-);
+      {errorFetching && <div>{errorFetching}</div>}
+      {props.fetchingItems ? (
+        <div>Fetching data</div>
+      ) : (
+        <div>
+          {JSON.stringify(props)}
+          {item && (
+            <div>
+              <div>ID: {item.id}</div>
+              <div>Name: {item.name}</div>
+              <div>Age: {item.age}</div>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+};
 
 const connectedComponent = connect(mapStateToProps, actions)(component);
 
