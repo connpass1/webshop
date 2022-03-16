@@ -80,11 +80,11 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
               <SvgCart />
             </Icon>
           </Link>
-          <a href="profile">
+          <Link to="profile">
             <Icon type={IconTypes.smallTextRight} caption={!small ? "личный кабинет" : undefined}>
               <SvgProfile />
             </Icon>
-          </a>
+          </Link>
         </div>
       </div>
       {children}
