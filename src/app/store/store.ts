@@ -1,17 +1,7 @@
 
 import {Reducer} from "redux";
+import {ILink, IPersonDto, IStatePerson} from "./Models";
 
-interface IPersonDto {
-  id: number;
-  name: string;
-  age: number;
-}
-interface ILink {
-  id: number;
-  txt: string;
-  link: string;
-  icon: string;
-}
 
 export enum ActionTypes {
   GetPersonRequest="GET_PERSON_REQUEST",
@@ -21,7 +11,6 @@ export enum ActionTypes {
   GetItemsSuccess="GET_ITEMS_SUCCESS",
   ItemsRequestFiled="ITEMS_REQUEST_FAILED",
 }
-
 export const actions={
   getPersonRequest: () => ({type: ActionTypes.GetPersonRequest}),
 
@@ -45,17 +34,8 @@ export const actions={
   }),
 
 };
-export interface IStateItems {
-  fetchingItems?: boolean;
-  items?: ILink[];
-  errorFetchingItems?: any
-}
 
-export interface IStatePerson {
-  fetchingPerson?: boolean;
-  person?: IPersonDto;
-  errorFetchingPerson?: any
-}
+
 const fetchReducer: Reducer<any>=(
   state={},
   action: any,
@@ -85,6 +65,8 @@ const fetchReducer: Reducer<any>=(
     case ActionTypes.ItemsRequestFiled:
       delete state.fetchingItems;
       delete state.items;
+      console.log('state');
+
       return {
         ...state, errorFetchingItems: action.error
       };

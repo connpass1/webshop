@@ -22,7 +22,6 @@ export enum IconTypes {
 const Icon: FunctionComponent<{ type?: IconTypes; caption?: string }> = ({ type = IconTypes.smallTextRight, caption, children }) => {
   const size = type === IconTypes.smallTextRight ? 24 : 36;
   const cl = type === IconTypes.smallTextRight ? "row" : "column";
-
   if (!caption) return <Component size={24}>{children}</Component>;
   return (
     <div className={classNames(cl, "flex-center")}>

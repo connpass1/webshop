@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { actions, IStatePerson } from "../store/store";
+import { IStatePerson } from "../store/Models";
+import { actions } from "../store/store";
 import { ButtonLoader } from "./Button";
 
 const mapStateToProps = (state: IStatePerson) => state;
@@ -8,12 +9,12 @@ type Props = ReturnType<typeof mapStateToProps> & typeof actions & { caption: st
 
 const component: React.FC<Props> = (props) => {
   const fetching = props.fetchingPerson;
-  const { person, caption } = props;
+  const { getPersonRequest, person, caption } = props;
   return (
     <>
       <h1>{caption}</h1>
       <div>
-        <ButtonLoader onClick={() => props.getPersonRequest()} loader={fetching} text="GET PERSON loader" />
+        <ButtonLoader onClick={() => getPersonRequest()} loader={fetching} text="GET PERSON loader" />
       </div>
       {fetching && <div>{fetching}</div>}
       {fetching ? (

@@ -1,26 +1,21 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 import {actions, ActionTypes} from "./store";
 import axios from 'axios'
-
-export interface IError {
-  message: string;
-}
-function getStatus(param: any) {
+export function getErrorStatus(e: any) {
   try {
-    const status=JSON.parse(JSON.stringify(param)).status
-    if (Number.isInteger(status)) return status
-    return 0
+    return e.response.status
   }
-  catch (e) {return 0}
+  catch (e) {return 500}
+
 }
 
 function* getPerson() {
   try {
-    const {data}=yield call(axios.get, 'http://localhost:3000/json/user.json')
-
+    const {data}=yield call(axios.get, 'http://localhost:3000/json/catalog.json')
     yield put(actions.getPersonSuccess(data))
   } catch (e) {
-    yield put(actions.personRequestFiled(getStatus(e)))
+
+    yield put(actions.personRequestFiled(getErrorStatus(e)))
   }
 }
 
@@ -29,7 +24,9 @@ function* getItems() {
     const {data}=yield call(axios.get, 'http://localhost:3000/json/catalog.json')
     yield put(actions.getItemsSuccess(data))
   } catch (e) {
-    yield put(actions.ItemsRequestFiled(getStatus(e)))
+
+
+    yield put(actions.ItemsRequestFiled(getErrorStatus(e)))
   }
 }
 

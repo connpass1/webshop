@@ -1,6 +1,8 @@
-import React from "react";
-import { FunctionComponent } from "react";
+import axios from "axios";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
+import { ILink } from "../store/Models";
+import { getErrorStatus } from "../store/saga";
 const Styled = styled.div`
   color: #000;
   padding: 4px;
@@ -23,23 +25,36 @@ const Styled = styled.div`
 `;
 
 const Catalog: FunctionComponent = () => {
-  return (
-    <Styled>
-      <figure>
-        <figcaption>Catalog </figcaption>
-        <ul>
-          <li>
-            <a href="fff">rrr</a>
-          </li>
-          <li>
-            <a href="fff">rrr</a>
-          </li>
-          <li>
-            <a href="fff">rrr</a>
-          </li>
-        </ul>
-      </figure>
-    </Styled>
-  );
+  const [data, setData] = useState<ILink[]>([]);
+  const [status, setStatus] = useState(0);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/json/catalog.json`)
+      .then((res) => {
+        setData(res.data as ILink[]);
+      })
+      .catch((e) => {
+        console.log(e);
+        setStatus(getErrorStatus(e));
+      });
+  }, []);
+
+  if (data.length > 0)
+    return (
+      <Styled>
+        <figure>
+          <figcaption> Каталог</figcaption>
+          <ul>
+            {data.map((item) => (
+              <li key={item.id}>
+                <a href={item.link}>{item.txt}</a>
+              </li>
+            ))}
+          </ul>
+        </figure>
+      </Styled>
+    );
+
+  return <>{status}</>;
 };
 export default Catalog;

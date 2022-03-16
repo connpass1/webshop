@@ -3,7 +3,7 @@ import React, { FunctionComponent } from "react";
 const Component: FunctionComponent = () => {
   return (
     <>
-      <h1>CatalogPage </h1>
+      <h1>CartPage </h1>
     </>
   );
 };

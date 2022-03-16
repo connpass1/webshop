@@ -9,6 +9,10 @@ import { applyMiddleware, createStore } from "redux";
 import { watchGetPersonRequest } from "./store/saga";
 import { reducer } from "./store/store";
 import CatalogPage from "./pages/CatalogPage";
+import ProfilePage from "./pages/ProfilePage";
+import LoginPage from "./pages/LoginPage";
+import CartPage from "./pages/CartPage";
+import ItemPage from "./pages/ItemPage";
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware));
@@ -25,6 +29,18 @@ const component: React.FC = () => (
         <Switch>
           <Route exact path="/catalog">
             <CatalogPage />
+          </Route>
+          <Route exact path="/profile">
+            <ProfilePage />
+          </Route>
+          <Route exact path="/login">
+            <LoginPage />
+          </Route>
+          <Route exact path="/cart">
+            <CartPage />
+          </Route>
+          <Route exact path="/item/*">
+            <ItemPage />
           </Route>
           <Route exact path="/">
             <h1>главная</h1>

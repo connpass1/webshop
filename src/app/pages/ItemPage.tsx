@@ -1,9 +1,10 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
+import { FunctionComponent } from "react";
 
 const Component: FunctionComponent = () => {
   return (
     <>
-      <h1>CatalogPage </h1>
+      <h1>ItemPage </h1>
     </>
   );
 };
