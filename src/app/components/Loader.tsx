@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { actions, IStatePerson } from "../store";
+import { actions, IStatePerson } from "../store/store";
 import { ButtonLoader } from "./Button";
 
 const mapStateToProps = (state: IStatePerson) => state;

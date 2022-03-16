@@ -1,6 +1,6 @@
 import React from "react";
 
-import { initialize } from "./saga/create-store";
+import { initialize } from "./store/create-store";
 import { Provider } from "react-redux";
 import Wrapper from "./components/Wrapper";
 import { BrowserRouter, Route } from "react-router-dom";

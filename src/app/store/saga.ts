@@ -1,5 +1,5 @@
 import {call, put, takeEvery} from "redux-saga/effects";
-import {actions, ActionTypes} from "../store";
+import {actions, ActionTypes} from "./store";
 import axios from 'axios'
 
 export interface IError {
