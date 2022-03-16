@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { ButtonLoader } from "../components/Button";
 import { Loader } from "../components/Loader";
-import { IState, actions } from "../store";
+import { actions, IStatePerson } from "../store";
 
-const mapStateToProps = (state: IState) => state;
+const mapStateToProps = (state: IStatePerson) => state;
 type Props = ReturnType<typeof mapStateToProps> & typeof actions & { caption: string };
 
 const component: React.FC<Props> = (props) => (
@@ -12,9 +12,10 @@ const component: React.FC<Props> = (props) => (
     <Loader caption={props.caption} />
     <h1>{props.caption}</h1>
     <div>
-      <ButtonLoader onClick={() => props.getPersonRequest()} loader={props.fetching} text={"GET PERSON"} />
+      <ButtonLoader onClick={() => props.getPersonRequest()} loader={props.fetchingPerson} text={"GET PERSON"} />
     </div>
-    {props.fetching ? (
+    {props.errorFetchingPerson && <div>{props.errorFetchingPerson}</div>}
+    {props.fetchingPerson ? (
       <div>Fetching data</div>
     ) : (
       <div>

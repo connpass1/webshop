@@ -1,56 +1,57 @@
 
 import {Reducer} from "redux";
+
 interface IPersonDto {
   id: number;
   name: string;
   age: number;
-  error?: string
 }
 
 export enum ActionTypes {
   GetPersonRequest="GET_PERSON_REQUEST",
   GetPersonSuccess="GET_PERSON_SUCCESS",
-  IsFetching="IS_FETCHING",
-  isNavOpen="IS_NAV_OPEN",
-  setNavOpen="SET_NAV_OPEN",
+  PersonRequestFiled="PERSON_REQUEST_FAILED",
 }
 
 export const actions={
   getPersonRequest: () => ({type: ActionTypes.GetPersonRequest}),
-  м: (person: IPersonDto, isOld: boolean) => ({
+
+  getPersonSuccess: (person: IPersonDto) => ({
     type: ActionTypes.GetPersonSuccess,
-    person,
-    isOld
+    person
   }),
-  getPersonSuccess: (person: IPersonDto, isOld: boolean) => ({
-    type: ActionTypes.GetPersonSuccess,
-    person,
-    isOld
-  }),
-  isNavOpen: () => ({type: ActionTypes.isNavOpen}),
-  setNavOpen: () => ({
-    type: ActionTypes.setNavOpen
+  personRequestFiled: (error: string) => ({
+    type: ActionTypes.PersonRequestFiled, error
+
   }),
 };
-export interface IState {
-  fetching?: boolean;
+export interface IStatePerson {
+  fetchingPerson?: boolean;
   person?: IPersonDto;
-  isOld?: boolean;
-
+  errorFetchingPerson?: any
 }
 
-const fetchReducer: Reducer<IState>=(
-  state={fetching: false, },
-  action: any
-): IState => {
+const fetchReducer: Reducer<any>=(
+  state={},
+  action: any,
+): IStatePerson => {
   switch (action.type) {
     case ActionTypes.GetPersonRequest:
-      return {...state, fetching: true};
+      delete state.errorFetchingPerson;
+      delete state.person;
+      return {...state, fetchingPerson: true};
     case ActionTypes.GetPersonSuccess:
-      return {...state, fetching: false, person: action.person, isOld: action.isOld};
-    case ActionTypes.IsFetching:
-      return {fetching: true};
+      delete state.fetchingPerson;
+      return {...state, person: action.person};
+    case ActionTypes.PersonRequestFiled:
+      delete state.fetchingPerson;
+      delete state.person;
+      return {
+        ...state, errorFetchingPerson: action.error
+      };
+
     default:
+
       return state;
   }
 };
