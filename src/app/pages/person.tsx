@@ -10,7 +10,7 @@ type Props = ReturnType<typeof mapStateToProps> & typeof actions & { caption: st
 const component: React.FC<Props> = (props) => {
   const fetching = props.fetchingItems;
   const errorFetching = props.errorFetchingItems;
-  const item = props.items;
+  const items = props.items;
 
   return (
     <>
@@ -25,13 +25,8 @@ const component: React.FC<Props> = (props) => {
       ) : (
         <div>
           {JSON.stringify(props)}
-          {item && (
-            <div>
-              <div>ID: {item.id}</div>
-              <div>Name: {item.name}</div>
-              <div>Age: {item.age}</div>
-            </div>
-          )}
+          {items && <div>{items.length}</div>}
+          {items && items.map((item) => <p key={item.id}>{item.txt}</p>)}
         </div>
       )}
     </>

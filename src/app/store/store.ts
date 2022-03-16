@@ -6,6 +6,12 @@ interface IPersonDto {
   name: string;
   age: number;
 }
+interface ILink {
+  id: number;
+  txt: string;
+  link: string;
+  icon: string;
+}
 
 export enum ActionTypes {
   GetPersonRequest="GET_PERSON_REQUEST",
@@ -29,7 +35,7 @@ export const actions={
   }),
   getItemsRequest: () => ({type: ActionTypes.GetItemsRequest}),
 
-  getItemsSuccess: (items: IPersonDto) => ({
+  getItemsSuccess: (items: ILink[]) => ({
     type: ActionTypes.GetItemsSuccess,
     items
   }),
@@ -41,9 +47,10 @@ export const actions={
 };
 export interface IStateItems {
   fetchingItems?: boolean;
-  items?: IPersonDto;
+  items?: ILink[];
   errorFetchingItems?: any
 }
+
 export interface IStatePerson {
   fetchingPerson?: boolean;
   person?: IPersonDto;

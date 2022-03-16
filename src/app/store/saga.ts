@@ -26,7 +26,7 @@ function* getPerson() {
 
 function* getItems() {
   try {
-    const {data}=yield call(axios.get, 'http://localhost:3000/json/user1.json')
+    const {data}=yield call(axios.get, 'http://localhost:3000/json/catalog.json')
     yield put(actions.getItemsSuccess(data))
   } catch (e) {
     yield put(actions.ItemsRequestFiled(getStatus(e)))
