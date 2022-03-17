@@ -37,7 +37,6 @@ const Styled = styled.div<{ large: boolean }>`
   .links {
     display: flex;
     align-items: center;
-
     direction: columns;
     font-size: 1.2rem;
   }
