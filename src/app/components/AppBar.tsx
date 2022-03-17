@@ -21,8 +21,6 @@ const Styled = styled.div<{ large: boolean }>`
     display: flex;
     flex-direction: columns;
     align-items: center;
-    background-repeat: no-repeat center center fixed;
-    background-image: ${(props) => (props.large ? "url(logo120.png)" : "url(logo48.png)")};
     width: ${(props) => (props.large ? "120px" : "48px")};
     height: ${(props) => (props.large ? "120px" : "48px")};
     background-size: cover;
@@ -55,7 +53,16 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
   return (
     <Styled large={!small}>
       <Link to="/">
-        <div className="logo" />
+        <div className="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348">
+            <circle cx="0" cy="0" r="2.05" fill="white" />
+            <g stroke="white" stroke-width="1" fill="none">
+              <ellipse rx="11" ry="4.2" />
+              <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+              <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+            </g>
+          </svg>
+        </div>
       </Link>
 
       <div className="column" style={{ width: "100%" }}>
@@ -75,12 +82,12 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
             </Icon>
           </a>
 
-          <Link to="cart">
+          <Link to="/cart">
             <Icon type={IconTypes.smallTextRight} caption={!small ? "корзина" : undefined}>
               <SvgCart />
             </Icon>
           </Link>
-          <Link to="profile">
+          <Link to="/profile">
             <Icon type={IconTypes.smallTextRight} caption={!small ? "личный кабинет" : undefined}>
               <SvgProfile />
             </Icon>

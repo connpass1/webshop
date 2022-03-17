@@ -1,17 +1,17 @@
 [
     {
         "id": 1,
-        "name": "hhggh",
-        "slug": "ggghhh"
+        "name": "товар 1",
+        "slug": "item"
     },
     {
         "id": 2,
-        "name": "hhh",
-        "slug": "hhgggh"
+        "name": "товар 2",
+        "slug": "item"
     },
     {
         "id": 3,
-        "name": "hh///h",
-        "slug": "hhhkgghh"
+        "name": "товар 3",
+        "slug": "item"
     }
 ]
