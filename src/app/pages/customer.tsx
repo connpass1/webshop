@@ -27,7 +27,7 @@ const component: React.FC<Props> = (props) => {
         <div>
           {JSON.stringify(props)}
           {items && <div>{items.length}</div>}
-          {items && items.map((item) => <p key={item.id}>{item.txt}</p>)}
+          {items && items.map((item) => <p key={item.id}>{item.name}</p>)}
         </div>
       )}
     </>

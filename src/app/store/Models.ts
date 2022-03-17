@@ -1,7 +1,24 @@
 export interface IStateItems {
     fetchingItems?: boolean;
-    items?: ILink[];
+    items?: IEntity[];
     errorFetchingItems?: any
+}
+export interface IEntity {
+    id: number;
+    name: string;
+    slug?: string;
+    group?: string;
+}
+export interface IGroup extends IEntity {
+    icon?: string;
+    items?: IEntity[]
+
+}
+export interface IItem extends IEntity {
+    description?: string;
+    photo: string[];
+    price: number;
+
 }
 export interface IStateCustomer {
     fetchingCustomer?: boolean;
@@ -11,10 +28,4 @@ export interface IStateCustomer {
     id: number;
     name: string;
     age: number;
-}
-export interface ILink {
-    id: number;
-    txt: string;
-    link: string;
-    icon?: string;
 }

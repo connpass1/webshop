@@ -1,6 +1,6 @@
 
 import {Reducer} from "redux";
-import {ILink, ICustomer, IStateCustomer} from "./Models";
+import {ICustomer, IEntity, IStateCustomer} from "./Models";
 
 
 export enum ActionTypes {
@@ -24,7 +24,7 @@ export const actions={
   }),
   getItemsRequest: () => ({type: ActionTypes.GetItemsRequest}),
 
-  getItemsSuccess: (items: ILink[]) => ({
+  getItemsSuccess: (items: IEntity[]) => ({
     type: ActionTypes.GetItemsSuccess,
     items
   }),

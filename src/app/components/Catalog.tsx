@@ -2,9 +2,8 @@ import axios from "axios";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ILink } from "../store/Models";
+import { IEntity } from "../store/Models";
 import { getErrorStatus } from "../store/saga";
-
 const Styled = styled.div`
   color: #000;
   padding: 4px;
@@ -34,13 +33,14 @@ const Styled = styled.div`
 `;
 
 const Catalog: FunctionComponent = () => {
-  const [data, setData] = useState<ILink[]>([]);
+  const [data, setData] = useState<IEntity[]>([]);
   const [status, setStatus] = useState(0);
   useEffect(() => {
+    setData([]);
     axios
       .get(`http://localhost:3000/json/catalog.json`)
       .then((res) => {
-        setData(res.data as ILink[]);
+        setData(res.data as IEntity[]);
       })
       .catch((e) => {
         console.log(e);
@@ -56,7 +56,7 @@ const Catalog: FunctionComponent = () => {
           <ul>
             {data.map((item) => (
               <li key={item.id}>
-                <Link to={`/item/${item.id}`}>{item.txt}</Link>
+                <Link to={`/item/${item.id}`}>{item.name}</Link>
               </li>
             ))}
           </ul>

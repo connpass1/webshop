@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FunctionComponent } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { getErrorStatus } from "../store/saga";
+import { CheckFetching } from "./ErrorPage";
 
 const Component: FunctionComponent = () => {
   const location = useParams();
@@ -10,28 +11,28 @@ const Component: FunctionComponent = () => {
   const [data, setData] = useState();
   const [status, setStatus] = useState(0);
   useEffect(() => {
-    setStatus(0);
-    return () => {
-      axios
-        .get(`http://localhost:3000/json/catalog.json`)
-        .then((res) => {
-          setData(res.data);
-          setStatus(200);
-          console.log("axios 555");
-        })
-        .catch((e) => {
-          console.log(e);
-          setStatus(getErrorStatus(e));
-        });
-    };
-  }, [id]);
+    console.log("effect");
 
-  if (status > 200) return <Redirect to={"error/" + id}></Redirect>;
+    setData(undefined);
+    setStatus(0);
+    axios
+      .get(`http://localhost:3000/json/items/${id}.json`)
+      .then((res) => {
+        setData(res.data);
+        setStatus(200);
+        console.log("axios 555");
+      })
+      .catch((e) => {
+        setData(undefined);
+        setStatus(getErrorStatus(e));
+      });
+  }, [location]);
+
   return (
-    <>
+    <CheckFetching status={status}>
       <h1>ItemPage {id}</h1>
       {data && <p>{JSON.stringify(data)}</p>}
-    </>
+    </CheckFetching>
   );
 };
 
