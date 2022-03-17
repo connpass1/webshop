@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ILink } from "../store/Models";
 import { getErrorStatus } from "../store/saga";
+
 const Styled = styled.div`
   color: #000;
   padding: 4px;
@@ -47,7 +49,7 @@ const Catalog: FunctionComponent = () => {
           <ul>
             {data.map((item) => (
               <li key={item.id}>
-                <a href={item.link}>{item.txt}</a>
+                <Link to={`/item/${item.id}`}>{item.txt}</Link>
               </li>
             ))}
           </ul>

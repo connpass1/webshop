@@ -13,6 +13,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
 import CartPage from "./pages/CartPage";
 import ItemPage from "./pages/ItemPage";
+import ErrorPage from "./pages/ErrorPage";
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware));
@@ -39,7 +40,7 @@ const component: React.FC = () => (
           <Route exact path="/cart">
             <CartPage />
           </Route>
-          <Route exact path="/item/*">
+          <Route exact path="/item/:id">
             <ItemPage />
           </Route>
           <Route exact path="/">
@@ -52,20 +53,21 @@ const component: React.FC = () => (
           </Route>
           <Route path="/warranty">
             <h1>гарантия</h1>
-            <P />
+            <P />.
           </Route>
           <Route path="/cargo">
             <h1>доставка </h1>
             <P />
           </Route>
-          <Route path="/404">
-            <h1>cтраница не найдена </h1>
-            <P />
-          </Route>
+
           <Route path="/test">
             <TestPage></TestPage>
           </Route>
-          <Redirect to="/404" />
+          <Route exact path="/error/:id">
+            <ErrorPage />
+          </Route>
+
+          <Redirect to="/error/404" />
         </Switch>
       </Wrapper>
     </BrowserRouter>
