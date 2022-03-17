@@ -1,25 +1,25 @@
 
 import {Reducer} from "redux";
-import {ILink, IPersonDto, IStatePerson} from "./Models";
+import {ILink, ICustomer, IStateCustomer} from "./Models";
 
 
 export enum ActionTypes {
-  GetPersonRequest="GET_PERSON_REQUEST",
-  GetPersonSuccess="GET_PERSON_SUCCESS",
-  PersonRequestFiled="PERSON_REQUEST_FAILED",
+  GetCustomerRequest="GET_Customer_REQUEST",
+  GetCustomerSuccess="GET_Customer_SUCCESS",
+  CustomerRequestFiled="Customer_REQUEST_FAILED",
   GetItemsRequest="GET_ITEMS_REQUEST",
   GetItemsSuccess="GET_ITEMS_SUCCESS",
   ItemsRequestFiled="ITEMS_REQUEST_FAILED",
 }
 export const actions={
-  getPersonRequest: () => ({type: ActionTypes.GetPersonRequest}),
+  getCustomerRequest: () => ({type: ActionTypes.GetCustomerRequest}),
 
-  getPersonSuccess: (person: IPersonDto) => ({
-    type: ActionTypes.GetPersonSuccess,
-    person
+  getCustomerSuccess: (Customer: ICustomer) => ({
+    type: ActionTypes.GetCustomerSuccess,
+    Customer
   }),
-  personRequestFiled: (error: string) => ({
-    type: ActionTypes.PersonRequestFiled, error
+  CustomerRequestFiled: (error: string) => ({
+    type: ActionTypes.CustomerRequestFiled, error
 
   }),
   getItemsRequest: () => ({type: ActionTypes.GetItemsRequest}),
@@ -39,20 +39,20 @@ export const actions={
 const fetchReducer: Reducer<any>=(
   state={},
   action: any,
-): IStatePerson => {
+): IStateCustomer => {
   switch (action.type) {
-    case ActionTypes.GetPersonRequest:
-      delete state.errorFetchingPerson;
-      delete state.person;
-      return {...state, fetchingPerson: true};
-    case ActionTypes.GetPersonSuccess:
-      delete state.fetchingPerson;
-      return {...state, person: action.person};
-    case ActionTypes.PersonRequestFiled:
-      delete state.fetchingPerson;
-      delete state.person;
+    case ActionTypes.GetCustomerRequest:
+      delete state.errorFetchingCustomer;
+      delete state.Customer;
+      return {...state, fetchingCustomer: true};
+    case ActionTypes.GetCustomerSuccess:
+      delete state.fetchingCustomer;
+      return {...state, Customer: action.Customer};
+    case ActionTypes.CustomerRequestFiled:
+      delete state.fetchingCustomer;
+      delete state.Customer;
       return {
-        ...state, errorFetchingPerson: action.error
+        ...state, errorFetchingCustomer: action.error
       };
     // items
     case ActionTypes.GetItemsRequest:

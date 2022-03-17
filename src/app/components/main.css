@@ -1,6 +1,6 @@
 body {
-  --main-bg-color: #532906;
-  --main-grey-color: rgba(33, 33, 33, 1);
+  --primary-color: #532906;
+  --grey-color: rgba(33, 33, 33, 1);
   --main-icon-color: 40px;
   --button-icon-size: 40px;
   --shadow: -1px 1px 12px -2px rgba(0, 0, 0, 0.6);
@@ -17,9 +17,9 @@ figure {
 }
 ul {
   list-style: none;
-  padding-inline-start: 8px;
-  margin-block-start: 8px;
-  margin-block-end: 8px;
+  padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 a {
   outline: none;
@@ -109,14 +109,14 @@ nav {
   align-items: center;
 }
 h1 {
-  color: var(--main-bg-color);
+  color: var(--primary-color);
   text-transform: capitalize;
   border-bottom: var(--border);
   padding: 0.5rem;
 }
 footer {
   grid-area: footer;
-  background-color: var(--main-grey-color);
+  background-color: var(--grey-color);
   padding: 10px;
   color: white;
 }

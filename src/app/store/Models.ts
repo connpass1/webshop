@@ -3,11 +3,11 @@ export interface IStateItems {
     items?: ILink[];
     errorFetchingItems?: any
 }
-export interface IStatePerson {
-    fetchingPerson?: boolean;
-    person?: IPersonDto;
-    errorFetchingPerson?: any
-}export interface IPersonDto {
+export interface IStateCustomer {
+    fetchingCustomer?: boolean;
+    Customer?: ICustomer;
+    errorFetchingCustomer?: any
+}export interface ICustomer {
     id: number;
     name: string;
     age: number;

@@ -9,13 +9,13 @@ export function getErrorStatus(e: any) {
 
 }
 
-function* getPerson() {
+function* getCustomer() {
   try {
     const {data}=yield call(axios.get, 'http://localhost:3000/json/catalog.json')
-    yield put(actions.getPersonSuccess(data))
+    yield put(actions.getCustomerSuccess(data))
   } catch (e) {
 
-    yield put(actions.personRequestFiled(getErrorStatus(e)))
+    yield put(actions.CustomerRequestFiled(getErrorStatus(e)))
   }
 }
 
@@ -30,9 +30,9 @@ function* getItems() {
   }
 }
 
-function* watchGetPersonRequest() {
-  yield takeEvery(ActionTypes.GetPersonRequest, getPerson);
+function* watchGetCustomerRequest() {
+  yield takeEvery(ActionTypes.GetCustomerRequest, getCustomer);
   yield takeEvery(ActionTypes.GetItemsRequest, getItems);
 }
 
-export {watchGetPersonRequest};
+export {watchGetCustomerRequest};

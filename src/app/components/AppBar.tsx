@@ -15,7 +15,7 @@ const Styled = styled.div<{ large: boolean }>`
   justify-content: space-between;
   color: white;
   align-items: center;
-  background-color: var(--main-bg-color);
+  background-color: var(--primary-color);
   .logo {
     height: 100%;
     display: flex;

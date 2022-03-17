@@ -6,7 +6,7 @@ import TestPage from "./pages/TestPage";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { applyMiddleware, createStore } from "redux";
-import { watchGetPersonRequest } from "./store/saga";
+import { watchGetCustomerRequest } from "./store/saga";
 import { reducer } from "./store/store";
 import CatalogPage from "./pages/CatalogPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -18,7 +18,7 @@ export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware));
   const store = createStore(reducer, enhancer);
-  sagaMiddleware.run(watchGetPersonRequest);
+  sagaMiddleware.run(watchGetCustomerRequest);
   return store;
 };
 const store = initialize();

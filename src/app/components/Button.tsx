@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Button = styled.div<Props>`
-  background-color: var(--main-bg-color);
+  background-color: var(--primary-color);
   color: white;
   font-size: 1em;
   padding: 0.5em;

@@ -36,4 +36,4 @@ const component: React.FC<Props> = (props) => {
 
 const connectedComponent = connect(mapStateToProps, actions)(component);
 
-export { connectedComponent as Person };
+export { connectedComponent as Customer };

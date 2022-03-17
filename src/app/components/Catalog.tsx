@@ -10,7 +10,7 @@ const Styled = styled.div`
   padding: 4px;
   width: 100%;
   figcaption {
-    background-color: var(--main-bg-color);
+    background-color: var(--primary-color);
     color: white;
     padding: 8px;
     border-top-left-radius: 8px;
@@ -19,10 +19,17 @@ const Styled = styled.div`
   figure {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border: 1px solid var(--main-bg-color);
+    border: 1px solid var(--primary-color);
     width: 100%;
   }
-  ul {
+
+  li {
+    border-bottom: var(--border);
+    border-top: var(--border);
+    padding: 0.25rem 0.25em;
+  }
+  a {
+    color: var(--primary-color);
   }
 `;
 
