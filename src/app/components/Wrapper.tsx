@@ -31,7 +31,9 @@ const Wrapper: FunctionComponent = ({ children }) => {
   return (
     <div className="wrapper">
       <AppBar small={small}>{small ? <Toggle onToggle={(g) => setNavBarOpened(g)}></Toggle> : <div />}</AppBar>
-      <main> {children}</main>
+      <main>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </main>
       <Nav large={!small} open={navBarOpened}>
         <Catalog />
       </Nav>
@@ -40,3 +42,28 @@ const Wrapper: FunctionComponent = ({ children }) => {
   );
 };
 export default Wrapper;
+class ErrorBoundary extends React.Component {
+  state = { hasError: false, error: undefined };
+
+  static getDerivedStateFromError(error: any) {
+    console.log(error);
+    return { hasError: true, error: error };
+  }
+
+  componentDidCatch(error: any, errorInfo: any) {
+    console.log(errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <>
+          <h1>Ошибочка.</h1>
+          <p>Что-то пошло не так.</p>
+          <p>{JSON.stringify(this.state.error)}</p>
+        </>
+      );
+    }
+    return this.props.children;
+  }
+}

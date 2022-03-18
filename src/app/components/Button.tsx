@@ -19,6 +19,9 @@ const Button = styled.div<Props>`
 export const Row = styled.div`
   display: flex;
 `;
+export const ButtonTest: React.FC = () => {
+  return <button>button test</button>;
+};
 export const ButtonLoader: React.FC<Props> = (props) => {
   return (
     <Button loader={props.loader} onClick={props.onClick}>
