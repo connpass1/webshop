@@ -12,7 +12,7 @@ import CatalogPage from "./pages/CatalogPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
 import CartPage from "./pages/CartPage";
-import ItemPage from "./pages/ItemPage";
+import ItemPage from "./pages/ItemsPage";
 import ErrorPage from "./pages/ErrorPage";
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -28,7 +28,7 @@ const component: React.FC = () => (
     <BrowserRouter>
       <Wrapper>
         <Switch>
-          <Route exact path="/catalog">
+          <Route exact path="/catalog/:id">
             <CatalogPage />
           </Route>
           <Route exact path="/profile">

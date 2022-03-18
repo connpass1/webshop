@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { IStateCustomer } from "../store/Models";
 import { actions } from "../store/store";
-import { ButtonLoader } from "./Button";
+import { ButtonLoader } from "./Elements/Button";
 
 const mapStateToProps = (state: IStateCustomer) => state;
 type Props = ReturnType<typeof mapStateToProps> & typeof actions & { caption: string };

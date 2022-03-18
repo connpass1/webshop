@@ -19,12 +19,17 @@ const Styled = styled.div<{ large: boolean }>`
   .logo {
     height: 100%;
     display: flex;
-    flex-direction: columns;
+    flex-direction: column;
     align-items: center;
     width: ${(props) => (props.large ? "120px" : "48px")};
-    height: ${(props) => (props.large ? "120px" : "48px")};
-    background-size: cover;
     cursor: pointer;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    .svg {
+      width: ${(props) => (props.large ? "80px" : "48px")};
+    }
+    svg:hover {
+      transform: rotate(22deg);
+    }
   }
   a {
     font-size: 1.2rem;
@@ -53,14 +58,18 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
     <Styled large={!small}>
       <Link to="/">
         <div className="logo">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348">
-            <circle cx="0" cy="0" r="2.05" fill="white" />
-            <g stroke="white" stroke-width="1" fill="none">
-              <ellipse rx="11" ry="4.2" />
-              <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-              <ellipse rx="11" ry="4.2" transform="rotate(120)" />
-            </g>
-          </svg>
+          {!small && <b> интернет </b>}
+          <div className="svg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348">
+              <circle cx="0" cy="0" r="2.05" fill="currentcolor" />
+              <g stroke="currentcolor" fill="none">
+                <ellipse rx="11" ry="4.2" />
+                <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+                <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+              </g>
+            </svg>
+          </div>
+          {!small && <b> магазин</b>}
         </div>
       </Link>
 

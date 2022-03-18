@@ -9,17 +9,22 @@ export interface IEntity {
     slug?: string;
     group?: string;
 }
+export interface IItem extends IEntity {
+    price: number;
+    caption: string;
+    description: string;
+    photo: string[];
+    articular: string;
+    message?: string;
+}
+
+
 export interface IGroup extends IEntity {
     icon?: string;
     items?: IEntity[]
 
 }
-export interface IItem extends IEntity {
-    description?: string;
-    photo: string[];
-    price: number;
 
-}
 export interface IStateCustomer {
     fetchingCustomer?: boolean;
     Customer?: ICustomer;

@@ -1,9 +1,9 @@
 export const webMenu = [
-  { txt: "Каталог", link: "catalog" },
-  { txt: "test", link: "test" },
-  { txt: "Контакты", link: "contacts" },
-  { txt: "Доставка", link: "cargo" },
-  { txt: "Гарантия", link: "warranty" },
+  { txt: "Каталог", link: "/catalog" },
+  { txt: "test", link: "/test" },
+  { txt: "Контакты", link: "/contacts" },
+  { txt: "Доставка", link: "/cargo" },
+  { txt: "Гарантия", link: "/warranty" },
 ];
 export const footerLinks = [
   { txt: "main", link: "/" },

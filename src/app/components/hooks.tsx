@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { getErrorStatus } from "../store/saga";
 export const maxSmallWidth = 992;
 export function useIsSmall() {
@@ -16,12 +16,14 @@ export function useIsSmall() {
   return small;
 }
 
-export function useFetchingId(path: string) {
+export function useFetchingId() {
   const [status, setStatus] = useState(0);
   const [data, setData] = useState();
-  const location = useParams();
+  const location = useLocation();
+
   const id = (location as any).id;
-  const url = "http://localhost:3000/json/" + path.replace("XXXX", id);
+  const url = `http://localhost:3000/json${location.pathname}.json`.replace("/.json", ".json");
+  console.log(url);
 
   useEffect(() => {
     console.log("useFetchingGet");

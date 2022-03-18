@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ButtonLoader } from "../components/Button";
+import { ButtonLoader } from "../components/Elements/Button";
 import { Loader } from "../components/Loader";
 import { IStateItems } from "../store/Models";
 import { actions } from "../store/store";

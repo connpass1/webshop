@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { IEntity } from "../store/Models";
 import { getErrorStatus } from "../store/saga";
+import { ItemLink } from "./Elements/ItemLink";
 const Styled = styled.div`
   color: #000;
   padding: 4px;
@@ -56,7 +57,7 @@ const Catalog: FunctionComponent = () => {
           <ul>
             {data.map((item) => (
               <li key={item.id}>
-                <Link to={`/item/${item.id}`}>{item.name}</Link>
+                <ItemLink item={item} />
               </li>
             ))}
           </ul>
@@ -64,6 +65,6 @@ const Catalog: FunctionComponent = () => {
       </Styled>
     );
 
-  return <>{status}</>;
+  return <> </>;
 };
 export default Catalog;
