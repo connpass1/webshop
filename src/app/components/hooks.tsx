@@ -21,7 +21,6 @@ export function useFetchingId(path: string) {
   const [data, setData] = useState();
   const location = useParams();
   const id = (location as any).id;
-
   const url = "http://localhost:3000/json/" + path.replace("XXXX", id);
 
   useEffect(() => {
