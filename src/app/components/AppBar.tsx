@@ -3,10 +3,10 @@ import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { phoneNumber, webMenu } from "../data";
-import Icon, { IconTypes, SvgCart } from "./Icon";
+import Icon, { IconTypes, SvgCart } from "./Elements/Icon";
 
 import { ISmall } from "./Wrapper";
-import { SvgProfile, SvgPhone } from "./Icon";
+import { SvgProfile, SvgPhone } from "./Elements/Icon";
 
 const Styled = styled.div<{ large: boolean }>`
   grid-area: appBar;
@@ -15,7 +15,17 @@ const Styled = styled.div<{ large: boolean }>`
   justify-content: space-between;
   color: white;
   align-items: center;
-  background-color: var(--primary-color);
+  border-bottom: 1px solid grey;
+  background-color: ${(props) => (props.large ? "white" : "var(--primary-color)")};
+  a {
+    font-size: 1.2rem;
+    padding: 8px;
+    color: ${(props) => (!props.large ? "white" : "var(--primary-color)")};
+    font-weight: 700;
+  }
+  a:hover {
+    opacity: 0.5;
+  }
   .logo {
     height: 100%;
     display: flex;
@@ -27,18 +37,11 @@ const Styled = styled.div<{ large: boolean }>`
     .svg {
       width: ${(props) => (props.large ? "80px" : "48px")};
     }
-    svg:hover {
-      transform: rotate(22deg);
+    img:hover {
+      transform: rotate(360deg);
     }
   }
-  a {
-    font-size: 1.2rem;
-    padding: 8px;
-    color: #ffffff;
-  }
-  a:hover {
-    color: #ffffff77;
-  }
+
   .links {
     display: flex;
     align-items: center;
@@ -62,7 +65,7 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
           <div className="svg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348">
               <circle cx="0" cy="0" r="2.05" fill="currentcolor" />
-              <g stroke="currentcolor" fill="none">
+              <g stroke="currentcolor" stroke-width="1" fill="none">
                 <ellipse rx="11" ry="4.2" />
                 <ellipse rx="11" ry="4.2" transform="rotate(60)" />
                 <ellipse rx="11" ry="4.2" transform="rotate(120)" />

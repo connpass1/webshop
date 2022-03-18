@@ -9,6 +9,10 @@ export interface IEntity {
     slug?: string;
     group?: string;
 }
+export interface ICatalog extends IEntity {
+    inner: IEntity[];
+    parent: IEntity[];
+}
 export interface IItem extends IEntity {
     price: number;
     caption: string;

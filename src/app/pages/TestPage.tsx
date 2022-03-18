@@ -1,6 +1,6 @@
 import React from "react";
 import { FunctionComponent } from "react";
-import Icon from "../components/Icon";
+import Icon from "../components/Elements/Icon";
 import { Customer } from "./customer";
 
 const Component: FunctionComponent = () => {

@@ -1,18 +1,42 @@
-[
-    {
-        "id": 1,
-        "name": "group1",
-        "slug": "catalog",
-        "icon": ""
-    },
-    {
-        "id": 2,
-        "name": "group2",
-        "slug": "catalog"
-    },
-    {
-        "id": 3,
-        "name": "group3",
-        "slug": "catalog"
-    }
-]
+{
+    "id": 1,
+    "name": "group1",
+    "slug": "catalog",
+    "icon": "",
+    "inner": [
+        {
+            "id": 1,
+            "name": "group1",
+            "slug": "catalog",
+            "icon": ""
+        },
+        {
+            "id": 2,
+            "name": "group2",
+            "slug": "catalog"
+        },
+        {
+            "id": 3,
+            "name": "group3",
+            "slug": "catalog"
+        }
+    ],
+    "parent": [
+        {
+            "id": 1,
+            "name": "group4",
+            "slug": "catalog",
+            "icon": ""
+        },
+        {
+            "id": 2,
+            "name": "group4",
+            "slug": "catalog"
+        },
+        {
+            "id": 3,
+            "name": "group3",
+            "slug": "catalog"
+        }
+    ]
+}

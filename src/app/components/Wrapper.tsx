@@ -6,7 +6,7 @@ import Catalog from "./Catalog";
 import { useIsSmall } from "./hooks";
 import "./main.css";
 import { keyframes } from "styled-components";
-import Toggle from "./Toggle";
+import Toggle from "./Elements/Toggle";
 import Footer from "./Footer";
 export interface ISmall {
   small?: boolean;
@@ -60,7 +60,6 @@ class ErrorBoundary extends React.Component {
         <>
           <h1>Ошибочка.</h1>
           <p>Что-то пошло не так.</p>
-          <p>{JSON.stringify(this.state.error)}</p>
         </>
       );
     }
