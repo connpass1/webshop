@@ -1,10 +1,11 @@
 body {
   --primary-color: #532906;
+  --secondary-color: #065319;
   --grey-color: rgba(33, 33, 33, 1);
   --main-icon-color: 40px;
   --button-icon-size: 40px;
   --shadow: -1px 1px 12px -2px rgba(0, 0, 0, 0.6);
-  --border: 1px solid rgba(0, 0, 0, 0.2);
+  --border: 1px solid rgba(0, 0, 0, 0.4);
 
   background-color: white;
   color: black;
