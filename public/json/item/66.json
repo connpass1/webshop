@@ -1,0 +1,13 @@
+{
+    "id": 1,
+    "name": "item1",
+    "slug": "item",
+    "parent": [
+        {
+            "id": 0,
+            "name": " root ",
+            "slug": "catalog",
+            "icon": "bi-badge"
+        }
+    ]
+}

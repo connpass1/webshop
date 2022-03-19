@@ -1,5 +1,4 @@
 export const webMenu = [
-  { txt: "Каталог", link: "/catalog" },
   { txt: "test", link: "/test" },
   { txt: "Контакты", link: "/contacts" },
   { txt: "Доставка", link: "/cargo" },

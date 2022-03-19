@@ -16,16 +16,20 @@ const Styled = styled.div`
   a:hover {
     opacity: 0.5;
   }
+  span {
+    padding: 0 0.5em;
+  }
 `;
 
 export const PathParent: FunctionComponent<{ parent: IEntity[] }> = ({ parent, children }) => {
+  if (parent.length === 0) return null;
   return (
     <Styled>
-      {" / "}
+      <span> / </span>
       {parent.map((item, num) => (
         <>
           <ItemLink key={item.id} item={item} />
-          {" / "}
+          <span> / </span>
         </>
       ))}
     </Styled>

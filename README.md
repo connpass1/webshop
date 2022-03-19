@@ -1,5 +1,5 @@
 #Заготовка проекта интернет мазазина
-[logo]: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/270px-React-icon.svg.png "Logo Title Text 2"
+ 
 _react redux saga typescript_
  
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/270px-React-icon.svg.png" alt="react" width="70" />

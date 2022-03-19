@@ -19,14 +19,25 @@
             "id": 13,
             "name": "group13",
             "slug": "catalog"
+        },
+        {
+            "id": 66,
+            "name": "item",
+            "slug": "item"
         }
     ],
     "parent": [
         {
             "id": 0,
-            "name": "root",
+            "name": " root ",
             "slug": "catalog",
-            "icon": "bi-badge"
+            "icon": ""
+        },
+        {
+            "id": 1,
+            "name": " group2 ",
+            "slug": "catalog",
+            "icon": ""
         }
     ]
 }

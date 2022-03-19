@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
-import { IEntity } from "../store/Models";
+import { ICatalog } from "../store/Models";
 import { getErrorStatus } from "../store/saga";
 import { ItemLink } from "./Elements/ItemLink";
-const Styled = styled.div`
+const Styled = styled.aside`
   color: #000;
   padding: 4px;
   width: 100%;
@@ -19,7 +18,7 @@ const Styled = styled.div`
   figure {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border: 1px solid var(--primary-color);
+    border: 1px sodivlid var(--primary-color);
     width: 100%;
   }
 
@@ -34,14 +33,13 @@ const Styled = styled.div`
 `;
 
 const Catalog: FunctionComponent = () => {
-  const [data, setData] = useState<IEntity[]>([]);
-  const [status, setStatus] = useState(0);
+  const [data, setData] = useState<ICatalog>();
+  const [, setStatus] = useState(0);
   useEffect(() => {
-    setData([]);
     axios
-      .get(`http://localhost:3000/json/catalog.json`)
+      .get(`http://localhost:3000/json/catalog/0.json`)
       .then((res) => {
-        setData(res.data as IEntity[]);
+        setData(res.data as ICatalog);
       })
       .catch((e) => {
         console.log(e);
@@ -49,13 +47,13 @@ const Catalog: FunctionComponent = () => {
       });
   }, []);
 
-  if (data.length > 0)
+  if (data)
     return (
       <Styled>
         <figure>
           <figcaption> Каталог</figcaption>
           <ul>
-            {data.map((item) => (
+            {data.inner.map((item) => (
               <li key={item.id}>
                 <ItemLink item={item} />
               </li>

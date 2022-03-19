@@ -1,0 +1,27 @@
+{
+    "id": 0,
+    "name": "каталог ",
+    "slug": "catalog",
+    "icon": "bi-badge",
+    "inner": [
+        {
+            "id": 1,
+            "name": "group1",
+            "slug": "catalog",
+            "icon": "bi-mastodon"
+        },
+        {
+            "id": 2,
+            "name": "group12",
+            "slug": "catalog",
+            "icon": "bi-mastodon"
+        },
+        {
+            "id": 13,
+            "name": "group13",
+            "slug": "catalog",
+            "icon": "bi-badge"
+        }
+    ],
+    "parent": []
+}

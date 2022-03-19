@@ -7,6 +7,7 @@ import Icon, { IconTypes, SvgCart } from "./Elements/Icon";
 
 import { ISmall } from "./Wrapper";
 import { SvgProfile, SvgPhone } from "./Elements/Icon";
+import classNames from "classnames";
 
 const Styled = styled.div<{ large: boolean }>`
   grid-area: appBar;
@@ -41,7 +42,11 @@ const Styled = styled.div<{ large: boolean }>`
       transform: rotate(360deg);
     }
   }
-
+  .bar {
+    min-width: 70%;
+    height: 100%;
+    justify-content: ${(props) => (props.large ? "space-between" : "center")};
+  }
   .links {
     display: flex;
     align-items: center;
@@ -65,7 +70,7 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
           <div className="svg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348">
               <circle cx="0" cy="0" r="2.05" fill="currentcolor" />
-              <g stroke="currentcolor" stroke-width="1" fill="none">
+              <g stroke="currentcolor" strokeWidth="1" fill="none">
                 <ellipse rx="11" ry="4.2" />
                 <ellipse rx="11" ry="4.2" transform="rotate(60)" />
                 <ellipse rx="11" ry="4.2" transform="rotate(120)" />
@@ -76,7 +81,7 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
         </div>
       </Link>
 
-      <div className="column" style={{ width: "100%" }}>
+      <div className={classNames("bar", "column")}>
         {!small && (
           <div className="links" style={{ justifyContent: "space-around" }}>
             {webMenu.map((item, key) => (

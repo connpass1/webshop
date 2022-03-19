@@ -8,6 +8,7 @@ export interface IEntity {
     name: string;
     slug?: string;
     group?: string;
+    icon?: string
 }
 export interface ICatalog extends IEntity {
     inner: IEntity[];

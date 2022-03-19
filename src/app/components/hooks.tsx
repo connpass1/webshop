@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getErrorStatus } from "../store/saga";
 export const maxSmallWidth = 992;
 export function useIsSmall() {
@@ -21,7 +21,6 @@ export function useFetchingId() {
   const [data, setData] = useState();
   const location = useLocation();
 
-  const id = (location as any).id;
   const url = `http://localhost:3000/json${location.pathname}.json`.replace("/.json", ".json");
   console.log(url);
 

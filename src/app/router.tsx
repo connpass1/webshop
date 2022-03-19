@@ -12,7 +12,7 @@ import CatalogPage from "./pages/CatalogPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
 import CartPage from "./pages/CartPage";
-import ItemPage from "./pages/ItemsPage";
+import ItemPage from "./pages/ItemPage";
 import ErrorPage from "./pages/ErrorPage";
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -74,5 +74,5 @@ const component: React.FC = () => (
   </Provider>
 );
 
-export { component as App };
+export { component as Router };
 //

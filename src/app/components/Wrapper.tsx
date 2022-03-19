@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { FunctionComponent } from "react";
 import styled from "styled-components";
 import AppBar from "./AppBar";
-import Catalog from "./Catalog";
+import Catalog from "./Aside";
 import { useIsSmall } from "./hooks";
-import "./main.css";
+
 import { keyframes } from "styled-components";
 import Toggle from "./Elements/Toggle";
 import Footer from "./Footer";
