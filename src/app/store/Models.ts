@@ -10,7 +10,6 @@ export interface IEntity {
 }
 export interface ICatalog extends IEntity {
     inner: IEntity[];
-
 }
 export interface IItem extends IEntity {
     price: number;
@@ -34,12 +33,13 @@ export interface IFetchCustomer {
     errorFetchingCustomer?: any
 }
 
-
-
 export interface ICustomer {
     id: number;
     name: string;
-    age: number;
+    email?: string;
+    phone?: number;
+    avatar?: string;
+    address?: string;
 }
 export interface IFetchItems {
     fetchingItems?: boolean;

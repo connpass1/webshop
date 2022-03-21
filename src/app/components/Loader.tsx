@@ -24,7 +24,6 @@ const component: React.FC<Props> = (props) => {
             <div>
               <div>ID: {Customer.id}</div>
               <div>Name: {Customer.name}</div>
-              <div>Age: {Customer.age}</div>
             </div>
           )}
         </div>
@@ -34,5 +33,4 @@ const component: React.FC<Props> = (props) => {
 };
 
 const connectedComponent = connect(mapStateToProps, actions)(component);
-
 export { connectedComponent as Loader };

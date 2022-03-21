@@ -1,6 +1,4 @@
 import React from "react";
-import { FunctionComponent } from "react";
-import Icon from "../components/Elements/Icon";
 import { connect } from "react-redux";
 import { ButtonLoader } from "../components/Elements/Button";
 import { Loader } from "../components/Loader";

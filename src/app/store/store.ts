@@ -3,12 +3,16 @@ import {Reducer} from "redux";
 import {ICustomer, IEntity, IFetchCustomer} from "./Models";
 
 export enum ActionTypes {
-  GetCustomerRequest="GET_Customer_REQUEST",
-  GetCustomerSuccess="GET_Customer_SUCCESS",
-  CustomerRequestFiled="Customer_REQUEST_FAILED",
+  GetCustomerRequest="GET_CUSTOMER_REQUEST",
+  GetCustomerSuccess="GET_CUSTOMER_SUCCESS",
+  CustomerRequestFiled="CUSTOMER_REQUEST_FAILED",
   GetItemsRequest="GET_ITEMS_REQUEST",
   GetItemsSuccess="GET_ITEMS_SUCCESS",
   ItemsRequestFiled="ITEMS_REQUEST_FAILED",
+  saveProfileRequest="saveProfileRequest",
+  saveProfileSuccess="saveProfileSUCCESS",
+  saveProfileFiled="saveProfileFAILED",
+
 }
 export const actions={
   getCustomerRequest: () => ({type: ActionTypes.GetCustomerRequest}),
@@ -29,6 +33,17 @@ export const actions={
   }),
   ItemsRequestFiled: (error: string) => ({
     type: ActionTypes.ItemsRequestFiled, error
+
+  }),
+
+  saveProfileRequest: (profile: ICustomer) => ({type: ActionTypes.saveProfileRequest, profile}),
+
+  saveProfileSuccess: (profile: ICustomer) => ({
+    type: ActionTypes.saveProfileSuccess,
+    profile
+  }),
+  saveProfileFiled: (error: string) => ({
+    type: ActionTypes.CustomerRequestFiled, error
 
   }),
 };
@@ -63,13 +78,25 @@ const fetchReducer: Reducer<any>=(
     case ActionTypes.ItemsRequestFiled:
       delete state.fetchingItems;
       delete state.items;
-      console.log('state');
-
       return {
         ...state, errorFetchingItems: action.error
       };
-
-    //
+    // profile
+    case ActionTypes.saveProfileRequest:
+      delete state.errorFetchingProfile;
+      delete state.profile;
+      return {...state, profile: action.profile, fetchingProfile: true};
+    case ActionTypes.saveProfileSuccess:
+      state.customer={...state.profile}
+      delete state.fetchingProfile;
+      delete state.profile;
+      return {...state, items: action.profile};
+    case ActionTypes.saveProfileFiled:
+      delete state.fetchingProfile;
+      delete state.profile;
+      return {
+        ...state, errorFetchingProfile: action.error
+      };
 
     default:
 

@@ -1,5 +1,9 @@
 {
     "id": 4,
     "name": "John Do5",
-    "age": 45
+    "age": 45,
+    "email": "fff",
+    "phone": "string",
+    "avatar": "string",
+    "address": "string"
 }
