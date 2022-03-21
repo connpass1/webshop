@@ -38,7 +38,6 @@ export function useFetchingId() {
       .catch((e) => {
         setData(undefined);
         setStatus(getErrorStatus(e));
-        console.log(status);
       });
   }, [url]);
   return { data: data as any, status: status };

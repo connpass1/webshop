@@ -1,11 +1,10 @@
-import { log } from "console";
 import React, { FunctionComponent } from "react";
-import styled from "styled-components";
 import { ItemLink } from "../components/Elements/ItemLink";
 import { CheckFetching } from "../components/Fetching";
 import { useFetchingId } from "../components/hooks";
-import { PathParent } from "../components/PathParent";
+
 import { ICatalog } from "../store/Models";
+import { PathHeader } from "../components/PathHeader";
 
 const Component: FunctionComponent = () => {
   const { status, data } = useFetchingId();
@@ -13,9 +12,7 @@ const Component: FunctionComponent = () => {
 
   return (
     <CheckFetching status={status}>
-      <h1>{catalog?.name} </h1>
-      <ul></ul>
-      <PathParent parent={catalog?.parent}></PathParent>{" "}
+      <PathHeader item={catalog} />
       <div className="column">
         {catalog?.inner.map((item) => (
           <ItemLink key={item.id} item={item} />

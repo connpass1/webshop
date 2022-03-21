@@ -1,18 +1,16 @@
-export interface IStateItems {
-    fetchingItems?: boolean;
-    items?: IEntity[];
-    errorFetchingItems?: any
-}
+
+
 export interface IEntity {
     id: number;
     name: string;
     slug?: string;
     group?: string;
-    icon?: string
+    icon?: string;
+    parents: IEntity[];
 }
 export interface ICatalog extends IEntity {
     inner: IEntity[];
-    parent: IEntity[];
+
 }
 export interface IItem extends IEntity {
     price: number;
@@ -20,7 +18,7 @@ export interface IItem extends IEntity {
     description: string;
     photo: string[];
     articular: string;
-    message?: string;
+    message: string;
 }
 
 
@@ -30,12 +28,21 @@ export interface IGroup extends IEntity {
 
 }
 
-export interface IStateCustomer {
+export interface IFetchCustomer {
     fetchingCustomer?: boolean;
-    Customer?: ICustomer;
+    Customer: ICustomer;
     errorFetchingCustomer?: any
-}export interface ICustomer {
+}
+
+
+
+export interface ICustomer {
     id: number;
     name: string;
     age: number;
+}
+export interface IFetchItems {
+    fetchingItems?: boolean;
+    items?: IEntity;
+    errorFetchingItems?: any
 }

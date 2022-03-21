@@ -1,7 +1,6 @@
 
 import {Reducer} from "redux";
-import {ICustomer, IEntity, IStateCustomer} from "./Models";
-
+import {ICustomer, IEntity, IFetchCustomer} from "./Models";
 
 export enum ActionTypes {
   GetCustomerRequest="GET_Customer_REQUEST",
@@ -32,14 +31,13 @@ export const actions={
     type: ActionTypes.ItemsRequestFiled, error
 
   }),
-
 };
 
 
 const fetchReducer: Reducer<any>=(
   state={},
   action: any,
-): IStateCustomer => {
+): IFetchCustomer => {
   switch (action.type) {
     case ActionTypes.GetCustomerRequest:
       delete state.errorFetchingCustomer;

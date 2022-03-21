@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { IStateCustomer } from "../store/Models";
+import { IFetchCustomer } from "../store/Models";
 import { actions } from "../store/store";
 import { ButtonLoader } from "./Elements/Button";
-
-const mapStateToProps = (state: IStateCustomer) => state;
+const mapStateToProps = (state: IFetchCustomer) => state;
 type Props = ReturnType<typeof mapStateToProps> & typeof actions & { caption: string };
 
 const component: React.FC<Props> = (props) => {

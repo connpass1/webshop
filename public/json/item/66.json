@@ -2,12 +2,18 @@
     "id": 1,
     "name": "item1",
     "slug": "item",
-    "parent": [
+    "parents": [
         {
             "id": 0,
             "name": " root ",
             "slug": "catalog",
-            "icon": "bi-badge"
+            "icon": "bi bi-arrow-left-circle"
+        },
+        {
+            "id": 10,
+            "name": " sssss ",
+            "slug": "catalog",
+            "icon": "bi bi-arrow-left-circle"
         }
     ]
 }
