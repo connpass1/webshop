@@ -7,13 +7,14 @@ import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { applyMiddleware, createStore } from "redux";
 import { watchGetCustomerRequest } from "./store/saga";
-import { reducer } from "./store/store";
+
 import CatalogPage from "./pages/CatalogPage";
 import ProfilePage from "./pages/ProfilePage";
 import LoginPage from "./pages/LoginPage";
 import CartPage from "./pages/CartPage";
 import ItemPage from "./pages/ItemPage";
 import ErrorPage from "./pages/ErrorPage";
+import { reducer } from "./store";
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware));

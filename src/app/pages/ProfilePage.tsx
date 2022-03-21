@@ -2,21 +2,19 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Button } from "../components/Elements/Button";
 import { isEqual } from "../store/helper";
-import { IFetchCustomer, ICustomer } from "../store/Models";
-import { actions } from "../store/store";
-type Props = ReturnType<typeof mapStateToProps> & typeof actions;
+import { ICustomer } from "../store/Models";
+import { actionsProfile } from "../store/storeProfile";
+type Props = ReturnType<typeof mapStateToProps> & typeof actionsProfile;
 
 const Component: React.FC<Props> = (props) => {
-  if (!props.Customer) props.getCustomerRequest();
-
-  const fetching = props.fetchingCustomer;
-  const errorFetching = props.errorFetchingCustomer;
-
+  if (!props.Customer) props.getRequest();
+  const fetching = props.fetching;
+  const errorFetching = props.errorFetching;
   if (errorFetching) throw new Error("not find user");
-  if (fetching) return <h1>ProfilePage </h1>;
+  if (fetching) return <h1>fetching</h1>;
   if (!props.Customer) return <h1>ProfilePage </h1>;
   const saveProfile = (profile: ICustomer) => {
-    props.saveProfileRequest(profile);
+    props.saveRequest(profile);
     console.log(profile);
   };
   return (
@@ -85,5 +83,5 @@ const Profile: React.FC<{ customerProp: ICustomer; handlerSave: any }> = ({ cust
   );
 };
 
-const mapStateToProps = (customer: IFetchCustomer) => customer;
-export default connect(mapStateToProps, actions)(Component);
+const mapStateToProps = (state: any) => state.profileReducer;
+export default connect(mapStateToProps, actionsProfile)(Component);
