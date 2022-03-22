@@ -18,3 +18,9 @@ export function isEqual(obj1: any, obj2: any) {
     }
     return true;
 }
+export function getErrorStatus(e: any) {
+    try {
+        return e.response.status
+    }
+    catch (e) {return 500}
+}

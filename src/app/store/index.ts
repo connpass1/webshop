@@ -1,5 +1,6 @@
 import {combineReducers} from "redux";
-import {itemReducer, profileReducer} from "./storeProfile";
+import {itemReducer} from "./storeItem";
+import {profileReducer} from "./storeProfile";
 
 export const reducer=combineReducers({
     profileReducer: profileReducer,

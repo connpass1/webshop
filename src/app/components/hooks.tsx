@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { getErrorStatus } from "../store/saga";
+import { getErrorStatus } from "../store/helper";
+
 export const maxSmallWidth = 992;
 export function useIsSmall() {
   const [small, setSmall] = useState(false);

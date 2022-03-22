@@ -29,8 +29,9 @@ export interface IGroup extends IEntity {
 
 export interface IFetchCustomer {
     fetching?: boolean;
-    Customer: ICustomer;
-    errorFetching?: any
+    Customer?: ICustomer;
+    errorFetching?: string;
+
 }
 
 export interface ICustomer {
