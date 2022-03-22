@@ -6,23 +6,23 @@ import {ActionTypes} from "./saga";
 
 
 export const actionsProfile={
-  getRequest: () => ({type: ActionTypes.GetCustomerRequest}),
+  getProfileRequest: () => ({type: ActionTypes.GetCustomerRequest}),
 
-  getSuccess: (Customer: ICustomer) => ({
+  getProfileSuccess: (Customer: ICustomer) => ({
     type: ActionTypes.GetCustomerSuccess,
     Customer
   }),
-  RequestFiled: (error: string) => ({
+  ProfileRequestFiled: (error: string) => ({
     type: ActionTypes.CustomerRequestFiled, error
   }),
 
-  saveRequest: (profile: ICustomer) => ({type: ActionTypes.SaveProfileRequest, profile}),
+  saveProfileRequest: (profile: ICustomer) => ({type: ActionTypes.SaveProfileRequest, profile}),
 
-  saveSuccess: (profile: ICustomer) => ({
+  saveProfileSuccess: (profile: ICustomer) => ({
     type: ActionTypes.SaveProfileSuccess,
     profile
   }),
-  saveFiled: (error: string) => ({
+  saveProfileFiled: (error: string) => ({
     type: ActionTypes.CustomerRequestFiled, error
   }),
 };
@@ -57,8 +57,7 @@ export const profileReducer: Reducer<any>=(
       delete state.errorFetching;
       return {...state, fetching: true};
     case ActionTypes.SaveProfileSuccess:
-
-      return {Customer: action.profile};
+      return {Customer: action.profile as ICustomer};
     case ActionTypes.SaveProfileFiled:
       delete state.fetching;
       return {

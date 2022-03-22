@@ -1,3 +1,4 @@
+import {IFetchCustomer, IFetchItems} from "./Models";
 
 function isObject(object: any) {
     return object!=null&&typeof object==='object';
@@ -24,3 +25,5 @@ export function getErrorStatus(e: any) {
     }
     catch (e) {return 500}
 }
+export const mapItems=(state: {itemReducer: IFetchItems}) => state.itemReducer;
+export const mapProfile=(state: {profileReducer: IFetchCustomer}) => state.profileReducer;

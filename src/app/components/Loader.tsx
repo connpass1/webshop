@@ -2,17 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { actionsProfile } from "../store/storeProfile";
 import { ButtonLoader } from "./Elements/Button";
-const mapStateToProps = (state: any) => state.profileReducer;
-type Props = ReturnType<typeof mapStateToProps> & typeof actionsProfile & { caption: string };
+import { mapProfile } from "../store/helper";
+
+type Props = ReturnType<typeof mapProfile> & typeof actionsProfile;
 
 const component: React.FC<Props> = (props) => {
   const fetching = props.fetching;
-  const { getRequest, Customer, caption } = props;
+  const { getProfileRequest, Customer } = props;
   return (
     <>
-      <h1>{caption}</h1>
+      <h1>loader</h1>
       <div>
-        <ButtonLoader onClick={() => getRequest()} loader={fetching} text="GET Customer loader" />
+        <ButtonLoader onClick={() => getProfileRequest()} loader={fetching} text="GET Customer loader" />
       </div>
       {fetching && <div>{fetching}</div>}
       {fetching ? (
@@ -31,5 +32,5 @@ const component: React.FC<Props> = (props) => {
   );
 };
 
-const connectedComponent = connect(mapStateToProps, actionsProfile)(component);
+const connectedComponent = connect(mapProfile, actionsProfile)(component);
 export { connectedComponent as Loader };

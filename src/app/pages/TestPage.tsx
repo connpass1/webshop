@@ -2,22 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { ButtonLoader } from "../components/Elements/Button";
 import { Loader } from "../components/Loader";
+import { mapItems } from "../store/helper";
 import { actionsItems } from "../store/storeItem";
 
-const mapStateToProps = (state: any) => state.itemReducer;
-type Props = ReturnType<typeof mapStateToProps> & typeof actionsItems;
+type Props = ReturnType<typeof mapItems> & typeof actionsItems;
 
 const component: React.FC<Props> = (props) => {
-  const fetching = props.fetching;
-  const errorFetching = props.profileReducer;
-  const items = props.items;
+  const { fetching, errorFetching, items, getItemsRequest } = props;
 
   return (
     <>
+      {JSON.stringify(props)}
       <Loader />
       <hr />
       <div>
-        <ButtonLoader onClick={() => props.getRequest()} loader={fetching} text={"GET Items"} />
+        <ButtonLoader onClick={getItemsRequest} loader={fetching} text={"GET Items"} />
       </div>
       {errorFetching && <div>{errorFetching}</div>}
       {props.fetching ? (
@@ -32,5 +31,5 @@ const component: React.FC<Props> = (props) => {
   );
 };
 
-const connectedComponent = connect(mapStateToProps, actionsItems)(component);
+const connectedComponent = connect(mapItems, actionsItems)(component);
 export default connectedComponent;

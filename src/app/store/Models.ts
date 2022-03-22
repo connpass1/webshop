@@ -28,8 +28,9 @@ export interface IGroup extends IEntity {
 }
 
 export interface IFetchCustomer {
+
     fetching?: boolean;
-    Customer?: ICustomer;
+    Customer: ICustomer;
     errorFetching?: string;
 
 }
@@ -45,5 +46,5 @@ export interface ICustomer {
 export interface IFetchItems {
     fetching?: boolean;
     items?: IEntity;
-    profoleReducer?: any
+    errorFetching?: string;
 }

@@ -5,16 +5,8 @@ import {ActionTypes} from "./saga";
 
 
 export const actionsItems={
-  getRequest: () => ({type: ActionTypes.GetItemsRequest}),
 
-  getSuccess: (items: IItem) => ({
-    type: ActionTypes.GetItemsSuccess,
-    items
-  }),
-  RequestFiled: (error: string) => ({
-    type: ActionTypes, error
 
-  }),
   getItemsRequest: () => ({type: ActionTypes.GetItemsRequest}),
 
   getItemsSuccess: (items: IEntity[]) => ({
@@ -38,7 +30,7 @@ export const itemReducer: Reducer<any>=(
     case ActionTypes.GetItemsSuccess:
       delete state.fetching;
       return {...state, items: action.items};
-    case ActionTypes.SaveProfileFiled:
+    case ActionTypes.ItemsRequestFiled:
       delete state.fetching;
       delete state.items;
       return {
