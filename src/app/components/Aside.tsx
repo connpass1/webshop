@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, Suspense, useEffect, useState } from "react";
+import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import { getErrorStatus } from "../store/helper";
 import { ICatalog } from "../store/Models";
-
-import { ItemLink } from "./Elements/ItemLink";
-const Styled = styled.aside`
+import { CatalogLink } from "./Elements/ItemLink";
+export const StyledAside = styled.aside`
   color: #000;
   padding: 4px;
   width: 100%;
@@ -33,12 +33,12 @@ const Styled = styled.aside`
   }
 `;
 
-const Catalog: FunctionComponent = () => {
+const Component: FunctionComponent = () => {
   const [data, setData] = useState<ICatalog>();
-  const [, setStatus] = useState(0);
+  const [status, setStatus] = useState(0);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/json/catalog/0.json`)
+      .get(`http://localhost:8080/catalog/0`)
       .then((res) => {
         setData(res.data as ICatalog);
       })
@@ -50,20 +50,38 @@ const Catalog: FunctionComponent = () => {
 
   if (data)
     return (
-      <Styled>
+      <StyledAside>
         <figure>
           <figcaption> Каталог</figcaption>
-          <ul>
-            {data.inner.map((item) => (
-              <li key={item.id}>
-                <ItemLink item={item} />
-              </li>
-            ))}
-          </ul>
+          {data.childrenCategory && (
+            <ul>
+              {data.childrenCategory.map((item) => (
+                <li key={item.id}>
+                  <CatalogLink item={item} />
+                </li>
+              ))}
+            </ul>
+          )}
         </figure>
-      </Styled>
+      </StyledAside>
     );
 
-  return <> </>;
+  return <>{status} </>;
 };
-export default Catalog;
+
+const AdminAside = React.lazy(() => import("../admin/AdminAside"));
+const Component1: FunctionComponent = () => {
+  return (
+    <Switch>
+      <Route path="/admin">
+        <Suspense fallback={<div>Загрузка ...</div>}>
+          <AdminAside />
+        </Suspense>
+      </Route>
+      <Route>
+        <Component />
+      </Route>
+    </Switch>
+  );
+};
+export default Component1;

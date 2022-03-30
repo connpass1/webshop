@@ -1,6 +1,6 @@
 
 import {Reducer} from "redux";
-import {IEntity, IFetchCustomer, IItem} from './Models';
+import {IEntity, IFetchCustomer} from './Models';
 import {ActionTypes} from "./saga";
 
 

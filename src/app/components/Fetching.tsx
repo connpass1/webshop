@@ -1,5 +1,6 @@
 import React from "react";
 import { FunctionComponent } from "react";
+import { Spinner } from "./Elements/SvgSpinner";
 export const CheckFetching: FunctionComponent<{ status: number }> = ({ status, children }) => {
   if (status > 200)
     return (
@@ -9,7 +10,7 @@ export const CheckFetching: FunctionComponent<{ status: number }> = ({ status, c
       </>
     );
   if (status === 200) return <>{children}</>;
-  return <></>;
+  return <div className="loader">Loading...</div>;
 };
 export interface ISetData {
   handleData(data: any): void;

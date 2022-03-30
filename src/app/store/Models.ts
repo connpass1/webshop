@@ -3,29 +3,51 @@
 export interface IEntity {
     id: number;
     name: string;
-    slug?: string;
-    group?: string;
     icon?: string;
-    parents: IEntity[];
+    parent: IEntity;
+
 }
-export interface ICatalog extends IEntity {
-    inner: IEntity[];
-}
+
 export interface IItem extends IEntity {
     price: number;
+    title: string;
+    itemDetail: IItemDetail;
     caption: string;
     description: string;
-    photo: string[];
-    articular: string;
-    message: string;
-}
-
-
-export interface IGroup extends IEntity {
-    icon?: string;
-    items?: IEntity[]
 
 }
+
+export interface Photo {
+
+    id: number;
+    url: string;
+    alt?: string;
+    thumbnail: string;
+
+}export interface IItemProperty {
+    id: number;
+    name: string;
+    property: string;
+}
+export interface IItemDetail {
+    id: number;
+    amount: number;
+    caption: string;
+    description: string;
+    photos: Photo;
+    properties: IItemProperty;
+
+}
+export interface ICatalog extends IEntity {
+    childrenCategory: IEntity[];
+}
+export interface IPage {
+    content: IItem[];
+    number: number;
+    totalPages: number;
+    totalElements: number;
+}
+
 
 export interface IFetchCustomer {
 

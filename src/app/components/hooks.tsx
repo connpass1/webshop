@@ -22,7 +22,8 @@ export function useFetchingId() {
   const [data, setData] = useState();
   const location = useLocation();
 
-  const url = `http://localhost:3000/json${location.pathname}.json`.replace("/.json", ".json");
+  let url = `http://localhost:8080${location.pathname}`;
+
   console.log(url);
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import {ICustomer} from './Models';
 
 function* getCustomer() {
   try {
-    const {data}=yield call(axios.get, 'http://localhost:3000/json/user.json')
+    const {data}=yield call(axios.get, '/json/user.json')
     yield delay(1500)
     yield put(actionsProfile.getProfileSuccess(data))
   } catch (e) {
@@ -29,7 +29,7 @@ export enum ActionTypes {
 function* getItems() {
   try {
 
-    const {data}=yield call(axios.get, 'http://localhost:3000/json/catalog/0.json')
+    const {data}=yield call(axios.get, '/json/catalog/0.json')
     yield delay(1500)
     console.log(data+"hhhh")
     yield put(actionsItems.getItemsSuccess(data))
@@ -42,7 +42,7 @@ function* saveProfile(data: any) {
 
   try {
 
-    //  const {data}=yield call(axios.post, 'http://localhost:3000/json/catalog/0.json')
+    //  const {data}=yield call(axios.post, '/json/catalog/0.json')
 
     yield delay(1500)
     yield put(actionsProfile.saveProfileSuccess(data.profile as ICustomer))

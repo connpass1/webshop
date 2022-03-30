@@ -1,18 +1,25 @@
 import React, { FunctionComponent } from "react";
+import { Parent } from "../components/Elements/Parent";
+import { Spinner } from "../components/Elements/SvgSpinner";
 import { CheckFetching } from "../components/Fetching";
 import { useFetchingId } from "../components/hooks";
-import { PathHeader } from "../components/PathHeader";
+
 import { IItem } from "../store/Models";
 
 const Component: FunctionComponent = () => {
   const { status, data } = useFetchingId();
   const item = data as IItem;
   console.log(data);
-
+  if (!data) return <Spinner />;
   return (
     <CheckFetching status={status}>
-      <PathHeader item={item} />
-      {JSON.stringify(data)}
+      <h1>{item.name}</h1>
+      <Parent {...item.parent} />
+      <hr />
+      <p>цена {item.price}</p>
+      <p> amount{item.itemDetail.amount}</p>
+      <p>property {item.itemDetail.caption}</p>
+      <p> description {item.itemDetail.description}</p>
     </CheckFetching>
   );
 };

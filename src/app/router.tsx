@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Provider } from "react-redux";
 import Wrapper from "./components/Wrapper";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
@@ -15,6 +15,7 @@ import CartPage from "./pages/CartPage";
 import ItemPage from "./pages/ItemPage";
 import ErrorPage from "./pages/ErrorPage";
 import { reducer } from "./store";
+
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware));
@@ -24,11 +25,19 @@ export const initialize = () => {
 };
 const store = initialize();
 const P = () => <p>Заготовка статической страницы</p>;
+
+const AdminPage = React.lazy(() => import("./admin/AdminPage"));
 const component: React.FC = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <Wrapper>
-        <Switch>
+      <Switch>
+        <Wrapper>
+          <Suspense fallback={<div>Loading...</div>}></Suspense>
+          <Route path="/admin">
+            <Suspense fallback={<div>Загрузка админки...</div>}>
+              <AdminPage />
+            </Suspense>
+          </Route>
           <Route exact path="/catalog/:id">
             <CatalogPage />
           </Route>
@@ -67,10 +76,9 @@ const component: React.FC = () => (
           <Route exact path="/error/:id">
             <ErrorPage />
           </Route>
-
           <Redirect to="/error/404" />
-        </Switch>
-      </Wrapper>
+        </Wrapper>
+      </Switch>
     </BrowserRouter>
   </Provider>
 );

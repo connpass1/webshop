@@ -8,25 +8,17 @@ import { actionsItems } from "../store/storeItem";
 type Props = ReturnType<typeof mapItems> & typeof actionsItems;
 
 const component: React.FC<Props> = (props) => {
-  const { fetching, errorFetching, items, getItemsRequest } = props;
+  const { fetching, errorFetching, getItemsRequest } = props;
 
   return (
     <>
-      {JSON.stringify(props)}
       <Loader />
       <hr />
       <div>
         <ButtonLoader onClick={getItemsRequest} loader={fetching} text={"GET Items"} />
       </div>
       {errorFetching && <div>{errorFetching}</div>}
-      {props.fetching ? (
-        <div>Fetching data</div>
-      ) : (
-        <div>
-          {JSON.stringify(props)}
-          {items && <div>{items.parents.length}</div>}
-        </div>
-      )}
+      {props.fetching ? <div>Fetching data</div> : <div>{JSON.stringify(props)}</div>}
     </>
   );
 };

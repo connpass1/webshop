@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Button } from "../components/Elements/Button";
 import { isEqual, mapProfile } from "../store/helper";
 import { ICustomer } from "../store/Models";
@@ -22,14 +23,16 @@ const Component: React.FC<Props> = (props) => {
   if (!Customer) props.getProfileRequest();
   useEffect(() => {
     setCustomer(Customer);
-  }, [props]);
+  }, [Customer]);
   console.log("fetching88: " + fetching);
   if (errorFetching) return <h1>error</h1>;
   if (fetching)
     return (
       <>
         <h1>ProfilePage </h1>
-        <p>fetching </p>
+        <p>
+          <Link to="/admin"> админка </Link>
+        </p>
       </>
     );
   if (!customer?.id) return <h1>ProfilePage </h1>;

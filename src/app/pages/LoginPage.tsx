@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from "react";
+import axios from "axios";
+import React, { FunctionComponent, useEffect } from "react";
 
 const Component: FunctionComponent = () => {
   return (
