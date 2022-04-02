@@ -1,5 +1,4 @@
-import {IFetchCustomer, IFetchItems} from "./Models";
-
+import {IFetchCustomer, IFetchItems, IItem, IOrder} from "./Models";
 function isObject(object: any) {
     return object!=null&&typeof object==='object';
 }
@@ -19,11 +18,16 @@ export function isEqual(obj1: any, obj2: any) {
     }
     return true;
 }
-export function getErrorStatus(e: any) {
+export function getErrorStatus(e: any, status?: number) {
     try {
-        return e.response.status
+        return e.response.status as number
     }
-    catch (e) {return 500}
+    catch (e) {return status? status:500}
 }
-export const mapItems=(state: {itemReducer: IFetchItems}) => state.itemReducer;
-export const mapProfile=(state: {profileReducer: IFetchCustomer}) => state.profileReducer;
+
+ 
+export const mapCart=(state: {cartReducer: IOrder}) => state.cartReducer ;
+
+
+export const mapFetchUser=(state: {profileReducer: IFetchCustomer}) => state.profileReducer;
+export const mapCustomer=(state: {profileReducer: IFetchCustomer}) => state.profileReducer.customer;

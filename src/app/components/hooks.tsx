@@ -21,7 +21,6 @@ export function useFetchingId() {
   const [status, setStatus] = useState(0);
   const [data, setData] = useState();
   const location = useLocation();
-
   let url = `http://localhost:8080${location.pathname}`;
 
   console.log(url);

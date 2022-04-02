@@ -6,11 +6,9 @@ import TestPage from "./pages/TestPage";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { applyMiddleware, createStore } from "redux";
-import { watchGetCustomerRequest } from "./store/saga";
-
+import { watchUserRequest } from "./store/saga";
 import CatalogPage from "./pages/CatalogPage";
 import ProfilePage from "./pages/ProfilePage";
-import LoginPage from "./pages/LoginPage";
 import CartPage from "./pages/CartPage";
 import ItemPage from "./pages/ItemPage";
 import ErrorPage from "./pages/ErrorPage";
@@ -20,7 +18,7 @@ export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware));
   const store = createStore(reducer, enhancer);
-  sagaMiddleware.run(watchGetCustomerRequest);
+  sagaMiddleware.run(watchUserRequest);
   return store;
 };
 const store = initialize();
@@ -41,11 +39,8 @@ const component: React.FC = () => (
           <Route exact path="/catalog/:id">
             <CatalogPage />
           </Route>
-          <Route exact path="/profile">
+          <Route path="/profile">
             <ProfilePage />
-          </Route>
-          <Route exact path="/login">
-            <LoginPage />
           </Route>
           <Route exact path="/cart">
             <CartPage />

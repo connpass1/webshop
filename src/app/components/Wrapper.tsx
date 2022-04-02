@@ -8,6 +8,7 @@ import { useIsSmall } from "./hooks";
 import { keyframes } from "styled-components";
 import Toggle from "./Elements/Toggle";
 import Footer from "./Footer";
+
 export interface ISmall {
   small?: boolean;
 }

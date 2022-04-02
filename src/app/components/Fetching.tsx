@@ -1,6 +1,6 @@
 import React from "react";
 import { FunctionComponent } from "react";
-import { Spinner } from "./Elements/SvgSpinner";
+
 export const CheckFetching: FunctionComponent<{ status: number }> = ({ status, children }) => {
   if (status > 200)
     return (

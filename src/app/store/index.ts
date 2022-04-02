@@ -1,10 +1,11 @@
 import {combineReducers} from "redux";
-import {itemReducer} from "./storeItem";
-import {profileReducer} from "./storeProfile";
+import {cartReducer} from "./storeCart";
+
+import {profileReducer} from "./storeUser";
 
 export const reducer=combineReducers({
     profileReducer: profileReducer,
-    itemReducer: itemReducer,
+    cartReducer: cartReducer,
 
 });
 

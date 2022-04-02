@@ -3,11 +3,12 @@ import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { phoneNumber, webMenu } from "../data";
-import Icon, { IconTypes, SvgCart } from "./Elements/Icon";
-
+import { IoLogoReact, IoPersonOutline } from "react-icons/io5";
+import { FaUser } from "react-icons/fa";
 import { ISmall } from "./Wrapper";
-import { SvgProfile, SvgPhone } from "./Elements/Icon";
+import { BsTelephone, BsCart } from "react-icons/bs";
 import classNames from "classnames";
+import { Card } from "./Blocks/Card";
 
 const Styled = styled.div<{ large: boolean }>`
   grid-area: appBar;
@@ -35,11 +36,8 @@ const Styled = styled.div<{ large: boolean }>`
     width: ${(props) => (props.large ? "120px" : "48px")};
     cursor: pointer;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-    .svg {
-      width: ${(props) => (props.large ? "80px" : "48px")};
-    }
-    img:hover {
-      transform: rotate(360deg);
+    svg {
+      padding: 0;
     }
   }
   .bar {
@@ -59,6 +57,9 @@ const Styled = styled.div<{ large: boolean }>`
     height: var(--button-icon-size);
     padding: 0.25em;
   }
+  svg {
+    padding: 0 0.5em 0 1em;
+  }
 `;
 
 const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
@@ -67,16 +68,7 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
       <Link to="/">
         <div className="logo">
           {!small && <b> интернет </b>}
-          <div className="svg">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348">
-              <circle cx="0" cy="0" r="2.05" fill="currentcolor" />
-              <g stroke="currentcolor" strokeWidth="1" fill="none">
-                <ellipse rx="11" ry="4.2" />
-                <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-                <ellipse rx="11" ry="4.2" transform="rotate(120)" />
-              </g>
-            </svg>
-          </div>
+          <IoLogoReact size={small ? 40 : 80} />
           {!small && <b> магазин</b>}
         </div>
       </Link>
@@ -92,23 +84,19 @@ const AppBar: FunctionComponent<ISmall> = ({ small, children }) => {
           </div>
         )}
         <div className="links" style={{ justifyContent: "center" }}>
-          <a href={`tel:${phoneNumber}`}>
-            <Icon type={IconTypes.smallTextRight} caption={!small ? phoneNumber : undefined}>
-              <SvgPhone />
-            </Icon>
+          <a href={`tel:${phoneNumber}`} className="flex-center">
+            <BsTelephone />
+            {!small && phoneNumber}
           </a>
 
-          <Link to="/cart">
-            <Icon type={IconTypes.smallTextRight} caption={!small ? "корзина" : undefined}>
-              <SvgCart />
-            </Icon>
-          </Link>
-          <Link to="/admin">admin</Link>
+          <Card>{!small && "корзина"} </Card>
 
-          <Link to="/profile">
-            <Icon type={IconTypes.smallTextRight} caption={!small ? "личный кабинет" : undefined}>
-              <SvgProfile />
-            </Icon>
+          <Link to="/admin" className="flex-center">
+            admin
+          </Link>
+          <Link to="/profile" className="flex-center">
+            <IoPersonOutline />
+            {!small && "личный кабинет "}
           </Link>
         </div>
       </div>

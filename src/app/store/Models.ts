@@ -14,11 +14,19 @@ export interface IItem extends IEntity {
     itemDetail: IItemDetail;
     caption: string;
     description: string;
+    quantity: number;
+}
+export interface IOrderItem {
+    item: IItem;
+    quantity: number;
+}
+export interface IOrder {
+    items: IOrderItem[];
 
 }
 
-export interface Photo {
 
+export interface Photo {
     id: number;
     url: string;
     alt?: string;
@@ -51,22 +59,22 @@ export interface IPage {
 
 export interface IFetchCustomer {
 
-    fetching?: boolean;
-    Customer: ICustomer;
-    errorFetching?: string;
+    fetching: boolean;
+    customer: ICustomer;
+    errorFetching: number;
 
 }
 
 export interface ICustomer {
-    id: number;
-    name: string;
-    email?: string;
-    phone?: number;
-    avatar?: string;
-    address?: string;
+    id?: number;
+    name?: string;
+    profile_id?: number;
+    password?: string;
+    role?: string;
+
 }
 export interface IFetchItems {
     fetching?: boolean;
     items?: IEntity;
-    errorFetching?: string;
+    errorFetching?: number;
 }

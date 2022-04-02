@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { footerLinks, footerMessage } from "../data";
-import { IPage } from "../store/Models";
-import ItemPreview from "./Elements/ItemPreview";
-import { ISmall } from "./Wrapper";
+import { footerLinks, footerMessage } from "../../data";
+import { IPage } from "../../store/Models";
+import ItemPreview from "../Elements/ItemPreview";
+import { ISmall } from "../Wrapper";
 const Links = styled.div`
   margin: 12px;
   padding: 12px;
@@ -25,7 +25,6 @@ const Links = styled.div`
 const Grid = styled.div`
   width: 100%;
   display: grid;
-
   grid-template-columns: repeat(auto-fill, 180px);
   grid-column-gap: 18px;
   grid-row-gap: 20px;

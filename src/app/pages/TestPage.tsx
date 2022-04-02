@@ -1,27 +1,27 @@
 import React from "react";
+
 import { connect } from "react-redux";
-import { ButtonLoader } from "../components/Elements/Button";
-import { Loader } from "../components/Loader";
-import { mapItems } from "../store/helper";
-import { actionsItems } from "../store/storeItem";
+import { Button } from "../components/Elements/Button";
 
-type Props = ReturnType<typeof mapItems> & typeof actionsItems;
+import { Login } from "../components/Blocks/Login";
 
-const component: React.FC<Props> = (props) => {
-  const { fetching, errorFetching, getItemsRequest } = props;
+import { mapCart } from "../store/helper";
+import { actionsCart } from "../store/storeCart";
 
+type Props = ReturnType<typeof mapCart> & typeof actionsCart;
+
+const Component: React.FC<Props> = (props) => {
   return (
     <>
-      <Loader />
+      <Login />
       <hr />
-      <div>
-        <ButtonLoader onClick={getItemsRequest} loader={fetching} text={"GET Items"} />
-      </div>
-      {errorFetching && <div>{errorFetching}</div>}
-      {props.fetching ? <div>Fetching data</div> : <div>{JSON.stringify(props)}</div>}
+      {JSON.stringify(props.items)}
+      <Button onClick={null} outlined>
+        gggg
+      </Button>
     </>
   );
 };
 
-const connectedComponent = connect(mapItems, actionsItems)(component);
+const connectedComponent = connect(mapCart, actionsCart)(Component);
 export default connectedComponent;

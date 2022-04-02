@@ -19,7 +19,7 @@ export const StyledAside = styled.aside`
   figure {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border: 1px sodivlid var(--primary-color);
+    border: 1px solid var(--primary-color);
     width: 100%;
   }
 

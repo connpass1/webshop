@@ -1,6 +1,7 @@
 body {
   --primary-color: #532906;
   --secondary-color: #065319;
+  --error-color: #cf0808;
   --grey-color: rgba(33, 33, 33, 1);
   --main-icon-color: 40px;
   --button-icon-size: 40px;
@@ -30,6 +31,7 @@ a {
   text-decoration: none;
   color: currentColor;
   font-size: 1.2em;
+  cursor: pointer;
 }
 
 main {
@@ -108,6 +110,7 @@ nav {
   flex-direction: row;
 }
 .flex-center {
+  display: flex;
   justify-items: center;
   justify-content: center;
   align-items: center;
@@ -124,6 +127,7 @@ footer {
   padding: 10px;
   color: white;
 }
+
 .loader,
 .loader:before,
 .loader:after {
@@ -180,4 +184,61 @@ footer {
   40% {
     box-shadow: 0 2.5em 0 0;
   }
+}
+button {
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  padding: 8px 12px;
+  font-weight: 800;
+  font-size: larger;
+}
+button:disabled {
+  color: white;
+  background-color: black;
+  border-color: black;
+  opacity: 0.6;
+}
+button:focus {
+  opacity: 0.8;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button,
+input {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
 }

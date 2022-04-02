@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 import { CatalogLink } from "../components/Elements/ItemLink";
-import ItemPreview from "../components/Elements/ItemPreview";
+
 import { CheckFetching } from "../components/Fetching";
 import { useFetchingId } from "../components/hooks";
 import { ICatalog } from "../store/Models";
 import { Parent } from "../components/Elements/Parent";
-import ItemBlock from "../components/ItemBlock";
+import ItemBlock from "../components/Blocks/ItemBlock";
 const Styled = styled.div`
   display: flex;
   flex-flow: row wrap;

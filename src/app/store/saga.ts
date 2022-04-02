@@ -1,62 +1,52 @@
 import {call, delay, put, takeEvery} from "redux-saga/effects";
-import {actionsProfile} from "./storeProfile";
+import {actionsUser, ActionTypesLogin} from "./storeUser";
 import axios from 'axios'
-import {actionsItems} from "./storeItem";
+
 import {getErrorStatus} from "./helper";
-import {ICustomer} from './Models';
 
-function* getCustomer() {
+function* loginUser(userNameAndPass: any) {
   try {
-    const {data}=yield call(axios.get, '/json/user.json')
+    const {data}=yield call(axios.post, 'http://localhost:8080/user/login', userNameAndPass)
+    console.log(JSON.stringify(userNameAndPass));
     yield delay(1500)
-    yield put(actionsProfile.getProfileSuccess(data))
+    if (data===null) yield put(actionsUser.loginFiled(404))
+    else yield put(actionsUser.getLoginSuccess(data))
+
   } catch (e) {
-    yield put(actionsProfile.saveProfileFiled(getErrorStatus(e)))
+    console.log('error,  http://localhost:8080/user/login ');
+    yield put(actionsUser.loginFiled(getErrorStatus(e)))
   }
 }
-export enum ActionTypes {
-  GetCustomerRequest="GET_CUSTOMER_REQUEST",
-  GetCustomerSuccess="GET_CUSTOMER_SUCCESS",
-  CustomerRequestFiled="CUSTOMER_REQUEST_FAILED",
-  GetItemsRequest="GET_ITEMS_REQUEST",
-  GetItemsSuccess="GET_ITEMS_SUCCESS",
-  ItemsRequestFiled="ITEMS_REQUEST_FAILED",
-  SaveProfileRequest="SAVE_PROFILE_Request",
-  SaveProfileSuccess="SAVE_PROFILE_SUCCESS",
-  SaveProfileFiled="SAVE_PROFILE_FAILED",
-
-}
-function* getItems() {
+function* registrationUser(userNameAndPass: any) {
   try {
-
-    const {data}=yield call(axios.get, '/json/catalog/0.json')
+    const {data}=yield call(axios.post, 'http://localhost:8080/user/reg', userNameAndPass)
+    console.log(JSON.stringify(userNameAndPass));
     yield delay(1500)
-    console.log(data+"hhhh")
-    yield put(actionsItems.getItemsSuccess(data))
+    yield put(actionsUser.getLoginSuccess(data))
   } catch (e) {
-    yield put(actionsItems.ItemsRequestFiled(getErrorStatus(e)))
+    console.log('erroor,  http://localhost:8080/user/login ');
+    yield put(actionsUser.loginFiled(getErrorStatus(e)))
   }
 }
 
-function* saveProfile(data: any) {
 
+function* logoutUser() {
   try {
-
-    //  const {data}=yield call(axios.post, '/json/catalog/0.json')
-
+    const {data}=yield call(axios.get, 'http://localhost:8080/user/logout')
     yield delay(1500)
-    yield put(actionsProfile.saveProfileSuccess(data.profile as ICustomer))
-
+    yield put(actionsUser.logoutSuccess())
   } catch (e) {
-    yield put(actionsProfile.saveProfileFiled(getErrorStatus(e)))
-    console.log(JSON.stringify(e));
+    yield put(actionsUser.logoutFiled(getErrorStatus(e)))
   }
 }
 
-function* watchGetCustomerRequest() {
-  yield takeEvery(ActionTypes.GetCustomerRequest, getCustomer);
-  yield takeEvery(ActionTypes.GetItemsRequest, getItems);
-  yield takeEvery(ActionTypes.SaveProfileRequest, saveProfile);
+
+
+function* watchUserRequest() {
+  yield takeEvery(ActionTypesLogin.loginRequest, loginUser);
+  yield takeEvery(ActionTypesLogin.logoutRequest, logoutUser);
+  yield takeEvery(ActionTypesLogin.registrationRequest, registrationUser);
+  // yield takeEvery(ActionTypesItem.GetItemsRequest, getItems); 
 }
 
-export {watchGetCustomerRequest};
+export {watchUserRequest}; 
