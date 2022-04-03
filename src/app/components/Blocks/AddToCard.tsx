@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { mapCart } from "../../store/helper";
 import { IItem } from "../../store/Models";
 import { actionsCart } from "../../store/storeCart";
 import { Button, BackButton, ButtonSecondary } from "../Elements/Button";
-import { FlexAround, FlexEnd, Input } from "../Elements/Styled";
+import { FlexAround, Input } from "../Elements/Styled";
 type Props = ReturnType<typeof mapCart> &
   typeof actionsCart & {
     item: IItem;

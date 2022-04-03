@@ -35,7 +35,7 @@ const Component: React.FC<IItem> = (item) => {
     <Link to={`/item/${item.id}`}>
       <ItemVew>
         <div className="caption">{item.name}</div>
-        <div className="img">{item.icon ? item.icon : <img src="/img/box.png"></img>}</div>
+        <div className="img">{item.icon ? item.icon : <img src="/img/box.png" alt={item.name}></img>}</div>
         <Row>цена -{item.price}</Row>
       </ItemVew>
     </Link>

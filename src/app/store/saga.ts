@@ -3,7 +3,7 @@ import {actionsUser, ActionTypesLogin} from "./storeUser";
 import axios from 'axios'
 
 import {getErrorStatus} from "./helper";
-import {actionsCart, ActionTypesCart} from "./storeCart";
+
 import {actionsMessage, ActionTypesMessage} from './storeMessage';
 
 function* loginUser(userNameAndPass: any) {

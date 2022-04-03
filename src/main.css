@@ -206,6 +206,7 @@ button:disabled {
   background-color: black;
   border-color: black;
   opacity: 0.6;
+  cursor: initial;
 }
 button:focus {
   opacity: 0.8;

@@ -44,7 +44,6 @@ export const Table = styled.table`
   th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
     background-color: var(--secondary-color);
     color: white;
   }

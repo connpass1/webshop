@@ -1,55 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import styled from "styled-components";
-import { Button, ButtonSecondary, BackButton } from "../components/Elements/Button";
-import { mapCart } from "../store/helper";
+import { Link } from "react-router-dom";
+import { ButtonSecondary, BackButton, CheckBox } from "../components/Elements/Button";
+import { Row, Table } from "../components/Elements/Styled";
+import { compare, mapCart } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
-
+import styled from "styled-components";
+import { IItem } from "../store/Models";
 type Props = ReturnType<typeof mapCart> & typeof actionsCart;
-const Row = styled.div`
-  margin: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-`;
-const Table = styled.table`
-  margin: 12px 0;
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  th,
-  td {
-    border: 1px solid;
-    padding: 8px;
-  }
-  tr:nth-child(even) {
-    background-color: var(--grey-color-light);
-  }
-  tr:hover {
-    background-color: var(--secondary-color-light);
-  }
-  .icon {
-    width: "40px";
-    background-repeat: no-repeat;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .price {
-    width: "80px";
-  }
-  th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: var(--secondary-color);
-    color: white;
-  }
-`;
+interface IItemCh extends IItem {
+  checked: boolean;
+}
+
 const Component: React.FC<Props> = (props) => {
   const { cart } = props;
+  const [state, setState] = useState<IItemCh[]>([]);
 
+  useEffect(() => {
+    const arr: IItemCh[] = [];
+    cart.map((it) => {
+      return arr.push({ ...it, checked: true });
+    });
+    arr.sort(compare);
+    setState(arr);
+    return;
+  }, [cart]);
+  const handlerAll = () => {
+    const all = state.find((it) => !it.checked) === undefined;
+    state.map((it) => (it.checked = !all));
+    setState([...state]);
+  };
+  const handler = (id: number) => {
+    const item = state.find((it) => it.id === id);
+    if (item) {
+      item.checked = !item.checked;
+      setState([...state]);
+    }
+  };
   if (cart.length === 0)
     return (
       <Row>
@@ -57,7 +44,21 @@ const Component: React.FC<Props> = (props) => {
         <BackButton />
       </Row>
     );
-
+  const TD = styled.td`
+    text-align: center;
+    color: var(--secondary-color);
+    svg {
+      cursor: pointer;
+    }
+  `;
+  const TH = styled.th`
+    text-align: center;
+    svg {
+      cursor: pointer;
+    }
+  `;
+  const allCheck = state.find((it) => !it.checked) === undefined;
+  const oneCheck = state.find((it) => it.checked) !== undefined;
   return (
     <>
       <Table>
@@ -67,27 +68,34 @@ const Component: React.FC<Props> = (props) => {
             <th>name</th>
             <th>quantity</th>
             <th>price</th>
+            <TH>
+              <CheckBox id={0} handler={handlerAll} check={allCheck} />
+            </TH>
           </tr>
-          {cart.map((item) => (
+          {state.map((item) => (
             <tr key={item.id}>
-              <td className="icon">{item.icon} </td>
+              <td>{item.icon} </td>
               <td>
                 <Link to={"/item/" + item.id}> {item.name}</Link>
               </td>
               <td>{item.quantity} </td>
-              <td className="price">{item.price} </td>
+              <td>{item.price} </td>
+              <TD>
+                <CheckBox id={item.id} handler={handler} check={item.checked} />
+              </TD>
             </tr>
           ))}
         </tbody>
       </Table>
       <Row>
-        <ButtonSecondary onClick={() => console.log("оформить заказ")}>оформить заказ</ButtonSecondary>
+        <ButtonSecondary disabled={!oneCheck} onClick={() => console.log("заказать")}>
+          заказать
+        </ButtonSecondary>
       </Row>
     </>
   );
 };
 const ConnectedComponent = connect(mapCart, actionsCart)(Component);
-
 const ComponentExport = () => (
   <>
     <h1>Заказы</h1>

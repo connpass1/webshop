@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect, useHistory } from "react-router-dom";
-import styled from "styled-components";
-import { Button, ButtonSecondary, BackButton, RedirectButton } from "../components/Elements/Button";
+import { Link, Redirect } from "react-router-dom";
+import { ButtonSecondary, BackButton, RedirectButton } from "../components/Elements/Button";
 import { RowSpaceBetween, Table } from "../components/Elements/Styled";
 import { mapCart } from "../store/helper";
 import { actionsCart } from "../store/storeCart";

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 interface Props {
@@ -32,4 +33,8 @@ export const RedirectButton: React.FC<{ to: string }> = ({ to, children }) => {
 
   if (redirect) return <Redirect to={to} />;
   return <ButtonSecondary onClick={() => setRedirect(true)}>{children}</ButtonSecondary>;
+};
+export const CheckBox: React.FC<{ id: number; handler: any; check: boolean }> = ({ id, handler, check = false }) => {
+  if (check) return <IoIosCheckmarkCircle size={36} onClick={() => handler(id)} />;
+  return <IoIosCloseCircle size={36} className="pointer" onClick={() => handler(id)} />;
 };
