@@ -3,6 +3,8 @@ import {actionsUser, ActionTypesLogin} from "./storeUser";
 import axios from 'axios'
 
 import {getErrorStatus} from "./helper";
+import {actionsCart, ActionTypesCart} from "./storeCart";
+import {actionsMessage, ActionTypesMessage} from './storeMessage';
 
 function* loginUser(userNameAndPass: any) {
   try {
@@ -11,7 +13,7 @@ function* loginUser(userNameAndPass: any) {
     yield delay(1500)
     if (data===null) yield put(actionsUser.loginFiled(404))
     else yield put(actionsUser.getLoginSuccess(data))
-
+    yield put(actionsMessage.adMessage(userNameAndPass))
   } catch (e) {
     console.log('error,  http://localhost:8080/user/login ');
     yield put(actionsUser.loginFiled(getErrorStatus(e)))
@@ -20,33 +22,40 @@ function* loginUser(userNameAndPass: any) {
 function* registrationUser(userNameAndPass: any) {
   try {
     const {data}=yield call(axios.post, 'http://localhost:8080/user/reg', userNameAndPass)
-    console.log(JSON.stringify(userNameAndPass));
     yield delay(1500)
     yield put(actionsUser.getLoginSuccess(data))
+
   } catch (e) {
     console.log('erroor,  http://localhost:8080/user/login ');
     yield put(actionsUser.loginFiled(getErrorStatus(e)))
+
   }
 }
 
 
 function* logoutUser() {
   try {
-    const {data}=yield call(axios.get, 'http://localhost:8080/user/logout')
+    yield call(axios.get, 'http://localhost:8080/user/logout')
     yield delay(1500)
     yield put(actionsUser.logoutSuccess())
   } catch (e) {
     yield put(actionsUser.logoutFiled(getErrorStatus(e)))
   }
 }
+function* message(data: any) {
+  yield put(actionsMessage.adMessage(data.message))
 
+}
 
 
 function* watchUserRequest() {
   yield takeEvery(ActionTypesLogin.loginRequest, loginUser);
   yield takeEvery(ActionTypesLogin.logoutRequest, logoutUser);
   yield takeEvery(ActionTypesLogin.registrationRequest, registrationUser);
-  // yield takeEvery(ActionTypesItem.GetItemsRequest, getItems); 
+  yield takeEvery(ActionTypesMessage.adMessageRequest, message);
+
+
 }
 
-export {watchUserRequest}; 
+export {watchUserRequest};
+
