@@ -1,30 +1,20 @@
 
-
 export interface IEntity {
     id: number;
     name: string;
     icon?: string;
     parent: IEntity;
-
 }
 
 export interface IItem extends IEntity {
     price: number;
-    title: string;
-    itemDetail: IItemDetail;
-    caption: string;
-    description: string;
     quantity: number;
+    itemDetail: IItemDetail
 }
 export interface IOrderItem {
     item: IItem;
     quantity: number;
 }
-export interface IOrder {
-    items: IOrderItem[];
-
-}
-
 
 export interface Photo {
     id: number;
@@ -55,15 +45,16 @@ export interface IPage {
     totalPages: number;
     totalElements: number;
 }
-
-
-export interface IFetchCustomer {
-
+interface IFetch {
     fetching: boolean;
-    customer: ICustomer;
     errorFetching: number;
+}
+export interface IFetchCustomer extends IFetch {
+
+    customer: ICustomer;
 
 }
+
 
 export interface ICustomer {
     id?: number;
@@ -73,8 +64,11 @@ export interface ICustomer {
     role?: string;
 
 }
-export interface IFetchItems {
-    fetching?: boolean;
-    items?: IEntity;
-    errorFetching?: number;
+
+
+export interface IFetchMessage extends IFetch {
+    message: string;
+}
+export interface IFetchCart {
+    cart: IItem[];
 }

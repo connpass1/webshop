@@ -6,7 +6,6 @@ import { getErrorStatus } from "../store/helper";
 import { ICatalog } from "../store/Models";
 import { CatalogLink } from "./Elements/ItemLink";
 export const StyledAside = styled.aside`
-  color: #000;
   padding: 4px;
   width: 100%;
   figcaption {

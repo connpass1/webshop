@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { IItem } from "../../store/Models";
+import { Row } from "../Elements/Styled";
 
 const ItemVew = styled.figure`
   border: solid 1px var(--primary-color);
@@ -16,11 +17,8 @@ const ItemVew = styled.figure`
   display: flex;
   flex-direction: column;
   margin: 10px;
-  img {
-    width: 160px;
-    height: 160px;
+  .img {
     align-self: center;
-    background-image: url(/img/box.png);
   }
   .caption {
     border-top-left-radius: 8px;
@@ -28,25 +26,20 @@ const ItemVew = styled.figure`
     color: white;
     background-color: var(--primary-color);
     margin: 0;
-  }
-  p {
-    padding: 0.2rem 0.5rem;
+    padding: 8px;
   }
 `;
 
 const Component: React.FC<IItem> = (item) => {
   return (
-    <div>
-      <Link to={`/item/${item.id}`}>
-        <ItemVew>
-          <div className="caption">{item.name}</div>
-          <p>{item.caption}</p>
-          <img src={item.icon} alt={item.description}></img>
-
-          <p>цена -{item.price}</p>
-        </ItemVew>
-      </Link>
-    </div>
+    <Link to={`/item/${item.id}`}>
+      <ItemVew>
+        <div className="caption">{item.name}</div>
+        <div className="img">{item.icon ? item.icon : <img src="/img/box.png"></img>}</div>
+        <Row>цена -{item.price}</Row>
+      </ItemVew>
+    </Link>
   );
 };
+
 export default Component;

@@ -1,32 +1,15 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { connect } from "react-redux";
 import { actionsUser } from "../../store/storeUser";
 import { mapFetchUser } from "../../store/helper";
 import styled from "styled-components";
 import { Spinner } from "../Elements/SvgSpinner";
 import { IoIosLogIn, IoMdCreate } from "react-icons/io";
-import { Button } from "../Elements/Button";
-import classNames from "classnames";
+import { Button, ButtonSecondary } from "../Elements/Button";
+import { Column, FlexEnd, Input } from "../Elements/Styled";
 
 type Props = ReturnType<typeof mapFetchUser> & typeof actionsUser;
-const Input = styled.input`
-  padding: 8px 4px;
-  max-width: 240px;
-  margin-bottom: 12px;
-  font-size: 1.1rem;
-`;
-const Row = styled.div`
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  font-size: 1.2rem;
-  label {
-    padding: 12px 6px;
-  }
-  svg {
-    padding-left: "2em";
-  }
-`;
+
 const Fetch = styled.div`
   padding: 12px 0;
   color: var(--secondary-color);
@@ -34,21 +17,7 @@ const Fetch = styled.div`
     color: var(--error-color);
   }
 `;
-const Reg = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  a {
-    text-decoration: underline;
-    padding: 0 12px;
-  }
-  .active {
-    color: var(--secondary-color);
-    font-weight: 900;
-  }
-  .unActive {
-    font-weight: 100;
-  }
-`;
+
 const getMessage = (status: number) => {
   switch (status) {
     case 404:
@@ -75,15 +44,15 @@ const Component: FunctionComponent<Props> = (props) => {
 
   if (!customer.id)
     return (
-      <div className="column">
-        <Reg>
-          <a onClick={() => setRegistration(false)} className={`${registration ? "unActive" : "active"}`}>
+      <Column>
+        <FlexEnd>
+          <ButtonSecondary onClick={() => setRegistration(false)} outlined={!registration}>
             Авторизация
-          </a>
-          <a onClick={() => setRegistration(true)} className={`${registration ? "active" : "unActive"}`}>
+          </ButtonSecondary>
+          <ButtonSecondary onClick={() => setRegistration(true)} outlined={registration}>
             Регистрация
-          </a>
-        </Reg>
+          </ButtonSecondary>
+        </FlexEnd>
         <form className="column">
           <label htmlFor="name">логин</label>
           <Input autoFocus required name="name" value={name} onChange={(v) => setName(v.target.value)} />
@@ -103,11 +72,10 @@ const Component: FunctionComponent<Props> = (props) => {
           </div>
           <Fetch>
             {fetching && <Spinner />}
-
             <ErrorFetch status={errorFetching}></ErrorFetch>
           </Fetch>
         </form>
-      </div>
+      </Column>
     );
   return (
     <Button onClick={props.logoutUserRequest} style={{ alignSelf: "flex-end" }}>

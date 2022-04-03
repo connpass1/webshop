@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { CheckFetching } from "../../components/Fetching";
 import { useFetchingId } from "../../components/hooks";
 import { ICatalog } from "../../store/Models";
-import { Parent } from "../../components/Elements/Parent";
 import { Link, useLocation } from "react-router-dom";
 
 import { Button } from "../../components/Elements/Button";

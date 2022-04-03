@@ -9,10 +9,12 @@ import { applyMiddleware, createStore } from "redux";
 import { watchUserRequest } from "./store/saga";
 import CatalogPage from "./pages/CatalogPage";
 import ProfilePage from "./pages/ProfilePage";
-import CartPage from "./pages/CartPage";
+
 import ItemPage from "./pages/ItemPage";
 import ErrorPage from "./pages/ErrorPage";
 import { reducer } from "./store";
+import CartPage from "./pages/CartPage";
+import OrderPage from "./pages/OrderPage";
 
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -41,6 +43,10 @@ const component: React.FC = () => (
           </Route>
           <Route path="/profile">
             <ProfilePage />
+          </Route>
+
+          <Route path="/order">
+            <OrderPage />
           </Route>
           <Route exact path="/cart">
             <CartPage />
@@ -71,7 +77,7 @@ const component: React.FC = () => (
           <Route exact path="/error/:id">
             <ErrorPage />
           </Route>
-          <Redirect to="/error/404" />
+          <Redirect to="/" />
         </Wrapper>
       </Switch>
     </BrowserRouter>

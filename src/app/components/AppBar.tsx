@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { phoneNumber, webMenu } from "../data";
 import { IoLogoReact, IoPersonOutline } from "react-icons/io5";
-import { FaUser } from "react-icons/fa";
 import { ISmall } from "./Wrapper";
-import { BsTelephone, BsCart } from "react-icons/bs";
+import { BsTelephone } from "react-icons/bs";
 import classNames from "classnames";
 import { Card } from "./Blocks/Card";
 

@@ -1,4 +1,4 @@
-import {IFetchCustomer, IFetchItems, IItem, IOrder} from "./Models";
+import {IFetchCart, IFetchCustomer, IFetchMessage} from "./Models";
 function isObject(object: any) {
     return object!=null&&typeof object==='object';
 }
@@ -25,9 +25,8 @@ export function getErrorStatus(e: any, status?: number) {
     catch (e) {return status? status:500}
 }
 
- 
-export const mapCart=(state: {cartReducer: IOrder}) => state.cartReducer ;
 
-
+export const mapCart=(state: {cartReducer: IFetchCart}) => state.cartReducer;
 export const mapFetchUser=(state: {profileReducer: IFetchCustomer}) => state.profileReducer;
 export const mapCustomer=(state: {profileReducer: IFetchCustomer}) => state.profileReducer.customer;
+export const mapMessage=(state: {messageReducer: IFetchMessage}) => state.messageReducer;
