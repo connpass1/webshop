@@ -6,11 +6,8 @@ import { FlexEnd } from "./Styled";
 
 const DIV = styled(FlexEnd)`
   color: var(--primary-color);
-  font-size: 1em;
+  font-size: 1rem;
   padding: 0 0.5em;
-  a {
-    text-decoration: underline;
-  }
 `;
 
 export const Parent: React.FC<IEntity> = (parent?) => {

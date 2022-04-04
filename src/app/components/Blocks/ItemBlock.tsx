@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 import styled from "styled-components";
 import { IPage } from "../../store/Models";
 import { ButtonSecondary } from "../Elements/Button";
-import { RowSpaceBetween } from "../Elements/Styled";
+import { FlexBetween } from "../Elements/Styled";
 import ItemPreview from "./ItemPreview";
 const Links = styled.div`
   margin: 12px;
@@ -56,7 +56,7 @@ const Component: FunctionComponent<{ categoryId: number }> = ({ categoryId }) =>
           </ButtonSecondary>
         ))}
       </Links>
-      <RowSpaceBetween>
+      <FlexBetween>
         <div>
           <i>Страница {page} </i>
           <i>из {totalPages} </i>
@@ -65,7 +65,7 @@ const Component: FunctionComponent<{ categoryId: number }> = ({ categoryId }) =>
         <div>
           <i>Всего товаров в категории {totalElements} </i>
         </div>
-      </RowSpaceBetween>
+      </FlexBetween>
     </>
   );
 };

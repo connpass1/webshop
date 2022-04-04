@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Spinner = () => (
-  <svg width="40" height="10" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="currentcolor">
+  <svg width="40" height="10" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="var(--primary-color)">
     <circle cx="15" cy="15" r="15">
       <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
       <animate

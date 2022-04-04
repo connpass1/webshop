@@ -18,15 +18,13 @@ const Styled = styled.div<{ large: boolean }>`
   align-items: center;
   border-bottom: 1px solid grey;
   background-color: ${(props) => (props.large ? "white" : "var(--primary-color)")};
+  font-size: 1.2rem;
   a {
-    font-size: 1.2rem;
     padding: 8px;
     color: ${(props) => (!props.large ? "white" : "var(--primary-color)")};
     font-weight: 700;
   }
-  a:hover {
-    opacity: 0.5;
-  }
+
   .logo {
     height: 100%;
     display: flex;
@@ -48,7 +46,6 @@ const Styled = styled.div<{ large: boolean }>`
     display: flex;
     align-items: center;
     direction: columns;
-    font-size: 1.2rem;
   }
 
   .menuButton {

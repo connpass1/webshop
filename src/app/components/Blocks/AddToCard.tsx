@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { mapCart } from "../../store/helper";
 import { IItem } from "../../store/Models";
 import { actionsCart } from "../../store/storeCart";
-import { Button, BackButton, ButtonSecondary } from "../Elements/Button";
+import { Button, BackToCatalog, ButtonSecondary } from "../Elements/Button";
 import { FlexAround, Input } from "../Elements/Styled";
 type Props = ReturnType<typeof mapCart> &
   typeof actionsCart & {
@@ -45,7 +45,7 @@ const CartBlock: React.FC<Props> = (prop) => {
 
       {itemInCart && (
         <FlexAround>
-          <BackButton />
+          <BackToCatalog />
           <ButtonSecondary onClick={handelDel}> удалить из корзины </ButtonSecondary>
         </FlexAround>
       )}

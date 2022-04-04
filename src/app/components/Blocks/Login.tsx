@@ -12,10 +12,7 @@ type Props = ReturnType<typeof mapFetchUser> & typeof actionsUser;
 
 const Fetch = styled.div`
   padding: 12px 0;
-  color: var(--secondary-color);
-  i {
-    color: var(--error-color);
-  }
+  color: var(--error-color);
 `;
 
 const getMessage = (status: number) => {
@@ -38,20 +35,15 @@ const ErrorFetch: FunctionComponent<{ status: number }> = ({ status }) => {
 
 const Component: FunctionComponent<Props> = (props) => {
   const { loginUserRequest, customer, fetching, errorFetching, registrationUserRequest } = props;
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("user");
+  const [password, setPassword] = useState("password");
 
   const [registration, setRegistration] = useState(false);
   const loginHandler = () => {
     if (registration) registrationUserRequest(name, password);
     else loginUserRequest(name, password);
   };
-  if (customer.id)
-    return (
-      <Button onClick={props.logoutUserRequest} style={{ alignSelf: "flex-end" }}>
-        Выход <IoIosLogIn />
-      </Button>
-    );
+  if (customer.id) return <>{props.children}</>;
 
   return (
     <Column>
@@ -68,19 +60,18 @@ const Component: FunctionComponent<Props> = (props) => {
         <Input autoFocus required name="name" value={name} onChange={(v) => setName(v.target.value)} />
         <label htmlFor="password">пароль </label>
         <Input required name="password" type="text" minLength={5} value={password} onChange={(v) => setPassword(v.target.value)} />
-        <div>
-          <Button onClick={loginHandler}>
-            {registration ? (
-              <>
-                Вход <IoIosLogIn />
-              </>
-            ) : (
-              <>
-                Зарегистрироваться <IoMdCreate />
-              </>
-            )}
-          </Button>
-        </div>
+        <Button onClick={loginHandler}>
+          {registration ? (
+            <>
+              Зарегистрироваться <IoMdCreate />
+            </>
+          ) : (
+            <>
+              Вход <IoIosLogIn />
+            </>
+          )}
+        </Button>
+
         <Fetch>
           {fetching && <Spinner />}
           <ErrorFetch status={errorFetching}></ErrorFetch>

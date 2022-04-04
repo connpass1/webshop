@@ -1,20 +1,18 @@
 body {
-  --primary-color: #5D4037; 
-   --primary-color-light:#D7CCC8;
-   --secondary-color :#00695C;
-    --secondary-color-light: #B2DFDB;
-  --error-color: #E53935;
+  --primary-color: #5d4037;
+  --primary-color-light: #d7ccc8;
+  --secondary-color: #00695c;
+  --secondary-color-light: #b2dfdb;
+  --error-color: #e53935;
   --grey-color: #424242;
- --grey-color-light : #E0E0E0;
- 
-   
+  --grey-color-light: #e0e0e0;
+
   --shadow: -1px 1px 12px -2px rgba(0, 0, 0, 0.6);
   --border: 1px solid rgba(0, 0, 0, 0.4);
   user-select: none;
   background-color: white;
   color: black;
   margin: 0;
-  
 }
 figure {
   margin-inline-start: 0;
@@ -43,6 +41,9 @@ main {
   box-shadow: var(--shadow);
   padding: 10px;
   border-radius: 4px;
+  user-select: text;
+  display: flex;
+  flex-direction: column;
 }
 nav {
   grid-area: nav;
@@ -248,8 +249,22 @@ button::-moz-focus-inner,
   border-style: none;
 }
 footer {
-min-height: 100px;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  }
+}
+main a {
+  font-style: italic;
+  outline: none;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 1.2em;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+main a:hover,
+aside a:hover {
+  text-shadow: 1px 0px 0px currentColor;
+}

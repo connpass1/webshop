@@ -9,7 +9,8 @@ export interface IEntity {
 export interface IItem extends IEntity {
     price: number;
     quantity: number;
-    itemDetail: IItemDetail
+    itemDetail: IItemDetail;
+    checked: boolean;
 }
 export interface IOrderItem {
     item: IItem;

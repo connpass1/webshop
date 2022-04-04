@@ -13,13 +13,6 @@ const Styled = styled.div`
   margin: 12px 0;
   padding-bottom: 12px;
   border-bottom: var(--border);
-  a {
-    outline: none;
-    text-decoration: underline;
-    color: currentColor;
-    font-size: 1.2em;
-    white-space: nowrap;
-  }
 `;
 const Component: FunctionComponent = () => {
   const { status, data } = useFetchingId();

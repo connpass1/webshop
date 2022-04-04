@@ -8,6 +8,7 @@ export const FlexEnd = styled.div`
 export const FlexAround = styled.div`
   display: flex;
   justify-content: space-around;
+  align-items: center;
 `;
 export const Column = (props: { children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined }) => {
   return <div className="column">{props.children}</div>;
@@ -16,7 +17,7 @@ export const Row = (props: { children: boolean | React.ReactChild | React.ReactF
   return <div className="row">{props.children}</div>;
 };
 
-export const RowSpaceBetween = styled.div`
+export const FlexBetween = styled.div`
   margin: 12px;
   display: flex;
   justify-content: space-between;

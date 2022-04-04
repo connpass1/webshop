@@ -17,16 +17,14 @@ export function useIsSmall() {
   return small;
 }
 
-export function useFetchingId() {
+export function useFetchingId(path?: string) {
   const [status, setStatus] = useState(0);
   const [data, setData] = useState();
   const location = useLocation();
   let url = `http://localhost:8080${location.pathname}`;
-
+  if (path) url = url + path;
   console.log(url);
-
   useEffect(() => {
-    console.log("useFetchingGet");
     setData(undefined);
     setStatus(0);
     axios
