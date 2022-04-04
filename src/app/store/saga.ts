@@ -13,9 +13,9 @@ function* loginUser(userNameAndPass: any) {
     yield delay(1500)
     if (data===null) yield put(actionsUser.loginFiled(404))
     else yield put(actionsUser.getLoginSuccess(data))
-    yield put(actionsMessage.adMessage(userNameAndPass))
+
   } catch (e) {
-    console.log('error,  http://localhost:8080/user/login ');
+
     yield put(actionsUser.loginFiled(getErrorStatus(e)))
   }
 }
@@ -42,17 +42,14 @@ function* logoutUser() {
     yield put(actionsUser.logoutFiled(getErrorStatus(e)))
   }
 }
-function* message(data: any) {
-  yield put(actionsMessage.adMessage(data.message))
 
-}
 
 
 function* watchUserRequest() {
   yield takeEvery(ActionTypesLogin.loginRequest, loginUser);
   yield takeEvery(ActionTypesLogin.logoutRequest, logoutUser);
   yield takeEvery(ActionTypesLogin.registrationRequest, registrationUser);
-  yield takeEvery(ActionTypesMessage.adMessageRequest, message);
+
 
 
 }

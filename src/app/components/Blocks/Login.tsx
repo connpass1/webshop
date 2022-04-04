@@ -40,47 +40,53 @@ const Component: FunctionComponent<Props> = (props) => {
   const { loginUserRequest, customer, fetching, errorFetching, registrationUserRequest } = props;
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
   const [registration, setRegistration] = useState(false);
-
-  if (!customer.id)
+  const loginHandler = () => {
+    if (registration) registrationUserRequest(name, password);
+    else loginUserRequest(name, password);
+  };
+  if (customer.id)
     return (
-      <Column>
-        <FlexEnd>
-          <ButtonSecondary onClick={() => setRegistration(false)} outlined={!registration}>
-            Авторизация
-          </ButtonSecondary>
-          <ButtonSecondary onClick={() => setRegistration(true)} outlined={registration}>
-            Регистрация
-          </ButtonSecondary>
-        </FlexEnd>
-        <form className="column">
-          <label htmlFor="name">логин</label>
-          <Input autoFocus required name="name" value={name} onChange={(v) => setName(v.target.value)} />
-          <label htmlFor="password">пароль </label>
-          <Input required name="password" type="text" minLength={5} value={password} onChange={(v) => setPassword(v.target.value)} />
-
-          <div>
-            {registration ? (
-              <Button onClick={() => registrationUserRequest(name, password)}>
-                Зарегистрироваться <IoMdCreate />
-              </Button>
-            ) : (
-              <Button onClick={() => loginUserRequest(name, password)}>
-                Вход <IoIosLogIn />
-              </Button>
-            )}
-          </div>
-          <Fetch>
-            {fetching && <Spinner />}
-            <ErrorFetch status={errorFetching}></ErrorFetch>
-          </Fetch>
-        </form>
-      </Column>
+      <Button onClick={props.logoutUserRequest} style={{ alignSelf: "flex-end" }}>
+        Выход <IoIosLogIn />
+      </Button>
     );
+
   return (
-    <Button onClick={props.logoutUserRequest} style={{ alignSelf: "flex-end" }}>
-      Выход <IoIosLogIn />
-    </Button>
+    <Column>
+      <FlexEnd>
+        <ButtonSecondary onClick={() => setRegistration(false)} outlined={!registration}>
+          Авторизация
+        </ButtonSecondary>
+        <ButtonSecondary onClick={() => setRegistration(true)} outlined={registration}>
+          Регистрация
+        </ButtonSecondary>
+      </FlexEnd>
+      <Column>
+        <label htmlFor="name">логин</label>
+        <Input autoFocus required name="name" value={name} onChange={(v) => setName(v.target.value)} />
+        <label htmlFor="password">пароль </label>
+        <Input required name="password" type="text" minLength={5} value={password} onChange={(v) => setPassword(v.target.value)} />
+        <div>
+          <Button onClick={loginHandler}>
+            {registration ? (
+              <>
+                Вход <IoIosLogIn />
+              </>
+            ) : (
+              <>
+                Зарегистрироваться <IoMdCreate />
+              </>
+            )}
+          </Button>
+        </div>
+        <Fetch>
+          {fetching && <Spinner />}
+          <ErrorFetch status={errorFetching}></ErrorFetch>
+        </Fetch>
+      </Column>
+    </Column>
   );
 };
 

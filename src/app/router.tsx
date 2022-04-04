@@ -54,6 +54,7 @@ const component: React.FC = () => (
           <Route exact path="/item/:id">
             <ItemPage />
           </Route>
+
           <Route exact path="/">
             <h1>главная</h1>
             <P />
@@ -77,7 +78,7 @@ const component: React.FC = () => (
           <Route exact path="/error/:id">
             <ErrorPage />
           </Route>
-          <Redirect to="/" />
+          <Redirect to="/error/404" />
         </Wrapper>
       </Switch>
     </BrowserRouter>

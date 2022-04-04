@@ -36,6 +36,7 @@ export const profileReducer: Reducer=(
   state: IFetchCustomer={customer: {}, fetching: false, errorFetching: 0},
   action,
 ): IFetchCustomer => {
+  console.log(action);
 
   switch (action.type) {
     case ActionTypesLogin.loginRequest:
