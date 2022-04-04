@@ -23,6 +23,11 @@ export const ButtonSecondary = styled.button<Props>`
   text-decoration: ${(props) => (props.outlined ? "underline" : "none")};
   font-weight: ${(props) => (props.outlined ? 800 : 400)};
   color: var(--secondary-color);
+  :disabled {
+    background-color: white;
+    color: var(--grey-color);
+    text-decoration: line-through;
+  }
 `;
 export const BackButton = () => {
   const history = useHistory();

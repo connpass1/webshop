@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ButtonSecondary, BackButton, CheckBox } from "../components/Elements/Button";
-import { Row, Table } from "../components/Elements/Styled";
+import { FlexEnd, Row, Table } from "../components/Elements/Styled";
 import { compare, mapCart } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
 import styled from "styled-components";
@@ -11,11 +11,24 @@ type Props = ReturnType<typeof mapCart> & typeof actionsCart;
 interface IItemCh extends IItem {
   checked: boolean;
 }
-
+const TD = styled.td`
+  text-align: center;
+  color: var(--secondary-color);
+  svg {
+    cursor: pointer;
+  }
+`;
+const TH = styled.th`
+  text-align: center;
+  svg {
+    cursor: pointer;
+  }
+`;
 const Component: React.FC<Props> = (props) => {
   const { cart } = props;
   const [state, setState] = useState<IItemCh[]>([]);
-
+  const allCheck = useMemo(() => state.find((it) => !it.checked), [state]);
+  const oneCheck = useMemo(() => state.find((it) => it.checked), [state]);
   useEffect(() => {
     const arr: IItemCh[] = [];
     cart.map((it) => {
@@ -44,21 +57,7 @@ const Component: React.FC<Props> = (props) => {
         <BackButton />
       </Row>
     );
-  const TD = styled.td`
-    text-align: center;
-    color: var(--secondary-color);
-    svg {
-      cursor: pointer;
-    }
-  `;
-  const TH = styled.th`
-    text-align: center;
-    svg {
-      cursor: pointer;
-    }
-  `;
-  const allCheck = state.find((it) => !it.checked) === undefined;
-  const oneCheck = state.find((it) => it.checked) !== undefined;
+
   return (
     <>
       <Table>
@@ -69,7 +68,7 @@ const Component: React.FC<Props> = (props) => {
             <th>quantity</th>
             <th>price</th>
             <TH>
-              <CheckBox id={0} handler={handlerAll} check={allCheck} />
+              <CheckBox id={0} handler={handlerAll} check={allCheck === undefined} />
             </TH>
           </tr>
           {state.map((item) => (
@@ -87,11 +86,11 @@ const Component: React.FC<Props> = (props) => {
           ))}
         </tbody>
       </Table>
-      <Row>
-        <ButtonSecondary disabled={!oneCheck} onClick={() => console.log("заказать")}>
+      <FlexEnd>
+        <ButtonSecondary disabled={oneCheck === undefined} onClick={() => console.log("заказать")}>
           заказать
         </ButtonSecondary>
-      </Row>
+      </FlexEnd>
     </>
   );
 };

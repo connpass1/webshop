@@ -22,7 +22,7 @@ export const messageReducer: Reducer<any>=(
   action: any
 ) => {
 
-  console.log("messageReducer"); console.log(action);
+
   switch (action.type) {
 
     case ActionTypesMessage.adMessageRequest:
