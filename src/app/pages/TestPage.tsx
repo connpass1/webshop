@@ -1,17 +1,16 @@
 import React from "react";
-
 import { connect } from "react-redux";
 import { Button } from "../components/Elements/Button";
-import { Login } from "../components/Blocks/Login";
 import { mapCart, mapMessage } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
 import { actionsMessage } from "../store/storeMessage";
+import LoginPage from "./LoginPage";
 type Props2 = ReturnType<typeof mapMessage> & typeof actionsMessage;
 const Component2: React.FC<Props2> = (props) => {
-  const { message, adMessageRequest, fetching } = props;
+  const { message, adMessageRequest, status } = props;
   return (
     <>
-      {"fetching" + fetching}
+      {"fetching" + status}
       {message}
       <Button onClick={() => adMessageRequest("props ")} outlined>
         adMessageRequest
@@ -30,9 +29,9 @@ const Component: React.FC<Props> = (props) => {
   return (
     <>
       <Connected2 />
-      <Login />
+      <LoginPage />
       <hr />
-      {JSON.stringify(props.cart)}
+
       <Button onClick={props.clearCart} outlined>
         gggg
       </Button>

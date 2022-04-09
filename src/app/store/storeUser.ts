@@ -33,29 +33,28 @@ export const actionsUser={
 
 
 export const profileReducer: Reducer=(
-  state: IFetchCustomer={customer: {}, fetching: false, errorFetching: 0},
+  state: IFetchCustomer={customer: {}, status: 0},
   action,
 ): IFetchCustomer => {
-  console.log(action);
 
   switch (action.type) {
     case ActionTypesLogin.loginRequest:
     case ActionTypesLogin.registrationRequest:
-      return {...state, fetching: true, errorFetching: 0};
+      return {...state, status: 100};
     case ActionTypesLogin.loginSuccess:
       console.log(action.customer);
 
-      return {customer: action.customer, fetching: false, errorFetching: 0};
+      return {customer: action.customer, status: 0};
     case ActionTypesLogin.loginFiled:
       return {
-        ...state, errorFetching: action.error, fetching: false
+        ...state, status: action.error
       };
     case ActionTypesLogin.logoutRequest:
 
-      return {customer: {}, fetching: false, errorFetching: 0};
+      return {customer: {}, status: 0};
     case ActionTypesLogin.logoutFiled:
 
-      return {customer: {}, fetching: false, errorFetching: action.error};
+      return {customer: {}, status: 0};
     default:
       return state;
   }

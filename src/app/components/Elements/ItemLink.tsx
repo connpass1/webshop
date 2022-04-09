@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IEntity } from "../../store/Models";
+
 export const CatalogLink: React.FC<{ item: IEntity }> = ({ item }) => {
   if (!item.id) return <Link to={`/${item.id}/${item.id}`}>{item.name}</Link>;
   return (

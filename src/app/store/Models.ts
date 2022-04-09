@@ -1,44 +1,36 @@
 
-export interface IEntity {
+export interface   IEntity extends ISlug{
+    parent: string;
+}
+export interface ISlug {
     id: number;
     name: string;
     icon?: string;
-    parent: IEntity;
 }
-
 export interface IItem extends IEntity {
     price: number;
     quantity: number;
-    itemDetail: IItemDetail;
+    itemDetailId: number;
     checked: boolean;
 }
-export interface IOrderItem {
-    item: IItem;
-    quantity: number;
-}
-
-export interface Photo {
-    id: number;
-    url: string;
-    alt?: string;
-    thumbnail: string;
-
-}export interface IItemProperty {
+export interface IItemProperty {
     id: number;
     name: string;
     property: string;
 }
 export interface IItemDetail {
+    item: IItem;
     id: number;
     amount: number;
     caption: string;
     description: string;
-    photos: Photo;
+    photos: string[];
     properties: IItemProperty;
 
 }
 export interface ICatalog extends IEntity {
     childrenCategory: IEntity[];
+    items: IItem[];
 }
 export interface IPage {
     content: IItem[];
@@ -47,29 +39,32 @@ export interface IPage {
     totalElements: number;
 }
 interface IFetch {
-    fetching: boolean;
-    errorFetching: number;
+    status: number;
 }
 export interface IFetchCustomer extends IFetch {
-
     customer: ICustomer;
-
 }
 
-
+export interface IFetchContent extends IFetch {
+    content:  any;
+}
 export interface ICustomer {
     id?: number;
     name?: string;
-    profile_id?: number;
     password?: string;
     role?: string;
-
 }
-
+export interface IProfile {
+    user: ICustomer;
+    id:number;
+    address:string;
+    email:string;
+    phone: number;
+}
 
 export interface IFetchMessage extends IFetch {
     message: string;
 }
-export interface IFetchCart {
+export interface IFetchCart extends IFetch {
     cart: IItem[];
 }

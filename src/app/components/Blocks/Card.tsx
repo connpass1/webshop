@@ -1,14 +1,16 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { BsCart } from "react-icons/bs";
 import { mapCart } from "../../store/helper";
 import { cartReducer } from "../../store/storeCart";
 import { Link } from "react-router-dom";
+import { Icon } from "../Elements/Icon";
+import { LINK } from "../Elements/Styled";
+
 type Props = ReturnType<typeof cartReducer>;
 const Styled = styled.div`
   position: relative;
-  margin-right: 0.5em;
+ 
   .badge {
     background: var(--primary-color);
     color: #ffffff;
@@ -33,11 +35,11 @@ const Styled = styled.div`
 
 const Component: FunctionComponent<Props> = (prop) => {
   return (
-    <Link to="/cart" className="flex-center">
-      <BsCart />
+    <LINK to="/cart" >
+      <Icon src={"cart"} />
       <Styled>{prop.cart.length > 0 && <span className="badge">{prop.cart.length}</span>}</Styled>
       {prop.children && <span>{prop.children}</span>}
-    </Link>
+    </LINK>
   );
 };
 

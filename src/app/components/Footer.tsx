@@ -1,11 +1,10 @@
-import React from "react";
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { footerLinks, footerMessage } from "../data";
 import { FlexAround } from "./Elements/Styled";
-import { ISmall } from "./Wrapper";
 
-const Component: FunctionComponent<ISmall> = ({ small }) => {
+
+const Component: FunctionComponent  = ( ) => {
   return (
     <footer>
       <FlexAround>
@@ -15,7 +14,7 @@ const Component: FunctionComponent<ISmall> = ({ small }) => {
           </Link>
         ))}
       </FlexAround>
-      <FlexAround>{footerMessage + " small " + small}</FlexAround>
+      <FlexAround>{footerMessage   }</FlexAround>
     </footer>
   );
 };

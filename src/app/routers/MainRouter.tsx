@@ -1,20 +1,15 @@
-import React, { Suspense } from "react";
+import React, {  Suspense } from "react";
 import { Provider } from "react-redux";
-import Wrapper from "./components/Wrapper";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import TestPage from "./pages/TestPage";
+import Wrapper from "../components/Wrapper";
+import { BrowserRouter, Redirect, Route, Switch  } from "react-router-dom";
+import TestPage from "../pages/TestPage";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { applyMiddleware, createStore } from "redux";
-import { watchUserRequest } from "./store/saga";
-import CatalogPage from "./pages/CatalogPage";
-import ProfilePage from "./pages/ProfilePage";
-import ItemPage from "./pages/ItemPage";
-import ErrorPage from "./pages/ErrorPage";
-import { reducer } from "./store";
-import CartPage from "./pages/CartPage";
-import OrderPage from "./pages/OrderPage";
-import { Login } from "./components/Blocks/Login";
+import { watchUserRequest } from "../store/saga";
+import ErrorPage from "../pages/ErrorPage";
+import { reducer } from "../store";
+import FetchRouter from "./FetchRouter";
 
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -26,42 +21,36 @@ export const initialize = () => {
 const store = initialize();
 const P = () => <p>Заготовка статической страницы</p>;
 
-const AdminPage = React.lazy(() => import("./admin/AdminPage"));
+const  LoginPage = React.lazy(() => import("../pages/LoginPage"));
+const  CartPage = React.lazy(() => import("../pages/CartPage"));
 const component: React.FC = () => (
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
         <Wrapper>
-          <Suspense fallback={<div>Loading...</div>}></Suspense>
-          <Route path="/admin">
+          <Suspense fallback={<div>Loading...</div>}/>
+
+
+
+          <Route path={[  "/catalog/:id", "/item","/item/:id",  ] }>
+              <FetchRouter/>
+          </Route>
+
+          <Route path={[  "/user/profile",  "/order", "/login"  ] }>
             <Suspense fallback={<div>Загрузка админки...</div>}>
-              <AdminPage />
+              <LoginPage  />
             </Suspense>
           </Route>
-          <Route exact path="/catalog/:id">
-            <CatalogPage />
-          </Route>
-          <Route path="/profile">
-            <ProfilePage />
-          </Route>
 
-          <Route path="/order">
-            <Login>
-              <OrderPage />
-            </Login>
-          </Route>
           <Route exact path="/cart">
-            <CartPage />
+            <Suspense fallback={<div>Загрузка админки...</div>}>
+              <CartPage  />
+            </Suspense>
           </Route>
-          <Route exact path="/item/:id">
-            <ItemPage />
-          </Route>
-
           <Route exact path="/">
             <h1>главная</h1>
             <P />
           </Route>
-
           <Route path="/contacts">
             <h1>контакты </h1>
             <P />
@@ -74,9 +63,8 @@ const component: React.FC = () => (
             <h1>доставка </h1>
             <P />
           </Route>
-
           <Route path="/test">
-            <TestPage></TestPage>
+            <TestPage/>
           </Route>
           <Route exact path="/error/:id">
             <ErrorPage />
@@ -89,4 +77,5 @@ const component: React.FC = () => (
 );
 
 export { component as Router };
-//
+
+

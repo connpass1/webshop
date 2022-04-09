@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import { mapCart } from "../../store/helper";
 import { IItem } from "../../store/Models";
 import { actionsCart } from "../../store/storeCart";
-import { Button, BackToCatalog, ButtonSecondary } from "../Elements/Button";
+import { BackToCatalog, Button, ButtonSecondary } from "../Elements/Button";
 import { FlexAround, Input } from "../Elements/Styled";
+
 type Props = ReturnType<typeof mapCart> &
   typeof actionsCart & {
-    item: IItem;
-  };
+  item: IItem;
+};
 
 const CartBlock: React.FC<Props> = (prop) => {
   const { item, adToCart, cart } = prop;

@@ -1,17 +1,10 @@
-import React, { useState } from "react";
-import { FunctionComponent } from "react";
-import styled from "styled-components";
+import React, { FunctionComponent, useState } from "react";
+import styled, { keyframes } from "styled-components";
 import AppBar from "./AppBar";
-import Catalog from "./Aside";
+import Navigation from "./Navigation";
 import { useIsSmall } from "./hooks";
-
-import { keyframes } from "styled-components";
 import Toggle from "./Elements/Toggle";
 import Footer from "./Footer";
-
-export interface ISmall {
-  small?: boolean;
-}
 const inAnimation = keyframes`
  0% {   left: -200px;opacity: 0.5; } 
  100% {   left:0; opacity: 1; }
@@ -29,20 +22,23 @@ const Nav = styled.nav<{ large: boolean; open: boolean }>`
 const Wrapper: FunctionComponent = ({ children }) => {
   const [navBarOpened, setNavBarOpened] = useState(false);
   const small = useIsSmall();
+  const toggle= (g: React.SetStateAction<boolean>) => setNavBarOpened(g)
   return (
     <div className="wrapper">
-      <AppBar small={small}>{small ? <Toggle onToggle={(g) => setNavBarOpened(g)}></Toggle> : <div />}</AppBar>
+      <AppBar small={small}>{small ? <Toggle onToggle={toggle} /> : <div />}</AppBar>
       <main>
+
         <ErrorBoundary>{children}</ErrorBoundary>
       </main>
       <Nav large={!small} open={navBarOpened}>
-        <Catalog />
+        <Navigation />
       </Nav>
-      <Footer small={small} />
+      <Footer  />
     </div>
   );
 };
 export default Wrapper;
+
 class ErrorBoundary extends React.Component {
   state = { hasError: false, error: undefined };
 
