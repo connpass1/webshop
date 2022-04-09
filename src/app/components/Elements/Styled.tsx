@@ -1,15 +1,43 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const FlexEnd = styled.div`
   display: flex;
   justify-content: flex-end;
+  
 `;
 export const FlexAround = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
 `;
+export const A = styled.a`
+display: flex;
+justify-items: center;
+justify-content: center;
+align-items: center;
+  .icon{
+    margin-right: -0.2em;
+  }
+`
+export const LINK = styled(Link)`
+display: flex;
+justify-items: center;
+justify-content: center;
+align-items: center;
+  .icon{
+    margin-right: -0.2em; 
+  }
+`
+
+export const FlexCenter  = styled.div` 
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+ `
 export const Column = (props: { children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined }) => {
   return <div className="column">{props.children}</div>;
 };

@@ -10,25 +10,13 @@ type Props = ReturnType<typeof mapFetchUser> & typeof actionsUser;
 
 const Component: FunctionComponent<Props> = (props) => {
 
-  const handler = () => {
-    if (props.customer.id) {
-      props.logoutUserRequest(props.customer.id);
+
+   return<div className={"add"}  > Adminka</div>
 
     }
 
 
-  };
 
-  if (props.customer)
-    return (
-      <Button onClick={handler} alignSelf="flex-end">
-        Выход <Icon src={"exit"} />
-      </Button>
-    );
-  return null;
-
-
-};
 
 const connectedComponent = connect(mapFetchUser, actionsUser)(Component);
 export default connectedComponent;

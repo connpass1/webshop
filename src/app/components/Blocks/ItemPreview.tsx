@@ -12,11 +12,10 @@ const ItemVew = styled.figure`
   border-top-right-radius: 8px;
   display: flex;
   cursor: pointer;
-  flex-basis: "content";
-  width: 180px;
-  display: flex;
+  flex-basis:  content;
+  width: 240px; 
   flex-direction: column;
-  margin: 10px;
+
   .img {
     align-self: center;
   }
@@ -32,10 +31,10 @@ const ItemVew = styled.figure`
 
 const Component: React.FC<IItem> = (item) => {
   return (
-    <Link to={`/item/${item.id}`}>
+    <Link to={`/item/${item.itemDetailId}`}>
       <ItemVew>
         <div className="caption">{item.name}</div>
-        <div className="img">{item.icon ? item.icon : <img src="/img/box.png" alt={item.name}></img>}</div>
+        <div className="img">{item.icon ? item.icon : <img src="/img/box.png" alt={item.name} />}</div>
         <Row>цена -{item.price}</Row>
       </ItemVew>
     </Link>

@@ -2,13 +2,15 @@ import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ButtonSecondary, BackToCatalog, CheckBox } from "../components/Elements/Button";
-import { FlexAround, FlexBetween, FlexEnd, Row, Table } from "../components/Elements/Styled";
-import { compare, mapCart } from "../store/helper";
+import {  FlexBetween, FlexEnd,Table } from "../components/Elements/Styled";
+import { compare, mapCart, mapCustomer } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
 import styled from "styled-components";
 import { IItem } from "../store/Models";
-import { Login } from "../components/Blocks/Login";
-import MakeOrder from "../components/Blocks/MakeOrder";
+import { CheckFetching } from "../components/Fetching";
+import LoginPage from "./LoginPage";
+import { Icon } from "../components/Elements/Icon";
+
 type Props = ReturnType<typeof mapCart> & typeof actionsCart;
 
 const TD = styled.td`
@@ -24,6 +26,45 @@ const TH = styled.th`
     cursor: pointer;
   }
 `;
+type PropsOrder = ReturnType<typeof mapCustomer> & {
+  disabled: boolean;
+  handler: any;
+  items: IItem[];
+};
+
+const ButtonOrder: React.FC<PropsOrder> = (props) => {
+  const [state, setState] = useState(false);
+
+  const handler = () => {
+    if (!state) setState(true);
+    else if (props.id) {
+      const arr = props.items.filter((it) => it.checked);
+      const arr1 = [];
+      for (const element of arr) {
+        arr1.push({ id: element.id, quantity: element.quantity });
+      }
+      const order = { userId: props.id, items: arr1 };
+      props.handler(order);
+    }
+  };
+
+  return (
+    <>
+      {state ? (
+        <LoginPage>
+          <ButtonSecondary disabled={props.disabled} onClick={handler}>
+            "заказать ss"
+          </ButtonSecondary>
+        </LoginPage>
+      ) : (
+        <ButtonSecondary disabled={props.disabled} onClick={handler}>
+          "заказать"
+        </ButtonSecondary>
+      )}
+    </>
+  );
+};
+
 const Component: React.FC<Props> = (props) => {
   const { cart } = props;
   const [state, setState] = useState<IItem[]>([]);
@@ -51,10 +92,11 @@ const Component: React.FC<Props> = (props) => {
       setState([...state]);
     }
   };
+
   if (cart.length === 0)
     return (
       <>
-        <h1>Корзина</h1>
+        <h1> <Icon src={"cart"} />  Корзина</h1>
         <FlexBetween>
           <i>Корзина пуста</i>
           <BackToCatalog />
@@ -71,7 +113,7 @@ const Component: React.FC<Props> = (props) => {
     console.log("");
     props.delArrayFromCart(arrDel);
   };
-
+  const disabled = oneCheck === undefined;
   return (
     <>
       <h1>Корзина</h1>
@@ -101,12 +143,13 @@ const Component: React.FC<Props> = (props) => {
           ))}
         </tbody>
       </Table>
-
+      <CheckFetching status={props.status} />
       <FlexBetween>
-        <ButtonSecondary onClick={handlerDel} disabled={oneCheck === undefined}>
+        <ButtonSecondary onClick={handlerDel} disabled={disabled}>
           {allCheck === undefined ? "очистить корзину" : "удалить из корзины"}
         </ButtonSecondary>
-        <MakeOrder order={state} disabled={oneCheck === undefined}></MakeOrder>
+
+        <ButtonComponent items={state} disabled={disabled} handler={props.makeOrderRequest}/>
       </FlexBetween>
       <FlexEnd>
         <BackToCatalog />
@@ -115,5 +158,5 @@ const Component: React.FC<Props> = (props) => {
   );
 };
 const ConnectedComponent = connect(mapCart, actionsCart)(Component);
-
+const ButtonComponent = connect(mapCustomer)(ButtonOrder);
 export default ConnectedComponent;

@@ -1,5 +1,4 @@
-import React from "react";
-import { CSSProperties, Dispatch, FunctionComponent, ReactNode, SetStateAction, useState } from "react";
+import React, { CSSProperties, Dispatch, FunctionComponent, ReactNode, SetStateAction, useState } from "react";
 
 export interface RenderOptions {
   barHeight: number;
@@ -12,11 +11,13 @@ export interface RenderOptions {
   topOffset: number;
   width: number;
 }
+
 export interface CommonBurgerProps {
   onToggle?: (toggled: boolean) => any;
   toggle?: Dispatch<SetStateAction<boolean>>;
   toggled?: boolean;
 }
+
 export interface BurgerProps extends CommonBurgerProps {
   render: (o: RenderOptions) => ReactNode;
 }
@@ -42,14 +43,14 @@ const Burger = (({ onToggle, render, toggle, toggled }) => {
     position: "relative",
     transition: transition,
     userSelect: "none",
-    width: `48px`,
+    width: `48px`
   };
 
   const barStyles: CSSProperties = {
     background: "currentColor",
     height: `${barHeight}px`,
     left: `${room}px`,
-    position: "absolute",
+    position: "absolute"
   };
 
   const toggleFunction = toggle || toggleInternal;
@@ -70,7 +71,7 @@ const Burger = (({ onToggle, render, toggle, toggled }) => {
     margin,
     move,
     topOffset,
-    width,
+    width
   });
 }) as FunctionComponent<BurgerProps>;
 const Toggle = ((props) => (
@@ -82,7 +83,7 @@ const Toggle = ((props) => (
         onClick={o.handler}
         style={{
           ...o.burgerStyles,
-          transform: `${o.isToggled ? `rotateY(${180}deg)` : "none"}`,
+          transform: `${o.isToggled ? `rotateY(${180}deg)` : "none"}`
         }}
         tabIndex={0}
       >
@@ -92,7 +93,7 @@ const Toggle = ((props) => (
             width: `${o.width}px`,
             top: `${o.topOffset}px`,
             transition: transition,
-            transform: `${o.isToggled ? `rotate(${-45}deg) translate(${o.move * -1}px, ${o.move}px)` : "none"}`,
+            transform: `${o.isToggled ? `rotate(${-45}deg) translate(${o.move * -1}px, ${o.move}px)` : "none"}`
           }}
         />
 
@@ -102,7 +103,7 @@ const Toggle = ((props) => (
             width: `${o.width}px`,
             top: `${o.topOffset + o.barHeight + o.margin}px`,
             transition: transition,
-            transform: `${o.isToggled ? `rotate(${45}deg) translate(${o.move * -1}px, ${o.move * -1}px)` : "none"}`,
+            transform: `${o.isToggled ? `rotate(${45}deg) translate(${o.move * -1}px, ${o.move * -1}px)` : "none"}`
           }}
         />
       </div>

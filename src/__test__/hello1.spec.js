@@ -3,7 +3,7 @@ import React, {JSXElementConstructor, ReactElement} from "react";
 
 import userEvent from '@testing-library/user-event'
 import {screen} from '@testing-library/dom'
-import {Router} from '../app/router';
+import {Router} from '../app/routers/MainRouter';
 
 test('два плюс два равно четыре', () => {
   expect(2+2).toBe(4);

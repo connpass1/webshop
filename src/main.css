@@ -6,7 +6,6 @@ body {
   --error-color: #e53935;
   --grey-color: #424242;
   --grey-color-light: #e0e0e0;
-
   --shadow: -1px 1px 12px -2px rgba(0, 0, 0, 0.6);
   --border: 1px solid rgba(0, 0, 0, 0.4);
   user-select: none;
@@ -19,9 +18,7 @@ figure {
   margin-inline-end: 0;
   margin-block-start: 0;
 }
-.icon {
-  margin: 1 0.25px;
-}
+
 ul {
   list-style: none;
   padding-inline-start: 0;
@@ -44,31 +41,31 @@ main {
   user-select: text;
   display: flex;
   flex-direction: column;
+
+
 }
 nav {
   grid-area: nav;
-  border-right: var(--border);
-  border-left: var(--border);
-  min-height: 100vh;
+
   display: flex;
-  flex-direction: columns;
+  flex-direction: column;
   min-width: 240px;
-  padding: 8px;
-  grid-area: nav;
   background-color: white;
   border-radius: 8px;
 }
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 240px 48px 980px 1fr;
-  grid-template-rows: min-content minmax(90vh, max-content) min-content;
+  grid-template-rows: min-content  5fr  min-content;
   gap: 12px 12px;
   grid-template-areas:
     "appBar appBar appBar appBar appBar"
     ". nav . main ."
     "footer  footer footer footer footer";
   padding: 0;
-  min-height: 100vh;
+  min-height:  100vh;
+
+
 }
 @media (max-width: 1980px) {
   .wrapper {
@@ -80,6 +77,8 @@ nav {
     gap: 12px 12px;
   }
 }
+
+
 @media (max-width: 1200px) {
   .wrapper {
     grid-template-areas:
@@ -89,8 +88,10 @@ nav {
     grid-template-columns: 1fr 4fr;
     gap: 12px 12px;
   }
+
+
 }
-@media (max-width: 992px) {
+@media (max-width: 720px) {
   .wrapper {
     grid-template-areas:
       "appBar  "
@@ -103,7 +104,11 @@ nav {
     box-shadow: none;
   }
   nav {
+    position: absolute;
     border-radius: 0;
+    height:  100% ;
+    margin: 0;
+     width: calc( 100% - 100px );
   }
 }
 .column {
@@ -114,17 +119,16 @@ nav {
   display: flex;
   flex-direction: row;
 }
-.flex-center {
-  display: flex;
-  justify-items: center;
-  justify-content: center;
-  align-items: center;
-}
+
 h1 {
   color: var(--primary-color);
   text-transform: capitalize;
   border-bottom: var(--border);
-  padding: 0.5rem;
+  padding: 4px 0.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
 }
 footer {
   grid-area: footer;
@@ -150,10 +154,7 @@ footer {
   margin: 80px auto;
   position: relative;
   text-indent: -9999em;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
   transform: translateZ(0);
-  -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
 .loader:before,
@@ -195,7 +196,6 @@ button {
   cursor: pointer;
   align-items: center;
   user-select: none;
-  cursor: pointer;
   display: inline-flex;
   flex-wrap: nowrap;
   padding: 8px 12px;
@@ -222,8 +222,12 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
 }
-
+input[type="text"]:focus {
+  border: 2px solid var(--primary-color);
+}
 button,
 input {
   overflow: visible;
@@ -257,7 +261,6 @@ footer {
 main a {
   font-style: italic;
   outline: none;
-  text-decoration: none;
   color: var(--primary-color);
   font-size: 1.2em;
   white-space: nowrap;
@@ -266,5 +269,17 @@ main a {
 }
 main a:hover,
 aside a:hover {
-  text-shadow: 1px 0px 0px currentColor;
+  text-shadow: 1px 0  0  currentColor;
+}
+.icon{
+  width: 1em  ;
+  height:1em ;
+  fill: none;
+  stroke: currentColor;
+  padding-right:   8px;
+  align-self: center;
+  justify-self: flex-end;
+}
+.admin{
+  display: flex;
 }
