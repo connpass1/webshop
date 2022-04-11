@@ -4,6 +4,7 @@ import { Breadcrumbs } from "../components/Elements/Breadcrumbs";
 import { CatalogLink } from "../components/Elements/ItemLink";
 import ItemBlock from "../components/Blocks/ItemBlock";
 import { ICatalog } from "../store/Models";
+import { Icon } from "../components/Elements/Icon";
 
 const Styled = styled.div`
   display: flex;
@@ -17,12 +18,10 @@ const Catalog: FunctionComponent<{ catalog:ICatalog} > = ({ catalog }) => {
 
   return (
     <> <Breadcrumbs parent={catalog.parent} />
-      <h1>{catalog.name}</h1>
+      <h1><Icon src={catalog.icon}/>{catalog.name}</h1>
       <Styled>
         {catalog.childrenCategory?.map((cat) => (
-          <CatalogLink key={cat.id} item={cat}>
-            {cat.name}
-          </CatalogLink>
+          <CatalogLink key={cat.id}   item={cat}/>
         ))}
       </Styled>
       {catalog.items?.length > 0 && <ItemBlock items={catalog.items} />}

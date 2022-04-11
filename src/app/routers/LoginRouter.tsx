@@ -13,27 +13,19 @@ type Props = ReturnType<typeof mapContent> & typeof actionsContent&{customer:ICu
 const RouterComponent: FunctionComponent<   Props > = ( props  ) => {
   const location = useLocation();
   console.log(location.pathname);
-
-
   useEffect(() => {
-
-        props.contentRequest(location.pathname+'/'+props.customer.id)}
-
+         props.contentRequest(location.pathname+'/'+props.customer.id)
+      console.log(location.pathname);
+    }
     , [location]);
+  const d=Array.isArray( props.content)
+  return < >   {
+    props.content &&<Switch>
+      {d? <Route  path="/order" component={()=> <OrderPage   data={props.content}/>}/>:
+     <Route path="/user/profile" component={()=> <ProfilePage profile={props.content}/>}/>}
+ //</Switch>
 
-  return < >
-    <CheckFetching   status={props.status}/>
-
-<Switch>
-    <Route path="/order">
-      <OrderPage   data={props.content}/>
-
-    </Route>
-    <Route path="/user/profile">
-
-      <ProfilePage profile={props.content}></ProfilePage>
-    </Route></Switch>
-
+}
   </>
 }
 

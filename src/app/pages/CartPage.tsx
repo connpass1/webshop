@@ -132,7 +132,7 @@ const Component: React.FC<Props> = (props) => {
             <tr key={item.id}>
               <td>{item.icon} </td>
               <td>
-                <Link to={"/item/" + item.id}> {item.name}</Link>
+                <Link to={"/item/" + item.itemDetailId}> {item.name}</Link>
               </td>
               <td>{item.quantity} </td>
               <td>{item.price} </td>

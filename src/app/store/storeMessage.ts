@@ -1,5 +1,5 @@
 import {Reducer} from "redux";
-import {IFetchMessage} from "./Models";
+import {IFetchMessage } from "./Models";
 
 export enum ActionTypesMessage {
   adMessage="adMessage",

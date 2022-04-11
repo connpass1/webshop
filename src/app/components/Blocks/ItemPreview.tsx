@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { IItem } from "../../store/Models";
 import { Row } from "../Elements/Styled";
+import { Image } from "../Elements/Image";
 
 const ItemVew = styled.figure`
   border: solid 1px var(--primary-color);
@@ -12,13 +13,11 @@ const ItemVew = styled.figure`
   border-top-right-radius: 8px;
   display: flex;
   cursor: pointer;
-  flex-basis:  content;
-  width: 240px; 
+  flex-basis: content;
+  width: 240px;
   flex-direction: column;
 
-  .img {
-    align-self: center;
-  }
+
   .caption {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -32,9 +31,12 @@ const ItemVew = styled.figure`
 const Component: React.FC<IItem> = (item) => {
   return (
     <Link to={`/item/${item.itemDetailId}`}>
+      {item.itemDetailId}
+
+      ItemVew
       <ItemVew>
         <div className="caption">{item.name}</div>
-        <div className="img">{item.icon ? item.icon : <img src="/img/box.png" alt={item.name} />}</div>
+        <Image src="/img/box.png" alt={item.name} />
         <Row>цена -{item.price}</Row>
       </ItemVew>
     </Link>

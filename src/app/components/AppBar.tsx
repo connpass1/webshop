@@ -9,17 +9,17 @@ import { Icon } from "./Elements/Icon";
 import { A, FlexAround, FlexCenter, LINK } from "./Elements/Styled";
 
 const Styled = styled.div<{ large: boolean }>`
-  grid-area: appBar; 
+  grid-area: appBar;
   display: flex;
   justify-content: space-between;
   color: white;
   align-items: center;
   border-bottom: 1px solid grey;
-  padding: ${(props) => (props.large ? "10px" :0)};
+  padding: ${(props) => (props.large ? "10px" : 0)};
   background-color: ${(props) => (props.large ? "white" : "var(--primary-color)")};
   font-size: 1.2rem;
   flex-wrap: nowrap;
-    
+
 
   a {
     padding: 8px;
@@ -52,7 +52,7 @@ const Styled = styled.div<{ large: boolean }>`
     align-items: center;
     flex-direction: row;
   }
- 
+
   .menuButton {
     width: var(--button-icon-size);
     height: var(--button-icon-size);
@@ -64,7 +64,7 @@ const Styled = styled.div<{ large: boolean }>`
   }
 `;
 
-const AppBar: FunctionComponent<{small:boolean}> = ({ small, children }) => {
+const AppBar: FunctionComponent<{ small: boolean }> = ({ small, children }) => {
   return (
     <Styled large={!small}>
       <Link to="/">
@@ -77,7 +77,7 @@ const AppBar: FunctionComponent<{small:boolean}> = ({ small, children }) => {
 
       <div className={classNames("bar", "column")}>
         {!small && (
-          <FlexAround  className={  "links"   }  >
+          <FlexAround className={"links"}>
             {webMenu.map((item, key) => (
               <Link key={key} to={item.link}>
                 {item.txt}
@@ -85,8 +85,8 @@ const AppBar: FunctionComponent<{small:boolean}> = ({ small, children }) => {
             ))}
           </FlexAround>
         )}
-         <FlexCenter  className= "links"  >
-          <A href={`tel:${phoneNumber}`}  >
+        <FlexCenter className="links">
+          <A href={`tel:${phoneNumber}`}>
             <Icon src={"phone"} />
             {!small && phoneNumber}
           </A>
@@ -95,7 +95,7 @@ const AppBar: FunctionComponent<{small:boolean}> = ({ small, children }) => {
             <Icon src={"person"} />
             {!small && "личный кабинет "}
           </LINK> </FlexCenter>
-        </div>
+      </div>
 
       {children}
     </Styled>

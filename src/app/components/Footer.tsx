@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { footerLinks, footerMessage } from "../data";
 import { FlexAround } from "./Elements/Styled";
 
-
-const Component: FunctionComponent  = ( ) => {
+const Component: FunctionComponent = () => {
   return (
     <footer>
       <FlexAround>
@@ -14,7 +13,7 @@ const Component: FunctionComponent  = ( ) => {
           </Link>
         ))}
       </FlexAround>
-      <FlexAround>{footerMessage   }</FlexAround>
+      <FlexAround>{footerMessage}</FlexAround>
     </footer>
   );
 };

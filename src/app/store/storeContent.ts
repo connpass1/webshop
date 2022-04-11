@@ -2,11 +2,9 @@ import {Reducer} from "redux";
 import { IFetchContent } from "./Models";
 
 export enum ActionTypesContent {
-
   contentRequest="Content_REQUEST",
   contentSuccess="Content_SUCCESS",
   contentFiled="Content_FILED",
-
 }
 export const actionsContent={
   contentRequest: (url: string) => ({type: ActionTypesContent.contentRequest, url}),

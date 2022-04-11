@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const FlexEnd = styled.div`
   display: flex;
   justify-content: flex-end;
-  
+
 `;
 export const FlexAround = styled.div`
   display: flex;
@@ -14,30 +14,32 @@ export const FlexAround = styled.div`
   flex-wrap: wrap;
 `;
 export const A = styled.a`
-display: flex;
-justify-items: center;
-justify-content: center;
-align-items: center;
-  .icon{
-    margin-right: -0.2em;
-  }
-`
-export const LINK = styled(Link)`
-display: flex;
-justify-items: center;
-justify-content: center;
-align-items: center;
-  .icon{
-    margin-right: -0.2em; 
-  }
-`
-
-export const FlexCenter  = styled.div` 
   display: flex;
   justify-items: center;
   justify-content: center;
   align-items: center;
- `
+
+  .icon {
+    margin-right: -0.2em;
+  }
+`;
+export const LINK = styled(Link)`
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+
+  .icon {
+    margin-right: -0.2em;
+  }
+`;
+
+export const FlexCenter = styled.div`
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+`;
 export const Column = (props: { children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined }) => {
   return <div className="column">{props.children}</div>;
 };
@@ -58,14 +60,17 @@ export const Table = styled.table`
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+
   th,
   td {
     border: 1px solid;
     padding: 8px;
   }
+
   tr:nth-child(even) {
     background-color: var(--grey-color-light);
   }
+
   tr:hover {
     background-color: var(--secondary-color-light);
   }

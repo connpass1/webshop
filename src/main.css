@@ -56,16 +56,14 @@ nav {
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 240px 48px 980px 1fr;
-  grid-template-rows: min-content  5fr  min-content;
+  grid-template-rows: min-content   5fr  min-content;
   gap: 12px 12px;
   grid-template-areas:
-    "appBar appBar appBar appBar appBar"
+    ". appBar appBar appBar ."
     ". nav . main ."
-    "footer  footer footer footer footer";
+    ".  footer footer footer.";
   padding: 0;
   min-height:  100vh;
-
-
 }
 @media (max-width: 1980px) {
   .wrapper {
@@ -83,6 +81,7 @@ nav {
   .wrapper {
     grid-template-areas:
       "appBar   appBar   "
+
       "  nav   main "
       "footer  footer   ";
     grid-template-columns: 1fr 4fr;
@@ -95,10 +94,11 @@ nav {
   .wrapper {
     grid-template-areas:
       "appBar  "
+
       "  main "
       "footer ";
     grid-template-columns: 100%;
-    gap: 12px 12px;
+    gap: 0 12px;
   }
   main {
     box-shadow: none;
@@ -110,6 +110,7 @@ nav {
     margin: 0;
      width: calc( 100% - 100px );
   }
+
 }
 .column {
   display: flex;
@@ -122,12 +123,13 @@ nav {
 
 h1 {
   color: var(--primary-color);
-  text-transform: capitalize;
+
   border-bottom: var(--border);
   padding: 4px 0.5rem;
   display: flex;
   align-items: center;
   flex-direction: row;
+  margin-block-start:0;
 
 }
 footer {
@@ -279,7 +281,4 @@ aside a:hover {
   padding-right:   8px;
   align-self: center;
   justify-self: flex-end;
-}
-.admin{
-  display: flex;
 }

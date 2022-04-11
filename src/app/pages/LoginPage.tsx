@@ -55,6 +55,8 @@ const Component: FunctionComponent<Props> = (props) => {
         <hr />
 
 <FlexEnd>
+  <Column>
+  <CheckFetching status={status}/>
           <Button onClick={loginHandler} alignSelf="flex-end">
             {registration ? (
               <>
@@ -65,8 +67,8 @@ const Component: FunctionComponent<Props> = (props) => {
                 Вход <Icon src="enter"/>
               </>
             )}
-          </Button>
-        <CheckFetching status={status}/></FlexEnd>
+          </Button></Column>
+      </FlexEnd>
       </Column>
     </Styled>
   );

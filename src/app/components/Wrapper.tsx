@@ -5,13 +5,26 @@ import Navigation from "./Navigation";
 import { useIsSmall } from "./hooks";
 import Toggle from "./Elements/Toggle";
 import Footer from "./Footer";
+
 const inAnimation = keyframes`
- 0% {   left: -200px;opacity: 0.5; } 
- 100% {   left:0; opacity: 1; }
+  0% {
+    left: -200px;
+    opacity: 0.5;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
 `;
 const outAnimation = keyframes`
- 0% {   left: 0;opacity:1; } 
- 100% {   left:-400px; opacity: 0.5; }
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+  100% {
+    left: -400px;
+    opacity: 0.5;
+  }
 `;
 const Nav = styled.nav<{ large: boolean; open: boolean }>`
   position: ${(props) => (props.large ? "relative" : "absolute")};
@@ -22,18 +35,22 @@ const Nav = styled.nav<{ large: boolean; open: boolean }>`
 const Wrapper: FunctionComponent = ({ children }) => {
   const [navBarOpened, setNavBarOpened] = useState(false);
   const small = useIsSmall();
-  const toggle= (g: React.SetStateAction<boolean>) => setNavBarOpened(g)
+  const toggle = (g: React.SetStateAction<boolean>) => setNavBarOpened(g);
+  const closeNav = (g: React.SetStateAction<boolean>) => {
+    if(navBarOpened)toggle(false)
+
+  }
   return (
     <div className="wrapper">
-      <AppBar small={small}>{small ? <Toggle onToggle={toggle} /> : <div />}</AppBar>
+      <AppBar small={small}>{small ? <Toggle onToggle={toggle} toggled={navBarOpened}/> : <div />}
+      </AppBar>
       <main>
-
         <ErrorBoundary>{children}</ErrorBoundary>
       </main>
       <Nav large={!small} open={navBarOpened}>
-        <Navigation />
+        <Navigation closeNav={closeNav } />
       </Nav>
-      <Footer  />
+      <Footer />
     </div>
   );
 };

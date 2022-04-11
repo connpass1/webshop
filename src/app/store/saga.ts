@@ -59,9 +59,9 @@ function* getContent(p : any) {
   try {
     console.log(JSON.stringify(p.url));
     const {data}=yield call(axios.get, SERVERNAME+ p.url )
-    // yield delay(1500)
-     if (data===null) yield put(actionsContent.contentFiled(404))
-
+       yield delay(2500)
+   // console.log(JSON.stringify(data));
+     if (!data  ) yield put(actionsContent.contentFiled(404))
     else yield put(actionsContent.contentSuccess(data))
 
   } catch (e) {

@@ -1,10 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { getErrorStatus } from "../store/helper";
 
 export const maxSmallWidth = 720;
 export const SERVERNAME = "http://192.168.1.239:8080";
+
 export function useIsSmall() {
   const [small, setSmall] = useState(false);
   useEffect(() => {
@@ -17,6 +15,7 @@ export function useIsSmall() {
   });
   return small;
 }
+
 // export function useFetchingId(path?: string) {
 //   const [status, setStatus] = useState(0);
 //   const [data, setData] = useState();
