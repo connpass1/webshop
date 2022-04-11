@@ -4,19 +4,13 @@ import { actionsUser } from "../../store/storeUser";
 import { mapFetchUser } from "../../store/helper";
 import { Button } from "../Elements/Button";
 import { Icon } from "../Elements/Icon";
-
-
 type Props = ReturnType<typeof mapFetchUser> & typeof actionsUser;
 
 const Component: FunctionComponent<Props> = (props) => {
-
   const handler = () => {
     if (props.customer.id) {
       props.logoutUserRequest(props.customer.id);
-
     }
-
-
   };
 
   if (props.customer)
@@ -26,8 +20,6 @@ const Component: FunctionComponent<Props> = (props) => {
       </Button>
     );
   return null;
-
-
 };
 
 const connectedComponent = connect(mapFetchUser, actionsUser)(Component);

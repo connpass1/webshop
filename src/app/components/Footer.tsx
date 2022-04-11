@@ -3,10 +3,23 @@ import { Link } from "react-router-dom";
 import { footerLinks, footerMessage } from "../data";
 import { FlexAround } from "./Elements/Styled";
 
+import { theme } from "./GlobalStyles";
+import styled from "styled-components";
 
-const Component: FunctionComponent  = ( ) => {
+
+const Footer=styled.footer` 
+    grid-area: footer;
+    background-color: ${theme.color.grey};
+    padding: 10px;
+    color: white;
+   
+`
+
+const Component: FunctionComponent = () => {
+
+
   return (
-    <footer>
+    <Footer>
       <FlexAround>
         {footerLinks.map((l, key) => (
           <Link key={`f${key}l`} to={l.link}>
@@ -14,8 +27,8 @@ const Component: FunctionComponent  = ( ) => {
           </Link>
         ))}
       </FlexAround>
-      <FlexAround>{footerMessage   }</FlexAround>
-    </footer>
+      <FlexAround>{footerMessage}</FlexAround>
+    </Footer>
   );
 };
 export default Component;

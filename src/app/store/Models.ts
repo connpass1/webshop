@@ -41,6 +41,20 @@ export interface IPage {
 interface IFetch {
     status: number;
 }
+export interface IOrderItem{
+    id:number;
+    quantity:number;
+    item:IItem;
+}
+export interface IOrder{
+  status: number;
+    id: number;
+    initDate: number;
+    lastUpdateStatus:number;
+    orderItems: IOrderItem[];
+
+}
+
 export interface IFetchCustomer extends IFetch {
     customer: ICustomer;
 }

@@ -9,5 +9,6 @@ export const reducer=combineReducers({
     cartReducer: cartReducer,
     messageReducer: messageReducer,
     contentReducer: contentReducer,
+
 });
 

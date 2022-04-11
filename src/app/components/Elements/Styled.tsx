@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { theme } from "../GlobalStyles";
 
 export const FlexEnd = styled.div`
   display: flex;
   justify-content: flex-end;
-  
+
 `;
 export const FlexAround = styled.div`
   display: flex;
@@ -14,36 +15,41 @@ export const FlexAround = styled.div`
   flex-wrap: wrap;
 `;
 export const A = styled.a`
-display: flex;
-justify-items: center;
-justify-content: center;
-align-items: center;
-  .icon{
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  align-items: center; 
+  .icon {
     margin-right: -0.2em;
   }
-`
+`;
 export const LINK = styled(Link)`
-display: flex;
-justify-items: center;
-justify-content: center;
-align-items: center;
-  .icon{
-    margin-right: -0.2em; 
-  }
-`
-
-export const FlexCenter  = styled.div` 
   display: flex;
   justify-items: center;
   justify-content: center;
   align-items: center;
- `
-export const Column = (props: { children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined }) => {
-  return <div className="column">{props.children}</div>;
-};
-export const Row = (props: { children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined }) => {
-  return <div className="row">{props.children}</div>;
-};
+
+  .icon {
+    margin-right: -0.2em;
+  }
+`;
+export const Row = styled.div`
+          display: flex;
+          flex-direction: row;
+  `
+;
+export const FlexCenter = styled.div`
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+`;
+export const Column = styled.div`
+          display: flex;
+          flex-direction: column;
+  `
+;
+
 
 export const FlexBetween = styled.div`
   margin: 12px;
@@ -58,22 +64,25 @@ export const Table = styled.table`
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+
   th,
   td {
     border: 1px solid;
     padding: 8px;
   }
+
   tr:nth-child(even) {
-    background-color: var(--grey-color-light);
+    background-color:  ${theme.color.greyLight};
   }
+
   tr:hover {
-    background-color: var(--secondary-color-light);
+    background-color: ${theme.color.secondaryLight};
   }
 
   th {
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: var(--secondary-color);
+    background-color: ${theme.color.secondary};
     color: white;
   }
 `;

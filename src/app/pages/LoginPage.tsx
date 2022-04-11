@@ -8,6 +8,7 @@ import { Column, FlexBetween, FlexCenter, FlexEnd, Input } from "../components/E
 import { CheckFetching } from "../components/Fetching";
 import LoginRouter from "../routers/LoginRouter";
 import { Icon } from "../components/Elements/Icon";
+import { theme } from "../components/GlobalStyles";
 
 type Props = ReturnType<typeof mapFetchUser> & typeof actionsUser;
 
@@ -15,9 +16,9 @@ type Props = ReturnType<typeof mapFetchUser> & typeof actionsUser;
 const Styled = styled.div`
   margin: 12px;
   padding: 12px;
-  border: 2px solid var(--primary-color);
-  background-color: var(--primary-color-light);
-  color: var(--primary-color);
+  border: 2px solid ${theme.color.primary}; 
+  background-color: ${theme.color.primaryLight};
+  color: ${theme.color.primary};
   max-width: 520px;
   align-self: center;
 `;
@@ -55,6 +56,8 @@ const Component: FunctionComponent<Props> = (props) => {
         <hr />
 
 <FlexEnd>
+  <Column>
+  <CheckFetching status={status}/>
           <Button onClick={loginHandler} alignSelf="flex-end">
             {registration ? (
               <>
@@ -65,8 +68,8 @@ const Component: FunctionComponent<Props> = (props) => {
                 Вход <Icon src="enter"/>
               </>
             )}
-          </Button>
-        <CheckFetching status={status}/></FlexEnd>
+          </Button></Column>
+      </FlexEnd>
       </Column>
     </Styled>
   );

@@ -1,4 +1,4 @@
-import { IFetchCart, IFetchCustomer, IFetchMessage, IEntity, IFetchContent } from "./Models";
+import { IFetchCart, IFetchCustomer, IFetchMessage, IEntity, IFetchContent  } from "./Models";
 
 function isObject(object: any) {
     return object!=null&&typeof object==='object';

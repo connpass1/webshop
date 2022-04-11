@@ -4,6 +4,7 @@ import { IItem } from "../../store/Models";
 import { ButtonSecondary } from "../Elements/Button";
 import { FlexBetween } from "../Elements/Styled";
 import ItemPreview from "./ItemPreview";
+import { device } from "../GlobalStyles";
 
 const Links = styled.div`
   margin: 12px;
@@ -16,10 +17,20 @@ const Links = styled.div`
 const Grid = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 320px);
-  grid-column-gap: 18px;
-  grid-row-gap: 20px;
+  grid-template-columns: repeat(auto-fill, 30%);
+   gap: 20px;
   justify-content: center;
+  @media ${device.desktop } {
+    grid-template-columns: repeat(auto-fill, 45%);
+    grid-row-gap:10px;
+    grid-column-gap:5%;
+  }
+  @media ${device.mobile} {
+    grid-template-columns: repeat(auto-fill,100%);
+    grid-column-gap:0;
+  } 
+   
+ 
 `;
 
 const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {

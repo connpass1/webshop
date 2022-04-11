@@ -43,7 +43,8 @@ const Burger = (({ onToggle, render, toggle, toggled }) => {
     position: "relative",
     transition: transition,
     userSelect: "none",
-    width: `48px`
+    width: `48px`,
+    margin :`0 12px`
   };
 
   const barStyles: CSSProperties = {

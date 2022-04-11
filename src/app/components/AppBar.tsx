@@ -2,100 +2,112 @@ import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { phoneNumber, webMenu } from "../data";
-import { IoLogoReact } from "react-icons/io5";
 import classNames from "classnames";
 import { Card } from "./Blocks/Card";
 import { Icon } from "./Elements/Icon";
 import { A, FlexAround, FlexCenter, LINK } from "./Elements/Styled";
+import { device, theme } from "./GlobalStyles";
 
-const Styled = styled.div<{ large: boolean }>`
-  grid-area: appBar; 
-  display: flex;
+const Styled = styled.div`
+  grid-area: appBar;
+  display: flex; 
   justify-content: space-between;
-  color: white;
-  align-items: center;
-  border-bottom: 1px solid grey;
-  padding: ${(props) => (props.large ? "10px" :0)};
-  background-color: ${(props) => (props.large ? "white" : "var(--primary-color)")};
+  align-items: center;  
+  padding: 10px;
   font-size: 1.2rem;
-  flex-wrap: nowrap;
-    
-
+  flex-wrap: nowrap; 
+  background-color: white;
+  color: ${theme.color.primary};;
+  @media ${device.tablet} {
+    background-color: ${theme.color.primary};
+    padding: 0;
+    color: white;
+  } 
   a {
     padding: 8px;
-    color: ${(props) => (!props.large ? "white" : "var(--primary-color)")};
     font-weight: 700;
   }
+}
 
-  .logo {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: ${(props) => (props.large ? "120px" : "48px")};
-    cursor: pointer;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+.logo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media ${device.tablet} {
+    flex-direction: row;
+  }
 
-    svg {
+  .icon {
+    font-size: 74px;
+    padding: 12px;
+    @media ${device.desktop} {
+      font-size: 3em;
       padding: 0;
     }
   }
 
-  .bar {
-    min-width: 70%;
-    height: 100%;
-    justify-content: ${(props) => (props.large ? "space-between" : "center")};
-  }
+  cursor: pointer;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 
-  .links {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-  }
+}
+
+.bar {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+   justify-content: space-around;
+  height: 100%; 
  
-  .menuButton {
-    width: var(--button-icon-size);
-    height: var(--button-icon-size);
-    padding: 0.25em;
-  }
+}
 
-  svg {
-    padding: 0 0.5em 0 1em;
-  }
+.links {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+ 
+ 
+svg {
+  padding: 0 0.5em 0 1em;
+}
 `;
 
-const AppBar: FunctionComponent<{small:boolean}> = ({ small, children }) => {
+const AppBar: FunctionComponent<{ small: boolean }> = ({ small, children }) => {
+
+
   return (
-    <Styled large={!small}>
+    <Styled>
       <Link to="/">
         <div className="logo">
           {!small && <b> интернет </b>}
-          <IoLogoReact size={small ? 40 : 80} />
+
+          <Icon src={"logo"} />
           {!small && <b> магазин</b>}
+
         </div>
       </Link>
 
-      <div className={classNames("bar", "column")}>
-        {!small && (
-          <FlexAround  className={  "links"   }  >
-            {webMenu.map((item, key) => (
-              <Link key={key} to={item.link}>
-                {item.txt}
-              </Link>
-            ))}
-          </FlexAround>
-        )}
-         <FlexCenter  className= "links"  >
-          <A href={`tel:${phoneNumber}`}  >
+      <div className=  "bar"  >
+        {!small && <FlexAround className="links">
+          {webMenu.map((item, key) => (
+            <Link key={key} to={item.link}>
+              {item.txt}
+            </Link>
+          ))}
+        </FlexAround>}
+
+        <FlexCenter  >
+          <A href={`tel:${phoneNumber}`}>
             <Icon src={"phone"} />
             {!small && phoneNumber}
           </A>
-          <Card>{!small && "корзина"} </Card>
-          <LINK to="/user/profile" className="row">
+          <Card>   {!small && "корзина"}    </Card>
+          <LINK to="/user/profile">
             <Icon src={"person"} />
-            {!small && "личный кабинет "}
+            {!small && "личный кабинет"}
           </LINK> </FlexCenter>
-        </div>
+      </div>
 
       {children}
     </Styled>

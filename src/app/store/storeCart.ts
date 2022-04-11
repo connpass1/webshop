@@ -35,25 +35,29 @@ export const cartReducer: Reducer = (
   },
   action: any
 ): IFetchCart => {
-  console.log(JSON.stringify(action.type));
+
   switch (action.type) {
     case ActionTypesCart.makeOrderRequest:
+
       return { cart: [...state.cart], status: -100 };
     case ActionTypesCart.makeOrderERROR:
       return {
         cart: [...state.cart], status: action.error
       };
     case ActionTypesCart.makeOrderSuccess:
-      // console.log( action.items.orderItems  );
+       console.log( action.items.orderItems  );
       const arr1: any[] = action.items.orderItems;
-
+     // console.log(action);
+      //console.log(action.items );
       for (let it in arr1) {
-        console.log(JSON.stringify(it));
-        const id = arr1[it].item.id;
+        console.log("jjjjjjj" +JSON.stringify(arr1[it]));
+        const id = arr1[it] ;
+
         state.cart = state.cart.filter(ar => id === ar.id);
+
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
-      return { cart: [...state.cart], status: 0 };
+
 
       return { cart: [...state.cart], status: 200 };
     case ActionTypesCart.delArrayFromCart:

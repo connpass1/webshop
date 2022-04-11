@@ -10,12 +10,13 @@ import { IItem } from "../store/Models";
 import { CheckFetching } from "../components/Fetching";
 import LoginPage from "./LoginPage";
 import { Icon } from "../components/Elements/Icon";
+import { theme } from "../components/GlobalStyles";
 
 type Props = ReturnType<typeof mapCart> & typeof actionsCart;
 
 const TD = styled.td`
   text-align: center;
-  color: var(--secondary-color);
+  color:  ${theme.color.secondary};;
   svg {
     cursor: pointer;
   }
@@ -53,12 +54,12 @@ const ButtonOrder: React.FC<PropsOrder> = (props) => {
       {state ? (
         <LoginPage>
           <ButtonSecondary disabled={props.disabled} onClick={handler}>
-            "заказать ss"
+            подтвердиить заказ
           </ButtonSecondary>
         </LoginPage>
       ) : (
         <ButtonSecondary disabled={props.disabled} onClick={handler}>
-          "заказать"
+          заказать
         </ButtonSecondary>
       )}
     </>
@@ -130,9 +131,9 @@ const Component: React.FC<Props> = (props) => {
           </tr>
           {state.map((item) => (
             <tr key={item.id}>
-              <td>{item.icon} </td>
+              <td>{item.icon}{item.id} </td>
               <td>
-                <Link to={"/item/" + item.id}> {item.name}</Link>
+                <Link to={"/item/" + item.itemDetailId}> {item.name}</Link>
               </td>
               <td>{item.quantity} </td>
               <td>{item.price} </td>

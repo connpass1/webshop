@@ -1,40 +1,104 @@
 import React, { FunctionComponent, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import AppBar from "./AppBar";
-import Navigation from "./Navigation";
-import { useIsSmall } from "./hooks";
+import Navigation, { Nav } from "./Navigation";
 import Toggle from "./Elements/Toggle";
 import Footer from "./Footer";
-const inAnimation = keyframes`
- 0% {   left: -200px;opacity: 0.5; } 
- 100% {   left:0; opacity: 1; }
+import { device, theme, useIsSmall } from "./GlobalStyles";
+
+const Div = styled.div`
+  user-select: none;
+  background-color: white;
+  color: black;
+  margin: 0;
+  display: grid;
+  width: 100%; 
+  min-width: 240px;
+  padding: 0;
+  min-height: 100vh; 
+  grid-template-rows: min-content   5fr  min-content;
+  grid-template-columns: 1fr 240px 12px 1440px 1fr;
+  gap:  24px 48px;
+  grid-template-areas:
+      ".  appBar appBar appBar . "
+      " . nav  .  main  .   "
+      ". footer footer  footer ."; 
+  main{
+    grid-area: main;
+    box-shadow: ${theme.shadow };
+ 
+    padding: 10px;
+    border-radius: 4px;
+    user-select: text;
+    display: flex;
+    flex-direction: column;
+    
+  };
+  @media ${device.desktop} {
+    grid-template-areas:
+      "  appBar  appBar    "  
+      "   nav    main     "
+      "  nav   footer   ";
+    grid-template-columns:   240px auto  ;
+    gap:  12px 48px;
+    grid-template-rows: min-content    5fr  min-content;
+  };
+
+  //кратно 480
+
+  @media ${device.laptopL} {
+    gap:  12px 12px; 
+};
+  
+ 
+  @media ${device.tablet} {
+    grid-template-areas:
+      "   appBar    "
+      "       main     "
+      "     footer   ";
+    grid-template-columns:      100%  ;
+    gap:  0;
+    nav { 
+      border-radius: 0;
+      box-shadow: none;
+      
+    } 
+    main{
+      padding:0;
+      
+    }
+    
+  }; 
+a {
+  outline: none;
+  text-decoration: none;
+  color: currentColor;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+  
 `;
-const outAnimation = keyframes`
- 0% {   left: 0;opacity:1; } 
- 100% {   left:-400px; opacity: 0.5; }
-`;
-const Nav = styled.nav<{ large: boolean; open: boolean }>`
-  position: ${(props) => (props.large ? "relative" : "absolute")};
-  left: ${(props) => (props.large || props.open ? "0" : "-100%")};
-  animation-name: ${(props) => (props.large ? undefined : props.open ? inAnimation : outAnimation)};
-  animation-duration: 0.5s;
-`;
+
 const Wrapper: FunctionComponent = ({ children }) => {
   const [navBarOpened, setNavBarOpened] = useState(false);
   const small = useIsSmall();
-  const toggle= (g: React.SetStateAction<boolean>) => setNavBarOpened(g)
-  return (
-    <div className="wrapper">
-      <AppBar small={small}>{small ? <Toggle onToggle={toggle} /> : <div />}</AppBar>
-      <main>
+  const toggle = (g: React.SetStateAction<boolean>) => setNavBarOpened(g);
+  const closeNav = (g: React.SetStateAction<boolean>) => {
+    if (navBarOpened) toggle(false);
 
+  };
+
+  return (
+    <Div>
+      <AppBar small={small}>{small ? <Toggle onToggle={toggle} toggled={navBarOpened} /> : <div />}
+      </AppBar>
+      <main>ooo{small+"hhhh"}
         <ErrorBoundary>{children}</ErrorBoundary>
       </main>
-      <Nav large={!small} open={navBarOpened}>
-        <Navigation />
-      </Nav>
-      <Footer  />
-    </div>
+        <Navigation closeNav={closeNav}   large={!small} open={navBarOpened}>  </Navigation>
+
+      <Footer />
+    </Div>
   );
 };
 export default Wrapper;
@@ -57,6 +121,7 @@ class ErrorBoundary extends React.Component {
         <>
           <h1>Ошибочка.</h1>
           <p>Что-то пошло не так.</p>
+          <p><a href="/"> обновить страницу </a></p>
         </>
       );
     }

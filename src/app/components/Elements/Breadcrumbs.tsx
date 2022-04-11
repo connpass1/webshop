@@ -4,14 +4,17 @@ import styled from "styled-components";
 import { ISlug } from "../../store/Models";
 import { FlexEnd } from "./Styled";
 import { Icon } from "./Icon";
+import { theme, useIsSmall } from "../GlobalStyles";
+
 const UL = styled.ul`
-  color: var(--secondary-color);
+  color: ${theme.color.secondary};
   flex-direction: row;
   display: flex;
   font-size: 16px;
   align-content: center;
   align-items: center;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
+
   li {
     display: flex;
     align-content: center;
@@ -25,15 +28,16 @@ const UL = styled.ul`
   li + li:before {
     padding: 0 8px 0 12px;
     color: black;
-    content: "/\\00a0"; 
-  } 
+    content: "/\\00a0";
+  }
+
   a {
     color: currentColor;
     display: inline-flex;
-  } 
+  }
 `;
 
-export const Breadcrumbs: React.FC<{ parent?: string }> = ({ parent }) => {
+const BreadcrumbsLarge: React.FC<{ parent: string }> = ({ parent }) => {
   function f(s?: string) {
     const arr: ISlug[] = [];
     if (!s) return arr;
@@ -55,8 +59,18 @@ export const Breadcrumbs: React.FC<{ parent?: string }> = ({ parent }) => {
           <Link to={"/catalog/0"}> <Icon src={"home"} /> Каталог </Link></li>
         {memo.map(t => <li key={t.id}>
           <Link to={"/catalog/" + t.id}>
-            {t.icon  &&  <Icon src={ t.icon  } />} {t.name}    </Link>
+            {t.icon && <Icon src={t.icon} />} {t.name}    </Link>
         </li>)}
       </UL></FlexEnd>
   );
 };
+
+
+export const Breadcrumbs: React.FC<{ parent?: string }> = ({ parent }) => {
+  const small = useIsSmall();
+  if (!parent || small) return null;
+
+  return <BreadcrumbsLarge parent={parent} />;
+};
+
+

@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { mapContent } from "../store/helper";
 import { actionsContent } from "../store/storeContent";
 import { Route, useLocation } from "react-router-dom";
-import { CheckFetching } from "../components/Fetching";
-
 import Catalog from "../pages/CatalogPage";
 import ItemDetailPage from "../pages/ItemDetailPage";
 
@@ -18,7 +16,6 @@ const Component1: React.FC<Props> = (props) => {
     , [location]);
   return (
     <>
-      <CheckFetching status={props.status} />
       {props.content && < >
         <Route exact path="/catalog/:id">
           <Catalog catalog={props.content} />
@@ -28,7 +25,6 @@ const Component1: React.FC<Props> = (props) => {
         </Route> </>}
     </>);
 };
-
 
 const connected = connect(mapContent, actionsContent)(Component1);
 export default connected;
