@@ -1,50 +1,86 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IItem } from "../../store/Models";
-import { Row } from "../Elements/Styled";
+import { IItem } from "../../models/IFases";
 import { Image } from "../Elements/Image";
 import { device, theme } from "../GlobalStyles";
+import AddToCard from "./AddToCard";
+import { Articular } from "./Articular";
 
-const ItemVew = styled.div`
-  border: solid 1px ${theme.color.primary};
-  color: ${theme.color.primary};
-  font-size: 1rem;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  display: flex;
-  cursor: pointer;
-  flex-basis: content;
-  width: 100%; 
-  flex-direction: column;
+const Section = styled.section`
+
+  grid-template-areas:
+      "h  h" 
+      " img    name" 
+      " img    price"
+  " add   add";
+  @media ${device.laptopL} {
+    grid-template-areas:
+        "h  h"
+         "img     name" 
+     " img    price"
+   " add   add"
+  ;
+  };
+
+  @media ${device.laptop} {
+    grid-template-areas:"h  "
+      " name"
+      " img   "
+      " price"
+      " add  "
+  ;
+
+  };
+  @media ${device.tablet} {
+    grid-template-areas:
+      "h  h" 
+      " img    name"
+      " img    price"
+      " add    add  "
+  ;
+  }
   @media ${device.mobile} {
-    border:none;
+    grid-template-areas:
+      "h  " 
+      "name "
+      " img  "
+      " img   " 
+    " price " 
+    " add  "
+  ;
   }
 
-  .caption {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    color: white;
-    background-color: ${theme.color.primary};
-    margin: 0;
-    padding: 8px;
-    @media ${device.mobile} {
-      border-radius: 0;
-    }
+  .name {
+    grid-area: name;
+    padding: 12px;
+    text-decoration: none;
+    color: ${theme.color.secondary};
+  }
+;
+
+  .price {
+    grid-area: price;
+    padding: 12px;
+    font-size: 1.8em;
+  }
+
+  @media ${device.mobile} {
+    border-radius: 0;
+    width: 100vw ;
+    margin: 0 -10px ;
   }
 `;
-
 const Component: React.FC<IItem> = (item) => {
-  return (
-    <Link to={`/item/${item.itemDetailId}`}>
-
-      <ItemVew>
-        <div className="caption">{item.name}</div>
-        <Image src="/img/box.png" alt={item.name} />
-        <Row>цена -{item.price}</Row>
-      </ItemVew>
-    </Link>
-  );
+  return <Section>
+    <Articular val={item.id} />
+    <Image src="/img/box.png" alt={item.name} />
+    <Link className={"name"} to={`/item/${item.itemDetailId}`}>
+      {item.name}</Link>
+    <div className="price">
+      цена - &shy;  {item.price}
+    </div>
+    <AddToCard item={item} />
+  </Section>;
 };
-
 export default Component;

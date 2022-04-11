@@ -1,17 +1,18 @@
 export const webMenu = [
-  { txt: "test", link: "/test" },
-  { txt: "Контакты", link: "/contacts" },
-  { txt: "Доставка", link: "/cargo" },
-  { txt: "Гарантия", link: "/warranty" },
+  { name: "test", link: "/page/test" },
+  { name: "Контакты", link: "/page/contacts" },
+  { name: "Доставка", link: "/page/cargo" },
+  { name: "Гарантия", link: "/page/warranty" }
 ];
 export const footerLinks = [
-  { txt: "main", link: "/" },
-  { txt: "test", link: "/test" },
-  { txt: "order", link: "/order" },
+  { name: "main", link: "/" },
+
+  { name: "order", link: "/order" }
 ];
-
-
 export const SERVERNAME = "http://192.168.1.125:8080";
+export const TokenPREFIX = "WebShop";
+export const HeaderString = "Authorization";
+export const CUSTOMER = "customer";
 export const footerMessage = "footer Message";
 export const phoneNumber = "111111111";
 export const getMessage = (status: number) => {

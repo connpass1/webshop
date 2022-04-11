@@ -1,22 +1,20 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { ButtonSecondary, BackToCatalog, CheckBox } from "../components/Elements/Button";
-import {  FlexBetween, FlexEnd,Table } from "../components/Elements/Styled";
+import { BackToCatalog, ButtonSecondary, CheckBox } from "../components/Elements/Button";
+import { FlexBetween, FlexEnd, Table } from "../components/Elements/Styled";
 import { compare, mapCart, mapCustomer } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
 import styled from "styled-components";
-import { IItem } from "../store/Models";
+import { IItem } from "../models/IFases";
 import { CheckFetching } from "../components/Fetching";
-import LoginPage from "./LoginPage";
+import LoginPage from "../routers/LoginFilter";
 import { Icon } from "../components/Elements/Icon";
 import { theme } from "../components/GlobalStyles";
-
 type Props = ReturnType<typeof mapCart> & typeof actionsCart;
-
 const TD = styled.td`
   text-align: center;
-  color:  ${theme.color.secondary};;
+  color: ${theme.color.secondary};;
   svg {
     cursor: pointer;
   }
@@ -32,10 +30,8 @@ type PropsOrder = ReturnType<typeof mapCustomer> & {
   handler: any;
   items: IItem[];
 };
-
 const ButtonOrder: React.FC<PropsOrder> = (props) => {
   const [state, setState] = useState(false);
-
   const handler = () => {
     if (!state) setState(true);
     else if (props.id) {
@@ -48,7 +44,6 @@ const ButtonOrder: React.FC<PropsOrder> = (props) => {
       props.handler(order);
     }
   };
-
   return (
     <>
       {state ? (
@@ -65,7 +60,6 @@ const ButtonOrder: React.FC<PropsOrder> = (props) => {
     </>
   );
 };
-
 const Component: React.FC<Props> = (props) => {
   const { cart } = props;
   const [state, setState] = useState<IItem[]>([]);
@@ -85,7 +79,6 @@ const Component: React.FC<Props> = (props) => {
     state.map((it) => (it.checked = !all));
     setState([...state]);
   };
-
   const handler = (id: number) => {
     const item = state.find((it) => it.id === id);
     if (item) {
@@ -93,18 +86,16 @@ const Component: React.FC<Props> = (props) => {
       setState([...state]);
     }
   };
-
   if (cart.length === 0)
     return (
       <>
-        <h1> <Icon src={"cart"} />  Корзина</h1>
+        <h1><Icon src={"cart"} /> Корзина</h1>
         <FlexBetween>
           <i>Корзина пуста</i>
           <BackToCatalog />
         </FlexBetween>
       </>
     );
-
   const handlerDel = () => {
     if (allCheck === undefined) {
       props.clearCart();
@@ -117,31 +108,32 @@ const Component: React.FC<Props> = (props) => {
   const disabled = oneCheck === undefined;
   return (
     <>
-      <h1>Корзина</h1>
+      <header><Icon src={"cart"} />
+        <h1> Корзина </h1></header>
       <Table>
         <tbody>
-          <tr>
-            <th>icon</th>
-            <th>name</th>
-            <th>quantity</th>
-            <th>price</th>
-            <TH>
-              <CheckBox id={0} handler={handlerAll} check={allCheck === undefined} />
-            </TH>
+        <tr>
+          <th>icon</th>
+          <th>name</th>
+          <th>quantity</th>
+          <th>price</th>
+          <TH>
+            <CheckBox id={0} handler={handlerAll} check={allCheck === undefined} />
+          </TH>
+        </tr>
+        {state.map((item) => (
+          <tr key={item.id}>
+            <td>{item.icon}{item.id} </td>
+            <td>
+              <Link to={"/item/" + item.itemDetailId}> {item.name}</Link>
+            </td>
+            <td>{item.quantity} </td>
+            <td>{item.price} </td>
+            <TD>
+              <CheckBox id={item.id} handler={handler} check={item.checked} />
+            </TD>
           </tr>
-          {state.map((item) => (
-            <tr key={item.id}>
-              <td>{item.icon}{item.id} </td>
-              <td>
-                <Link to={"/item/" + item.itemDetailId}> {item.name}</Link>
-              </td>
-              <td>{item.quantity} </td>
-              <td>{item.price} </td>
-              <TD>
-                <CheckBox id={item.id} handler={handler} check={item.checked} />
-              </TD>
-            </tr>
-          ))}
+        ))}
         </tbody>
       </Table>
       <CheckFetching status={props.status} />
@@ -149,8 +141,7 @@ const Component: React.FC<Props> = (props) => {
         <ButtonSecondary onClick={handlerDel} disabled={disabled}>
           {allCheck === undefined ? "очистить корзину" : "удалить из корзины"}
         </ButtonSecondary>
-
-        <ButtonComponent items={state} disabled={disabled} handler={props.makeOrderRequest}/>
+        <ButtonComponent items={state} disabled={disabled} handler={props.makeOrderRequest} />
       </FlexBetween>
       <FlexEnd>
         <BackToCatalog />

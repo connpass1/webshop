@@ -5,7 +5,7 @@ import { mapCart } from "../../store/helper";
 import { cartReducer } from "../../store/storeCart";
 import { Icon } from "../Elements/Icon";
 import { LINK } from "../Elements/Styled";
-import { theme } from "../GlobalStyles";
+import { device, theme } from "../GlobalStyles";
 
 type Props = ReturnType<typeof cartReducer>;
 const Styled = styled.div`
@@ -15,26 +15,23 @@ const Styled = styled.div`
     background: ${theme.color.error};
     color: white;
     display: inline-block;
-    min-width: 19px;
+    min-width: 16px;
+    min-height: 16px;
     padding: 2px;
     border-radius: 50%;
-    font-size: 17px;
+    font-size: 12px;
     text-align: center;
-    bottom: 5px;
-    right: 0;
+    top: -2em;
+    right: -4px;
     position: absolute;
-  }
+    @media ${device.tablet} {
+      padding: 2px;
+      top: -1.8em;
 
-  @media (max-width: 992px) {
-    .badge {
-      border: 2px solid currentColor;
-      min-width: 15px;
-      bottom: 0px;
-      right: 0;
     }
   }
-`;
 
+`;
 const Component: FunctionComponent<Props> = (prop) => {
   return (
     <LINK to="/cart">
@@ -44,6 +41,5 @@ const Component: FunctionComponent<Props> = (prop) => {
     </LINK>
   );
 };
-
 const connectedComponent = connect(mapCart)(Component);
 export { connectedComponent as Card };

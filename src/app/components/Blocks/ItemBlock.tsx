@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
-import { IItem } from "../../store/Models";
+import { IItem } from "../../models/IFases";
 import { ButtonSecondary } from "../Elements/Button";
 import { FlexBetween } from "../Elements/Styled";
 import ItemPreview from "./ItemPreview";
@@ -11,31 +11,34 @@ const Links = styled.div`
   padding: 12px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: center;;
 `;
-
 const Grid = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 30%);
-   gap: 20px;
+  grid-template-columns: repeat(auto-fill, 380px);
+  gap: 20px;
   justify-content: center;
-  @media ${device.desktop } {
-    grid-template-columns: repeat(auto-fill, 45%);
-    grid-row-gap:10px;
-    grid-column-gap:5%;
-  }
-  @media ${device.mobile} {
-    grid-template-columns: repeat(auto-fill,100%);
-    grid-column-gap:0;
-  } 
-   
- 
-`;
+  @media ${device.desktop} {
+    grid-template-columns: repeat(auto-fill, 380px);
+    gap: 40px;;
+  };
+  @media ${device.laptopL} {
+    grid-template-columns: repeat(auto-fill, 380px);
+    gap: 20px;;
+  };
 
+  @media ${device.laptop} {
+    grid-template-columns: repeat(auto-fill, 90%);
+    gap: 24px 5%;;
+  };
+  @media ${device.tablet} {
+    grid-template-columns: repeat(auto-fill, 100%);
+    gap: 24px 0;
+  }
+`;
 const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
   const pages = items.length / 20;
-
   const [page, setPage] = useState(1);
   const memoizedCallback = useCallback(
     () => {
@@ -64,14 +67,12 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
         ))}
       </Links>
     ),
-
     [page, memoizedCallback]
   );
   return (
     <>
       {A}
       {B}
-
       <FlexBetween>
         <div>
           <i>Страница {page} </i>
@@ -84,5 +85,4 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
     </>
   );
 };
-
 export default Component;

@@ -18,13 +18,11 @@ export const theme = {
     error: "#e53935",
     grey: "#424242",
     greyLight: "#e0e0e0"
-  }
-  ,
-
+  },
   size: {
     mobile: Sizes.mobile + "px",
     tablet: Sizes.tablet + "px",
-    laptop: Sizes.laptopL + "px",
+    laptop: Sizes.laptop + "px",
     laptopL: Sizes.laptopL + "px",
     desktop: Sizes.desktop + "px"
   },
@@ -39,13 +37,11 @@ export const device = {
   desktop: `(max-width: ${theme.size.desktop})`
 };
 
-
 export function useIsSmall() {
   const [small, setSmall] = useState(false);
   useEffect(() => {
     function handleResize() {
       setSmall(window.innerWidth < Sizes.tablet);
-
     }
 
     window.addEventListener("resize", handleResize);
@@ -54,23 +50,53 @@ export function useIsSmall() {
   return small;
 }
 
-
 const GlobalStyles = createGlobalStyle`
- 
+  body {
+    margin: 0
+  }
 
-  h1 ,h2,h3{
+  header {
+    display: flex;
     color: ${theme.color.primary};
     border-bottom: ${theme.border};
-    padding: 4px 0.5rem;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
+    margin: 12px 0;
+    @media ${device.tablet} {
+      border: 0;
+      margin: 0 ;
+      justify-content: flex-end;
+    }
+  }
+
+  h1, h2, h3 {
+    padding: 0;
     margin-block-start: 0;
-    @media ${device.desktop} {
-    margin-block-end:  10px };
+    margin-block-end: 10px;
     @media ${device.mobile} {
-      margin-block-end:  0 };
-    border-color:  currentColor;
+      margin-block-end: 0;
+    };
+    border-color: currentColor;
+  }
+
+  @media ${device.tablet} {
+    main {
+      font-size: 0.8rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  ;
+  a {
+    outline: none;
+    text-decoration: none;
+    color: currentColor;
+    font-size: 1.2em;
+    cursor: pointer;
   }
 
   button {
@@ -82,7 +108,7 @@ const GlobalStyles = createGlobalStyle`
     flex-wrap: nowrap;
     padding: 8px 12px;
     font-weight: 800;
-    font-size: larger;
+    font-size: 1.2rem;
   }
 
   button:disabled {
@@ -106,12 +132,20 @@ const GlobalStyles = createGlobalStyle`
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
-    border: 1px solid var(primary-color);
+    border: 1px solid ${theme.color.primary};
     border-radius: 4px;
   }
 
-  input[type="text"]:focus {
-    border: 2px solid var(primary-color);
+  input[type="text"], input[type="number"]:focus {
+    border: 1px solid ${theme.color.secondary};
+  }
+
+  input, textarea {
+    padding: 4px;
+    max-width: 240px;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    margin-right: 2em;
   }
 
   button,
@@ -129,22 +163,36 @@ const GlobalStyles = createGlobalStyle`
   [type="reset"],
   [type="submit"] {
     -webkit-appearance: button;
-  };
+  }
 
+  ;
   button::-moz-focus-inner,
   [type="button"]::-moz-focus-inner,
   [type="reset"]::-moz-focus-inner,
   [type="submit"]::-moz-focus-inner {
     padding: 0;
     border-style: none;
-  };
+  }
 
+  ;
   footer {
     min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-  };
+  }
+
+  ;
+  main {
+    grid-area: main;
+    box-shadow: ${theme.shadow};
+    padding: 10px;
+    border-radius: 4px;
+    user-select: text;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
   main a {
     font-style: italic;
@@ -154,12 +202,16 @@ const GlobalStyles = createGlobalStyle`
     white-space: nowrap;
     text-decoration: underline;
     text-decoration-thickness: 1px;
-  };
-hr{
-  border-bottom: 1px solid currentColor;
-  width: 100%;
-margin-top: 1em;
-};
+  }
+
+  ;
+  hr {
+    border-bottom: 1px solid currentColor;
+    width: 100%;
+    margin-top: 1em;
+  }
+
+  ;
   main a:hover,
   aside a:hover {
     text-shadow: 1px 0 0 currentColor;
@@ -175,5 +227,4 @@ margin-top: 1em;
     justify-self: flex-end;
   }
 `;
-
 export default GlobalStyles;

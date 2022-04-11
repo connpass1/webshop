@@ -1,6 +1,5 @@
 import { Reducer } from "redux";
-import { IFetchCart, IItem } from "./Models";
-
+import { IFetchCart, IItem } from "../models/IFases";
 export enum ActionTypesCart {
   adToCart = "AD_TO_CARD",
   clearCart = "CLEAR_CARD",
@@ -9,7 +8,6 @@ export enum ActionTypesCart {
   makeOrderSuccess = "MAKE_ORDER_SUCCESS",
   makeOrderERROR = "MAKE_ORDER_ERROR",
 }
-
 export const actionsCart = {
   //adToCartRequest: (item: IItem) => ({type: ActionTypesCart.adToCartRequest, item}), 
   adToCart: (item: IItem) => ({ type: ActionTypesCart.adToCart, item }),
@@ -18,7 +16,6 @@ export const actionsCart = {
   makeOrderRequest: (items: IItem[]) => ({ type: ActionTypesCart.makeOrderRequest, items }),
   makeOrderSuccess: (items: IItem[]) => ({ type: ActionTypesCart.makeOrderSuccess, items }),
   makeOrderERROR: (error: number) => ({ type: ActionTypesCart.makeOrderERROR, error })
-
 };
 const getFromLocalStorage = () => {
   let s = localStorage.getItem("cart");
@@ -35,33 +32,24 @@ export const cartReducer: Reducer = (
   },
   action: any
 ): IFetchCart => {
-
   switch (action.type) {
     case ActionTypesCart.makeOrderRequest:
-
       return { cart: [...state.cart], status: -100 };
     case ActionTypesCart.makeOrderERROR:
       return {
         cart: [...state.cart], status: action.error
       };
     case ActionTypesCart.makeOrderSuccess:
-       console.log( action.items.orderItems  );
+      console.log(action.items.orderItems);
       const arr1: any[] = action.items.orderItems;
-     // console.log(action);
-      //console.log(action.items );
       for (let it in arr1) {
-        console.log("jjjjjjj" +JSON.stringify(arr1[it]));
-        const id = arr1[it] ;
-
+        console.log("jjjjjjj" + JSON.stringify(arr1[it]));
+        const id = arr1[it];
         state.cart = state.cart.filter(ar => id === ar.id);
-
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
-
-
       return { cart: [...state.cart], status: 200 };
     case ActionTypesCart.delArrayFromCart:
-
       const arr = action.items as IItem[];
       state.cart = state.cart.filter(ar => !arr.find(rm => (rm.id === ar.id)));
       localStorage.setItem("cart", JSON.stringify(state.cart));
@@ -75,14 +63,12 @@ export const cartReducer: Reducer = (
       };
       localStorage.setItem("cart", JSON.stringify(state.cart));
       return { ...state };
-
     case ActionTypesCart.clearCart:
       state = {
         cart: [], status: 0
       };
       localStorage.removeItem("cart");
       return { ...state };
-
     default:
       return state;
   }

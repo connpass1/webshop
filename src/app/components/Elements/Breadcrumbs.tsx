@@ -1,34 +1,31 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ISlug } from "../../store/Models";
-import { FlexEnd } from "./Styled";
+import { ISlug } from "../../models/IFases";
 import { Icon } from "./Icon";
-import { theme, useIsSmall } from "../GlobalStyles";
+import { theme } from "../GlobalStyles";
 
 const UL = styled.ul`
   color: ${theme.color.secondary};
   flex-direction: row;
   display: flex;
-  font-size: 16px;
-  align-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
+  justify-content: flex-end;
+  margin: 0;
 
   li {
     display: flex;
     align-content: center;
-    align-items: center;
   }
 
   li a:hover {
     text-decoration: underline;
   }
 
-  li + li:before {
+  li + li:after {
     padding: 0 8px 0 12px;
     color: black;
     content: "/\\00a0";
+    line-height: 1.5;
   }
 
   a {
@@ -36,7 +33,6 @@ const UL = styled.ul`
     display: inline-flex;
   }
 `;
-
 const BreadcrumbsLarge: React.FC<{ parent: string }> = ({ parent }) => {
   function f(s?: string) {
     const arr: ISlug[] = [];
@@ -51,26 +47,18 @@ const BreadcrumbsLarge: React.FC<{ parent: string }> = ({ parent }) => {
   }
 
   const memo = useMemo(() => f(parent), [parent]);
-
   return (
-    <FlexEnd>
-      <UL>
-        <li>
-          <Link to={"/catalog/0"}> <Icon src={"home"} /> Каталог </Link></li>
-        {memo.map(t => <li key={t.id}>
-          <Link to={"/catalog/" + t.id}>
-            {t.icon && <Icon src={t.icon} />} {t.name}    </Link>
-        </li>)}
-      </UL></FlexEnd>
+
+    <UL>
+      {memo.map(t => <li key={t.id}>
+        <Link to={"/catalog/" + t.id}>
+          {t.icon && <Icon src={t.icon} />} {t.name}    </Link>
+      </li>)}
+    </UL>
   );
 };
-
-
 export const Breadcrumbs: React.FC<{ parent?: string }> = ({ parent }) => {
-  const small = useIsSmall();
-  if (!parent || small) return null;
 
+  if (!parent) return null;
   return <BreadcrumbsLarge parent={parent} />;
 };
-
-

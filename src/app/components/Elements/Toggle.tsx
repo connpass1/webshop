@@ -36,7 +36,6 @@ const Burger = (({ onToggle, render, toggle, toggled }) => {
   const translate = 7.6675;
   const deviation = (barHeightRaw - barHeight) / 2;
   const move = parseFloat((width / translate - deviation / (4 / 3)).toFixed(2));
-
   const burgerStyles: CSSProperties = {
     cursor: "pointer",
     height: `36px`,
@@ -44,25 +43,20 @@ const Burger = (({ onToggle, render, toggle, toggled }) => {
     transition: transition,
     userSelect: "none",
     width: `48px`,
-    margin :`0 12px`
+    margin: `0 12px`
   };
-
   const barStyles: CSSProperties = {
     background: "currentColor",
     height: `${barHeight}px`,
     left: `${room}px`,
     position: "absolute"
   };
-
   const toggleFunction = toggle || toggleInternal;
   const isToggled = toggled !== undefined ? toggled : toggledInternal;
-
   const handler = () => {
     toggleFunction(!isToggled);
-
     if (typeof onToggle === "function") onToggle(!isToggled);
   };
-
   return render({
     barHeight,
     barStyles,
@@ -97,7 +91,6 @@ const Toggle = ((props) => (
             transform: `${o.isToggled ? `rotate(${-45}deg) translate(${o.move * -1}px, ${o.move}px)` : "none"}`
           }}
         />
-
         <div
           style={{
             ...o.barStyles,

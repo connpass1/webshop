@@ -1,116 +1,74 @@
 import React, { FunctionComponent, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import AppBar from "./AppBar";
-import Navigation, { Nav } from "./Navigation";
+import Navigation from "./Navigation";
 import Toggle from "./Elements/Toggle";
 import Footer from "./Footer";
-import { device, theme, useIsSmall } from "./GlobalStyles";
+import { device, useIsSmall } from "./GlobalStyles";
+import { Icon } from "./Elements/Icon";
 
-const Div = styled.div`
+const WRAPPER = styled.div`
   user-select: none;
-  background-color: white;
   color: black;
-  margin: 0;
   display: grid;
-  width: 100%; 
+  max-width: 100vw;
   min-width: 240px;
-  padding: 0;
-  min-height: 100vh; 
+  min-height: 100vh;
   grid-template-rows: min-content   5fr  min-content;
   grid-template-columns: 1fr 240px 12px 1440px 1fr;
-  gap:  24px 48px;
+  gap: 24px 48px;
   grid-template-areas:
-      ".  appBar appBar appBar . "
-      " . nav  .  main  .   "
-      ". footer footer  footer ."; 
-  main{
-    grid-area: main;
-    box-shadow: ${theme.shadow };
- 
-    padding: 10px;
-    border-radius: 4px;
-    user-select: text;
-    display: flex;
-    flex-direction: column;
-    
-  };
+      ". appBar appBar appBar ."
+      ". nav  .  main  ."
+      ". footer footer  footer .";;
   @media ${device.desktop} {
     grid-template-areas:
-      "  appBar  appBar    "  
-      "   nav    main     "
-      "  nav   footer   ";
+      "appBar appBar"  
+      "nav main"
+      "footer footer";
     grid-template-columns:   240px auto  ;
-    gap:  12px 48px;
+    gap: 12px 48px;
     grid-template-rows: min-content    5fr  min-content;
   };
-
   //кратно 480
-
-  @media ${device.laptopL} {
-    gap:  12px 12px; 
-};
-  
- 
+  @media ${device.laptop} {
+    gap: 12px 12px;
+  };
   @media ${device.tablet} {
     grid-template-areas:
-      "   appBar    "
-      "       main     "
-      "     footer   ";
-    grid-template-columns:      100%  ;
-    gap:  0;
-    nav { 
-      border-radius: 0;
-      box-shadow: none;
-      
-    } 
-    main{
-      padding:0;
-      
-    }
-    
-  }; 
-a {
-  outline: none;
-  text-decoration: none;
-  color: currentColor;
-  font-size: 1.2em;
-  cursor: pointer;
-}
-  
+      " appBar "
+      " main "
+      " footer ";
+    grid-template-columns:  100%  ;
+    gap: 0;
+  };
 `;
-
 const Wrapper: FunctionComponent = ({ children }) => {
   const [navBarOpened, setNavBarOpened] = useState(false);
   const small = useIsSmall();
   const toggle = (g: React.SetStateAction<boolean>) => setNavBarOpened(g);
-  const closeNav = (g: React.SetStateAction<boolean>) => {
+  const closeNav = () => {
     if (navBarOpened) toggle(false);
-
   };
-
   return (
-    <Div>
+    <WRAPPER>
       <AppBar small={small}>{small ? <Toggle onToggle={toggle} toggled={navBarOpened} /> : <div />}
       </AppBar>
-      <main>ooo{small+"hhhh"}
+      <main>
         <ErrorBoundary>{children}</ErrorBoundary>
       </main>
-        <Navigation closeNav={closeNav}   large={!small} open={navBarOpened}>  </Navigation>
-
+      <Navigation closeNav={closeNav} large={!small} open={navBarOpened}> </Navigation>
       <Footer />
-    </Div>
+    </WRAPPER>
   );
 };
 export default Wrapper;
-
 class ErrorBoundary extends React.Component {
   state = { hasError: false, error: undefined };
-
   static getDerivedStateFromError(error: any) {
     console.log(error);
     return { hasError: true, error: error };
   }
-
   componentDidCatch(error: any, errorInfo: any) {
     console.log(errorInfo);
   }
@@ -119,7 +77,7 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <>
-          <h1>Ошибочка.</h1>
+          <h1><Icon src={"error"} />Ошибочка.</h1>
           <p>Что-то пошло не так.</p>
           <p><a href="/"> обновить страницу </a></p>
         </>
