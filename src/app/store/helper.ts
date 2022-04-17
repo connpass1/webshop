@@ -1,7 +1,12 @@
-import { IEntity, IFetchCart, IFetchContent, IFetchCustomer, IFetchMessage } from "../models/IFases";
+import { IEntity, IFetchCart, IFetchContent, IFetchCustomer, IFetchSettings } from "../models/IFases";
+import { actionsSettings } from "./storeSettings";
+import { useEffect } from "react";
+import { actionsContent } from "./storeContent";
+
 function isObject(object: any) {
   return object != null && typeof object === "object";
 }
+
 export function isEqual(obj1: any, obj2: any) {
   let props1 = Object.getOwnPropertyNames(obj1);
   let props2 = Object.getOwnPropertyNames(obj2);
@@ -18,6 +23,7 @@ export function isEqual(obj1: any, obj2: any) {
   }
   return true;
 }
+
 export function getErrorStatus(e: any, status?: number) {
   try {
     return e.response.status as number;
@@ -25,13 +31,42 @@ export function getErrorStatus(e: any, status?: number) {
     return status ? status : 500;
   }
 }
+
 export function compare(a: IEntity, b: IEntity) {
   if (a.name < b.name) return -1;
   if (a.id > b.id) return 1;
   return 0;
 }
+
+export function phone(ph: number | undefined) {
+  if (!ph) return "";
+  let phone = "" + ph;
+  if (phone.length < 10) return "???????????";
+  phone = "+7 ( " + phone.slice(0, 4) + " ) " + phone.slice(4, 7) + " " + phone.slice(7, phone.length);
+
+  return phone;
+}
+
+export function useOutsideClick(ref: { current: { contains: (arg0: any) => any; }; }, handler: { (this: Document, ev: MouseEvent): any; (this: Document, ev: MouseEvent): any; }) {
+  useEffect(() => {
+    document.addEventListener("mousedown", handler);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handler);
+    };
+  }, [ref, handler]);
+}
+
+export function isEmpty(obj: {}) {
+  return Object.keys(obj).length === 0;
+}
+
+export type PropsContent1 = ReturnType<typeof mapContent>;
+export type PropsContent = ReturnType<typeof mapContent> & typeof actionsContent;
+export type PropsSetting = ReturnType<typeof mapSettings> & typeof actionsSettings;
 export const mapCart = (state: { cartReducer: IFetchCart }) => state.cartReducer;
 export const mapFetchUser = (state: { profileReducer: IFetchCustomer }) => state.profileReducer;
 export const mapCustomer = (state: { profileReducer: IFetchCustomer }) => state.profileReducer.customer;
-export const mapMessage = (state: { messageReducer: IFetchMessage }) => state.messageReducer;
 export const mapContent = (state: { contentReducer: IFetchContent }) => state.contentReducer;
+export const mapSettings = (state: { settingsReducer: IFetchSettings }) => state.settingsReducer;
+

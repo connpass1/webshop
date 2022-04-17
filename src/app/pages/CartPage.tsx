@@ -7,10 +7,10 @@ import { compare, mapCart, mapCustomer } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
 import styled from "styled-components";
 import { IItem } from "../models/IFases";
-import { CheckFetching } from "../components/Fetching";
 import LoginPage from "../routers/LoginFilter";
 import { Icon } from "../components/Elements/Icon";
 import { theme } from "../components/GlobalStyles";
+
 type Props = ReturnType<typeof mapCart> & typeof actionsCart;
 const TD = styled.td`
   text-align: center;
@@ -107,9 +107,11 @@ const Component: React.FC<Props> = (props) => {
   };
   const disabled = oneCheck === undefined;
   return (
-    <>
-      <header><Icon src={"cart"} />
-        <h1> Корзина </h1></header>
+    <><FlexEnd>
+      <BackToCatalog /> </FlexEnd>
+
+      <h1><Icon src={"cart"} /> Корзина </h1>
+
       <Table>
         <tbody>
         <tr>
@@ -136,16 +138,14 @@ const Component: React.FC<Props> = (props) => {
         ))}
         </tbody>
       </Table>
-      <CheckFetching status={props.status} />
+
       <FlexBetween>
         <ButtonSecondary onClick={handlerDel} disabled={disabled}>
           {allCheck === undefined ? "очистить корзину" : "удалить из корзины"}
         </ButtonSecondary>
         <ButtonComponent items={state} disabled={disabled} handler={props.makeOrderRequest} />
       </FlexBetween>
-      <FlexEnd>
-        <BackToCatalog />
-      </FlexEnd>
+
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { Reducer } from "redux";
 import { IFetchCustomer } from "../models/IFases";
 import { initCustomer, saveToLocalStorage, UserModel } from "../models/UserModel";
+
 export enum ActionTypesLogin {
   loginRequest = "LOGIN_REQUEST",
   registrationRequest = "REGISTRATION_REQUEST",
@@ -10,6 +11,7 @@ export enum ActionTypesLogin {
   logoutSuccess = "LOGOUT_SUCCESS",
   logoutFiled = "LOGIN_FILED",
 }
+
 export const actionsUser = {
   loginUserRequest: (name: string, password: string) => ({ type: ActionTypesLogin.loginRequest, name, password }),
   registrationUserRequest: (name: string, password: string) => ({

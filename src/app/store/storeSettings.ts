@@ -1,13 +1,12 @@
 import { Reducer } from "redux";
-import { IFetchCustomer, IFetchMessage, IFetchSettings } from "../models/IFases";
-import { initCustomer, saveToLocalStorage, UserModel } from "../models/UserModel";
-import { ActionTypesLogin } from "./storeUser";
-import { SettingModel } from "../models/SettingModel";
+import { IFetchSettings } from "../models/IFases";
+
 export enum ActionTypesSettings {
   initSettings = "ADD_SETTINGS",
   errorSettings = "ERROR_SETTINGS",
   settingsRequest = "SETTINGS_REQUEST",
 }
+
 export const actionsSettings = {
   initSettings: (data: any) => ({ type: ActionTypesSettings.initSettings, data }),
   errorSettings: (status: number) => ({ type: ActionTypesSettings.errorSettings, status }),
@@ -19,12 +18,13 @@ export const settingsReducer: Reducer = (
 ): IFetchSettings => {
   switch (action.type) {
     case ActionTypesSettings.initSettings:
-      return { settings: new SettingModel( action.data.settings ), status: 100 };
-
+      console.log(action.data);
+      return { settings: action.data, status: 200 };
     case ActionTypesSettings.settingsRequest:
       return { settings: undefined, status: 100 };
     case ActionTypesSettings.errorSettings:
-    return { settings: undefined, status: action.status };
-    default : return state;
+      return { settings: undefined, status: action.status };
+    default :
+      return state;
   }
 };

@@ -13,6 +13,8 @@ import { Spinner } from "../components/Elements/SvgSpinner";
 import HomePage from "../pages/HomePage";
 import GlobalStyles from "../components/GlobalStyles";
 import Article from "../pages/Article";
+import AdminRouter from "./AdminRouter";
+
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
   const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware));
@@ -25,6 +27,7 @@ const Login = React.lazy(() => import("./LoginFilter"));
 const CartPage = React.lazy(() => import("../pages/CartPage"));
 const Cart = () => <Suspense fallback={<Spinner />}> <CartPage /> </Suspense>;
 const LoginFilter = () => <Suspense fallback={<Spinner />}><Login /></Suspense>;
+const AdminFilter = () => <Suspense fallback={<Spinner />}><AdminRouter /></Suspense>;
 const component: React.FC = () => (
   <Provider store={store}>
     <GlobalStyles />
@@ -36,7 +39,8 @@ const component: React.FC = () => (
           <Route exact path="/cart" component={Cart} />
           <Route exact path={["/", ""]} component={HomePage} />
           <Route exact path={"/page/:id"} component={Article} />
-          <Route path="/:id" component={ErrorPage} />
+          <Route exact path={"/admin/**"} component={AdminFilter} />
+          <Route path="/error/:id" component={ErrorPage} />
         </Wrapper>
       </Switch>
     </BrowserRouter>

@@ -38,9 +38,15 @@ export const ButtonSecondary = styled.button<Props>`
 `;
 export const RectButton = styled.button<Props>`
   color: ${theme.color.secondary};
-  border: 1px solid ${theme.color.secondary};
+  border: 1px solid ${theme.color.primary};
   background-color: white;
   font-size: 1.2rem;
+
+  :focus {
+    outline: none !important;
+    box-shadow: 0 0 5px ${theme.color.primary};
+  }
+;
 
   :disabled {
     color: ${theme.color.greyLight};
@@ -53,7 +59,7 @@ export const BackToHistory = () => {
   return <ButtonSecondary onClick={history.goBack}><Icon src={"back"} />назад</ButtonSecondary>;
 };
 export const BackToCatalog = () => {
-  return <RedirectButton to={"/catalog/0"}><Icon src={"home"} /> в каталог</RedirectButton>;
+  return <RedirectButton to={"/catalog/1"}><Icon src={"home"} /> в каталог</RedirectButton>;
 };
 export const CheckBox: React.FC<{ id: number; handler: any; check: boolean }> = ({ id, handler, check = false }) => {
   if (check) return <IoIosCheckmarkCircle size={36} onClick={() => handler(id)} />;

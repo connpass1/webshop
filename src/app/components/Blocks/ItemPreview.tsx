@@ -83,4 +83,4 @@ const Component: React.FC<IItem> = (item) => {
     <AddToCard item={item} />
   </Section>;
 };
-export default Component;
+export default React.memo(Component)

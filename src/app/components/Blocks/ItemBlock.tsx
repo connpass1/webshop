@@ -52,10 +52,15 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
     },
     [pages]
   );
+
+  function f(items: IItem[], page: number) {
+    return <Grid>{items.map((item, key) => key >= (page - 1) * 20 && key < page * 20 &&
+      <ItemPreview key={item.id} {...item} />)}</Grid>;
+  }
+
   const A = useMemo(
-    () => <Grid>{items.map((item, key) => key >= (page - 1) * 20 && key < page * 20 &&
-      <ItemPreview key={item.id} {...item} />)}</Grid>,
-    [page, items, memoizedCallback()]
+    () => f(items, page),
+    [page, items ]
   );
   const B = useMemo(
     () => (
@@ -85,4 +90,4 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
     </>
   );
 };
-export default Component;
+export default React.memo(Component)

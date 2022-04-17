@@ -1,11 +1,13 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { phoneNumber, webMenu } from "../data";
 import { Card } from "./Blocks/Card";
 import { Icon } from "./Elements/Icon";
-import { A, FlexAround, FlexCenter, LINK } from "./Elements/Styled";
+import { A, FlexAround, FlexCenter, LINK, Span } from "./Elements/Styled";
 import { device, theme } from "./GlobalStyles";
+import { connect } from "react-redux";
+import { mapSettings, phone, PropsSetting } from "../store/helper";
+import { actionsSettings } from "../store/storeSettings";
 
 const Styled = styled.div`
   grid-area: appBar;
@@ -16,7 +18,7 @@ const Styled = styled.div`
   font-size: 1.2rem;
   flex-wrap: nowrap;
   background-color: white;
-  color: ${theme.color.primary};;
+  color: ${theme.color.primary};
   @media ${device.tablet} {
     background-color: ${theme.color.primary};
     padding: 4px;
@@ -48,7 +50,6 @@ const Styled = styled.div`
   }
 
   cursor: pointer;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
 .bar {
@@ -59,47 +60,74 @@ const Styled = styled.div`
   height: 100%;
 }
 
-.links {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
+.tabletNo {
+  @media ${device.tablet} {
+    display: none;
+  }
 
-svg {
-  padding: 0 0.5em 0 1em;
-}
+  .toggle {
+    display: none;
+    @media ${device.tablet} {
+      display: block;
+    }
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  svg {
+    padding: 0 0.5em 0 1em;
+  }
 `;
-const AppBar: FunctionComponent<{ small: boolean }> = ({ small, children }) => {
+
+const AppBar: FunctionComponent<PropsSetting> = (props) => {
+
+  useEffect(() => {
+    const settingsRequest = () => {
+      props.settingsRequest();
+    }
+   return settingsRequest();
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  const phoneNumber = useMemo(() =>
+    phone(props.settings?.phoneNumber), [props]);
+
   return (
     <Styled>
       <Link to="/">
         <div className="logo">
-          {!small && <b> интернет </b>}
+          <Span after={"интернет"} />
           <Icon src={"logo"} />
-          {!small && <b> магазин</b>}
+          <Span after={"магазин"} />
+
         </div>
       </Link>
       <div className="bar">
-        {!small && <FlexAround className="links">
-          {webMenu.map((item, key) => (
-            <Link key={key} to={item.link}>
+        <FlexAround className={"tabletNo"}>
+
+          {props.settings?.appBarLinks.map((item, key) => (
+            <Link key={key} to={"/page/" + item.id}>
               {item.name}
             </Link>
           ))}
-        </FlexAround>}
+        </FlexAround>
         <FlexCenter>
-          <A href={`tel:${phoneNumber}`}>
+          <A href={`tel:${props.settings?.phoneNumber}`}>
             <Icon src={"phone"} />
-            {!small && phoneNumber}
+            <Span after={phoneNumber} />
+
           </A>
-          <Card>   {!small && "корзина"}    </Card>
+          <Card> <Span after={"корзина"} /> </Card>
           <LINK to="/enter">
-            <Icon src={"person"} />
-            {!small && "личный кабинет"}
+            <Icon src={"person"} /><Span after={"личный кабинет"} />
+
           </LINK> </FlexCenter>
       </div>
-      {children}
+      {props.children}
     </Styled>
   );
 };
-export default AppBar;
+const connected = connect(mapSettings, actionsSettings)(AppBar);
+export default connected;

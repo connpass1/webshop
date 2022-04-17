@@ -14,6 +14,7 @@ export class OrderModel {
   orderItems: IOrderItem[];
   status: number;
   sum: number;
+
   constructor(data: OrderModel) {
     this.id = data.id;
     this.initDate = new Date(data.initDate);

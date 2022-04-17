@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, {   useEffect } from "react";
 import { connect } from "react-redux";
-import { mapContent } from "../store/helper";
+import { mapContent, PropsContent } from "../store/helper";
 import { actionsContent } from "../store/storeContent";
 import { Route, useLocation } from "react-router-dom";
 import Catalog from "../pages/CatalogPage";
@@ -17,9 +17,11 @@ const CatalogStyles = createGlobalStyle`
     border-radius: 8px;
     align-items: center;
     gap: 12px;
+
     div {
       padding: 0 8px
     }
+
     header {
       text-align: center;
       display: inline-block;
@@ -36,27 +38,27 @@ const CatalogStyles = createGlobalStyle`
         border-radius: 0;
       }
     }
-
   }
+
   .price {
     grid-area: price;
     padding: 12px;
-    font-size: 1.8em;
+    font-size: 1.8em; 
     :after {
       content: " р."
-    }
-  ;
+    } ;  
   }
 `;
 
-type Props = ReturnType<typeof mapContent> & typeof actionsContent;
-const Component1: React.FC<Props> = (props) => {
+const Component1: React.FC<PropsContent> = (props) => {
   const location = useLocation();
-  console.log(location.pathname);
   useEffect(() => {
-      props.contentRequest(location.pathname);
+      const contentRequest = (d: string) => {
+        props.contentRequest(d);
+      }
+      return contentRequest(location.pathname);
     }
-    , [location]);
+    , [location]);// eslint-disable-line react-hooks/exhaustive-deps
   return (
     <>
       <CatalogStyles />

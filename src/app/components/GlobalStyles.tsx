@@ -1,5 +1,4 @@
-import { createGlobalStyle } from "styled-components";
-import { useEffect, useState } from "react";
+import { createGlobalStyle, keyframes } from "styled-components";
 
 export enum Sizes {
   mobile = 425,
@@ -37,22 +36,11 @@ export const device = {
   desktop: `(max-width: ${theme.size.desktop})`
 };
 
-export function useIsSmall() {
-  const [small, setSmall] = useState(false);
-  useEffect(() => {
-    function handleResize() {
-      setSmall(window.innerWidth < Sizes.tablet);
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-  });
-  return small;
-}
 
 const GlobalStyles = createGlobalStyle`
   body {
-    margin: 0
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
   }
 
   header {
@@ -61,20 +49,33 @@ const GlobalStyles = createGlobalStyle`
     border-bottom: ${theme.border};
     margin: 12px 0;
     @media ${device.tablet} {
-      border: 0;
       margin: 0 ;
-      justify-content: flex-end;
     }
   }
 
+  .root {
+    padding-bottom: 2px;
+    border-bottom: 1px solid currentColor;
+    margin-bottom: 8px;
+  }
+
+  ;
+
   h1, h2, h3 {
-    padding: 0;
+    padding: 24px;
     margin-block-start: 0;
-    margin-block-end: 10px;
-    @media ${device.mobile} {
-      margin-block-end: 0;
-    };
-    border-color: currentColor;
+    display: flex;
+    border-bottom: 1px solid currentColor;
+    margin-block-end: 0;
+    color: ${theme.color.primary};
+    vertical-align: middle;
+
+    @media ${device.laptop} {
+      padding: 12px;
+    }
+    @media ${device.tablet} {
+      padding: 0 0 0.2em 0;
+    }
   }
 
   @media ${device.tablet} {
@@ -124,7 +125,6 @@ const GlobalStyles = createGlobalStyle`
   }
 
   input,
-  button,
   select,
   optgroup,
   textarea {
@@ -132,20 +132,27 @@ const GlobalStyles = createGlobalStyle`
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
-    border: 1px solid ${theme.color.primary};
+    border: 1px;
+    border-color: ${theme.color.primary};
     border-radius: 4px;
+    box-shadow: 0 0 5px ${theme.color.primary};
   }
 
-  input[type="text"], input[type="number"]:focus {
-    border: 1px solid ${theme.color.secondary};
+  input:focus, textarea:focus {
+    outline: none !important;
+    border: 1px;
+    box-shadow: 0 0 10px ${theme.color.primary};
+  }
+
+  ;
+  textarea {
+    min-width: max-content;
+    min-height: 240px;
   }
 
   input, textarea {
     padding: 4px;
-    max-width: 240px;
-    margin-bottom: 12px;
     font-size: 1.2rem;
-    margin-right: 2em;
   }
 
   button,
@@ -156,25 +163,9 @@ const GlobalStyles = createGlobalStyle`
   button,
   select {
     text-transform: none;
+    justify-content: center;
   }
 
-  button,
-  html [type="button"],
-  [type="reset"],
-  [type="submit"] {
-    -webkit-appearance: button;
-  }
-
-  ;
-  button::-moz-focus-inner,
-  [type="button"]::-moz-focus-inner,
-  [type="reset"]::-moz-focus-inner,
-  [type="submit"]::-moz-focus-inner {
-    padding: 0;
-    border-style: none;
-  }
-
-  ;
   footer {
     min-height: 100px;
     display: flex;
@@ -182,7 +173,13 @@ const GlobalStyles = createGlobalStyle`
     justify-content: space-around;
   }
 
-  ;
+  .toggle {
+    display: none;
+    @media ${device.tablet} {
+      display: block;
+    }
+  }
+
   main {
     grid-area: main;
     box-shadow: ${theme.shadow};
@@ -204,7 +201,6 @@ const GlobalStyles = createGlobalStyle`
     text-decoration-thickness: 1px;
   }
 
-  ;
   hr {
     border-bottom: 1px solid currentColor;
     width: 100%;
@@ -217,6 +213,11 @@ const GlobalStyles = createGlobalStyle`
     text-shadow: 1px 0 0 currentColor;
   }
 
+  .error {
+    color: ${theme.color.error};
+  }
+
+  ;
   .icon {
     width: 1em;
     height: 1em;
@@ -228,3 +229,24 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 export default GlobalStyles;
+export const outAnimation = keyframes`
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+  100% {
+    left: -400px;
+    opacity: 0.5;
+  }
+`;
+
+export const inAnimation = keyframes`
+  0% {
+    left: -200px;
+    opacity: 0.5;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+`;

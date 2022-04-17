@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IEntity } from "../../models/IFases";
+import { ISlug } from "../../models/IFases";
 import { Icon } from "./Icon";
 
-export const CatalogLink: React.FC<{ item: IEntity, onClick?: any }> = ({ item, onClick }) => {
+export const CatalogLink: React.FC<{ item: ISlug, onClick?: any, className?: string }>
+  = ({ item, onClick, className = "catLink" }) => {
   const handle = () => {
     if (onClick) onClick();
   };
-  if (!item.id) return <Link to={`/${item.id}/${item.id}`}>{item.name}</Link>;
+  if (!item.id) return <Link to={`/${item.id}/${item.id}`}>{item.name} </Link>;
   return (
-    <Link to={`/catalog/${item.id}`} style={{ paddingRight: "0.8em" }} onClick={handle}>
+    <Link to={`/catalog/${item.id}`} onClick={handle} className={className}>
       <Icon src={item.icon} />
       {item.name}
     </Link>

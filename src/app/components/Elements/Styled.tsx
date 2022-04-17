@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { device, theme } from "../GlobalStyles";
@@ -17,6 +16,7 @@ export const A = styled.a`
   justify-items: center;
   justify-content: center;
   align-items: center;
+
   .icon {
     margin-right: -0.2em;
   }
@@ -26,6 +26,7 @@ export const LINK = styled(Link)`
   justify-items: center;
   justify-content: center;
   align-items: center;
+
   .icon {
     margin-right: -0.2em;
   }
@@ -58,25 +59,40 @@ export const Table = styled.table`
   width: 100%;
   @media ${device.tablet} {
     box-sizing: content-box ;
-    min-width: calc(100% + 24px) ;
+    min-width: calc (100% + 24px) ;
     margin: 0 -12px ;
   }
+
   th,
   td {
     border: 1px solid;
     padding: 8px;
   }
+
   tr:nth-child(even) {
     background-color: ${theme.color.greyLight};
   }
+
   tr:hover {
     background-color: ${theme.color.secondaryLight};
   }
+
   th {
     padding-top: 12px;
     padding-bottom: 12px;
     background-color: ${theme.color.secondary};
     color: white;
+  }
+`;
+export const Span = styled.span<{ after: string | undefined }>`
+  :after {
+    content: ${(props) => (props.after && "'" + props.after + "'")}
+  }
+
+  @media ${device.tablet} {
+    :after {
+      content: none
+    }
   }
 `;
 export const Tr = styled.tr`
@@ -85,6 +101,7 @@ export const Tr = styled.tr`
     font-weight: bolder;
     text-align: right;
     background-color: ${theme.color.grey};
+
     :hover {
       background-color: ${theme.color.grey};
     }

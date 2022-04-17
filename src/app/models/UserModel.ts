@@ -1,10 +1,12 @@
-import { CUSTOMER } from "../data";
+export const CUSTOMER = "customer";
+
 export class UserModel {
   id?: number;
   name?: string;
   //password?: string;
   role?: string;
   token?: string;
+
   constructor(data: UserModel) {
     this.id = data.id;
     this.name = data.name;
@@ -13,6 +15,7 @@ export class UserModel {
     this.token = data.token;
   }
 }
+
 export const saveToLocalStorage = (userModel: UserModel) => {
   localStorage.setItem(CUSTOMER, JSON.stringify(userModel));
 };

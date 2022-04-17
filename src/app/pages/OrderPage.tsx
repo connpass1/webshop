@@ -2,6 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { Icon } from "../components/Elements/Icon";
 import { LINK, Table, Tr } from "../components/Elements/Styled";
 import { OrderModel } from "../models/OrderModel";
+
 const Component: FunctionComponent<{ data: OrderModel[] }> = ({ data }) => {
   const [orders, setOrders] = useState<OrderModel[] | undefined>([]);
   useEffect(() => {
@@ -18,6 +19,7 @@ const Component: FunctionComponent<{ data: OrderModel[] }> = ({ data }) => {
           return undefined;
         }
       }
+
       setOrders(f(data));
     }
     , [data]);

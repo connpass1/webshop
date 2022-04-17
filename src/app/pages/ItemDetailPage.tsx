@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Breadcrumbs } from "../components/Elements/Breadcrumbs";
+import { Breadcrumbs } from "../components/Blocks/Breadcrumbs";
 import { IItemDetail } from "../models/IFases";
 import AddToCart from "../components/Blocks/AddToCard";
 import { Image } from "../components/Elements/Image";
@@ -32,8 +32,7 @@ const Component: FunctionComponent<{ detail: IItemDetail | undefined }> = ({ det
   return (
     <>
       <Breadcrumbs parent={item.parent} />
-      <header><Icon src={item.icon} />
-        <h1> {item.name}  </h1></header>
+      <h1><Icon src={item.icon} />{item.name}</h1>
       <Section>
         <Articular val={item.id} />
         <div className={"caption"}>caption {caption} </div>

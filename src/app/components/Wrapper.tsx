@@ -1,13 +1,15 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useRef, useState } from "react";
 import styled from "styled-components";
 import AppBar from "./AppBar";
 import Navigation from "./Navigation";
 import Toggle from "./Elements/Toggle";
-import Footer from "./Footer";
-import { device, useIsSmall } from "./GlobalStyles";
+import { device, inAnimation, outAnimation } from "./GlobalStyles";
 import { Icon } from "./Elements/Icon";
+import { useOutsideClick } from "../store/helper";
+import CheckContent from "./CheckContent";
 
-const WRAPPER = styled.div`
+
+const WRAPPER = styled.div<{ open: boolean }>`
   user-select: none;
   color: black;
   display: grid;
@@ -36,39 +38,52 @@ const WRAPPER = styled.div`
   };
   @media ${device.tablet} {
     grid-template-areas:
-      " appBar "
-      " main "
-      " footer ";
-    grid-template-columns:  100%  ;
+      " appBar"  
+      "  main"
+      "  footer";
+    grid-template-columns:    auto  ;
     gap: 0;
+    nav {
+      width: ${(props) => (props.open ? "0" : "280px")};
+      animation-name: ${(props) => (props.open ? inAnimation : outAnimation)};
+      animation-duration: 0.5s;
+      position: absolute;
+      left: ${(props) => (props.open ? 0 : "-100%")};
+    }
   };
 `;
-const Wrapper: FunctionComponent = ({ children }) => {
+
+const Wrapper: FunctionComponent = (props) => {
+  const wrapperRef: React.Ref<any> = useRef(null);
+  // @ts-ignore
+  useOutsideClick(wrapperRef, () => setNavBarOpened(false));
   const [navBarOpened, setNavBarOpened] = useState(false);
-  const small = useIsSmall();
   const toggle = (g: React.SetStateAction<boolean>) => setNavBarOpened(g);
-  const closeNav = () => {
-    if (navBarOpened) toggle(false);
-  };
+
   return (
-    <WRAPPER>
-      <AppBar small={small}>{small ? <Toggle onToggle={toggle} toggled={navBarOpened} /> : <div />}
+    <WRAPPER open={navBarOpened}>
+      <AppBar>
+        <Toggle innerRef={wrapperRef} onToggle={toggle} />
       </AppBar>
       <main>
-        <ErrorBoundary>{children}</ErrorBoundary>
+        <ErrorBoundary>{props.children}</ErrorBoundary>
       </main>
-      <Navigation closeNav={closeNav} large={!small} open={navBarOpened}> </Navigation>
-      <Footer />
+      <CheckContent />
+      <Navigation />
     </WRAPPER>
   );
 };
+
 export default Wrapper;
+
 class ErrorBoundary extends React.Component {
   state = { hasError: false, error: undefined };
+
   static getDerivedStateFromError(error: any) {
     console.log(error);
     return { hasError: true, error: error };
   }
+
   componentDidCatch(error: any, errorInfo: any) {
     console.log(errorInfo);
   }

@@ -1,15 +1,18 @@
-import { initCustomer, UserModel } from "./UserModel";
 export class ProfileModel {
-  user: UserModel;
+  userId: number;
   id: number;
   address: string;
-  email: string;
-  phone: number;
+  name: string;
+  email?: string;
+  phone?: number;
+
   constructor(data: ProfileModel) {
-    this.id = data.id;
+    this.name = data.name;
+    this.id = data.id ? data.id : 0;
     this.address = data.address ? data.address : "";
     this.email = data.email ? data.email : "";
-    this.phone = data.phone ? data.phone : 777;
-    this.user = initCustomer();
+    this.phone = data.phone ? data.phone : undefined;
+    this.userId = data.userId;
+
   }
 }

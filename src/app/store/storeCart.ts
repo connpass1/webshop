@@ -1,5 +1,6 @@
 import { Reducer } from "redux";
 import { IFetchCart, IItem } from "../models/IFases";
+
 export enum ActionTypesCart {
   adToCart = "AD_TO_CARD",
   clearCart = "CLEAR_CARD",
@@ -8,6 +9,7 @@ export enum ActionTypesCart {
   makeOrderSuccess = "MAKE_ORDER_SUCCESS",
   makeOrderERROR = "MAKE_ORDER_ERROR",
 }
+
 export const actionsCart = {
   //adToCartRequest: (item: IItem) => ({type: ActionTypesCart.adToCartRequest, item}), 
   adToCart: (item: IItem) => ({ type: ActionTypesCart.adToCart, item }),

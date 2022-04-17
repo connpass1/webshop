@@ -1,11 +1,13 @@
 import { Reducer } from "redux";
 import { IFetchContent } from "../models/IFases";
+
 export enum ActionTypesContent {
   contentRequest = "CONTENT_REQUEST",
   saveContentRequest = "SAVE_CONTENT_REQUEST",
   contentSuccess = "CONTENT_SUCCESS",
   contentFiled = "CONTENT_FILED",
 }
+
 export const actionsContent = {
   contentRequest: (url: string) => ({ type: ActionTypesContent.contentRequest, url }),
   contentSuccess: (data: any) => ({ type: ActionTypesContent.contentSuccess, data }),
