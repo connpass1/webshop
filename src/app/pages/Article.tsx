@@ -1,20 +1,21 @@
-import { H1 } from "../components/Elements/Icon";
-import { actionsContent } from "../store/storeContent";
-import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
-import { connect } from "react-redux";
 import React from "react";
+import { connect } from "react-redux";
+import { H1 } from "../components/Elements/Icon";
 import { ArticleContentModel } from "../models/ArticleModel";
+import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
+import { actionsContent } from "../store/storeContent";
 
 const Component: React.FC<any> = (props) => {
-
   const model: ArticleContentModel = new ArticleContentModel(props);
-  return <>
-    <H1 src={model.article.icon}> {model.title}</H1>
-    <main className={"start"}>
-      {JSON.stringify(props)}
-      <div dangerouslySetInnerHTML={{ __html: `<div>${model.content}</div>` }}></div>
-    </main>
-  </>;
+  return (
+    <>
+      <H1 src={model.article.icon}> {model.title}</H1>
+      <main className={"start"}>
+        {JSON.stringify(props)}
+        <div dangerouslySetInnerHTML={{ __html: `<div>${model.content}</div>` }}></div>
+      </main>
+    </>
+  );
 };
 
 const Component1: React.FC<PropsContent> = (props) => {

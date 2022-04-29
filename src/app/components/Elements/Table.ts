@@ -1,12 +1,8 @@
+import React from "react";
 import styled from "styled-components";
 import { device, theme } from "../GlobalStyles";
-import React from "react";
-
-export class Children extends React.Component {
-  render() {
-    return this.props.children;
-
-  }
+export const ChildrenGreed:React.FC<any> = (props) => { 
+    return  props.children; 
 }
 
 export const GridTable = styled.div`

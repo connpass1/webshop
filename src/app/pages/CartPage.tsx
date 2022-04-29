@@ -1,22 +1,22 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { BackToCatalog, Button } from "../components/Elements/Button";
-import { Column, FlexEvenly } from "../components/Elements/Styled";
-import { compare, mapCart, mapCustomer } from "../store/helper";
-import { actionsCart } from "../store/storeCart";
 import styled from "styled-components";
+import { BackToCatalog, Button } from "../components/Elements/Button";
+import { H1, Icon } from "../components/Elements/Icon";
+import { Column, FlexEvenly } from "../components/Elements/Styled";
+import { ChildrenGreed, GridTable, TD, TH, TI } from "../components/Elements/Table";
 import { IItem } from "../models/IFases";
 import LoginPage from "../routers/LoginFilter";
-import { Children, GridTable, TD, TH, TI } from "../components/Elements/Table";
-import { H1, Icon } from "../components/Elements/Icon";
+import { compare, mapCart, mapCustomer } from "../store/helper";
+import { actionsCart } from "../store/storeCart";
 
 type Props = ReturnType<typeof mapCart> & typeof actionsCart;
 const Table = styled(GridTable)`
-  grid-template-columns:  40px  3fr 1fr min-content  40px; 
+  grid-template-columns: 40px 3fr 1fr min-content 40px;
   svg {
     cursor: pointer;
-  } 
+  }
 `;
 
 type PropsOrder = ReturnType<typeof mapCustomer> & {
@@ -24,7 +24,7 @@ type PropsOrder = ReturnType<typeof mapCustomer> & {
   handler: any;
   items: IItem[];
   state: boolean;
-  stateHandler: any
+  stateHandler: any;
 };
 const ButtonOrder: React.FC<PropsOrder> = (props) => {
   const handler = () => {
@@ -42,13 +42,14 @@ const ButtonOrder: React.FC<PropsOrder> = (props) => {
   return (
     <>
       {props.state ? (
-        <><Column>
-          <LoginPage  >
-          <FlexEvenly> <Button onClick={props.stateHandler}> отмена </Button>
-            <Button   onClick={handler}>
-              подтвердить
-            </Button>
-          </FlexEvenly>
+        <>
+          <Column>
+            <LoginPage>
+              <FlexEvenly>
+                {" "}
+                <Button onClick={props.stateHandler}> отмена </Button>
+                <Button onClick={handler}>подтвердить</Button>
+              </FlexEvenly>
             </LoginPage>
           </Column>
         </>
@@ -116,39 +117,45 @@ const Component: React.FC<Props> = (props) => {
   const disabled = oneCheck === undefined;
   return (
     <>
-      <H1 src={"cart"}> Корзина </H1><main className={"between"}>
-      {!login &&
-        < Table>
-          <TH>N</TH>
-          <TH>назание</TH>
-          <TH>количество</TH>
-          <TH>цена</TH>
-          <TH onClick={handlerAll}>
-            <Icon src={!allCheck ? "ok" : "rect"} />
-          </TH>
-          {state.map((item, num) => (
-            <Children key={item.id}>
-              <TD> {num + 1}</TD>
-              <TD>
-                <Link to={"/item/" + item.itemDetailId}><Icon src={item.icon} /> {item.name}</Link>
-              </TD>
-              <TD><span>{item.quantity} </span></TD>
-              <TD>{item.price} </TD>
-              <TI onClick={() => handler(item.id)}>
-                <Icon src={item.checked ? "ok" : "rect"} />
-              </TI>
-            </Children>
-          ))}</Table>}
-      <FlexEvenly>
-        {!login && <Button onClick={handlerDel} disabled={disabled}>
-          {allCheck === undefined ? "очистить корзину" : "удалить из корзины"}
-        </Button>}
-        <ButtonComponent state={login} stateHandler={loginHandler} items={state} disabled={disabled}
-                         handler={props.makeOrderRequest} />
-      </FlexEvenly>
-    </main>
-
-
+      <H1 src={"cart"}> Корзина </H1>
+      <main className={"between"}>
+        {!login && (
+          <Table>
+            <TH>N</TH>
+            <TH>назание</TH>
+            <TH>количество</TH>
+            <TH>цена</TH>
+            <TH onClick={handlerAll}>
+              <Icon src={!allCheck ? "ok" : "rect"} />
+            </TH>
+            {state.map((item, num) => (
+              <ChildrenGreed key={item.id}>
+                <TD> {num + 1}</TD>
+                <TD>
+                  <Link to={"/item/" + item.itemDetailId}>
+                    <Icon src={item.icon} /> {item.name}
+                  </Link>
+                </TD>
+                <TD>
+                  <span>{item.quantity} </span>
+                </TD>
+                <TD>{item.price} </TD>
+                <TI onClick={() => handler(item.id)}>
+                  <Icon src={item.checked ? "ok" : "rect"} />
+                </TI>
+              </ChildrenGreed>
+            ))}
+          </Table>
+        )}
+        <FlexEvenly>
+          {!login && (
+            <Button onClick={handlerDel} disabled={disabled}>
+              {allCheck === undefined ? "очистить корзину" : "удалить из корзины"}
+            </Button>
+          )}
+          <ButtonComponent state={login} stateHandler={loginHandler} items={state} disabled={disabled} handler={props.makeOrderRequest} />
+        </FlexEvenly>
+      </main>
     </>
   );
 };

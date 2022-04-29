@@ -1,7 +1,6 @@
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { device } from "../GlobalStyles";
-
 
 export const FlexAround = styled.div`
   display: flex;
@@ -14,7 +13,6 @@ export const A = styled.a`
   justify-items: center;
   justify-content: center;
   align-items: center;
-
   .icon {
     margin-right: -0.2em;
   }
@@ -24,30 +22,15 @@ export const LINK = styled(Link)`
   justify-items: center;
   justify-content: center;
   align-items: center;
-
   .icon {
     margin-right: -0.2em;
-  }
-`;
-export const LINKButton = styled.div`
-  display: flex;
-  justify-items: center;
-  justify-content: center;
-  align-items: center;
-  text-decoration: underline;
-  font-size: 1rem;
-  font-style: italic;
-  cursor: pointer;
-
-  :hover {
-    text-shadow: 1px 0 0 currentColor;
   }
 `;
 
 export const Row = styled.div`
   display: flex;
-  flex-direction: row;`
-;
+  flex-direction: row;
+`;
 
 export const Column = styled.div`
   display: flex;
@@ -62,27 +45,20 @@ export const FlexEvenly = styled.div`
   justify-content: space-evenly;
   width: 100%;
   flex-wrap: wrap;
- 
-  button, div {
+
+  button,
+  div {
     flex-grow: 1;
-    margin: 12px;  
+    margin: 12px;
   }
 
   @media ${device.tablet} {
-
     min-width: 100vw;
   }
 `;
 
 export const Span = styled.span<{ after: string | undefined }>`
   :after {
-    content: ${(props) => (props.after && "'" + props.after + "'")}
-  }
-
-  @media ${device.tablet} {
-    :after {
-      content: none
-    }
+    content: ${(props) => props.after && "'" + props.after + "'"};
   }
 `;
-

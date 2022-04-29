@@ -1,7 +1,7 @@
 import React from "react";
-import { device, theme } from "../components/GlobalStyles";
 import styled from "styled-components";
-import { Children } from "../components/Elements/Table";
+import { ChildrenGreed } from "../components/Elements/Table";
+import { device, theme } from "../components/GlobalStyles";
 
 const Styled = styled.div`
   background-color: ${theme.color.greyLight};
@@ -35,50 +35,46 @@ const TROW = styled(Styled)`
     color: black;
     padding: 2px;
   }
-;
 `;
-const arr = [{ "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 },
-  { "i": "gggggg", "n": 0 }
-
+const arr = [
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
+  { i: "gggggg", n: 0 },
 ];
 
-
 const HomePage: React.FC = (props) => {
-  const s = <TROW>
-    <div>bbb</div>
-    <div>111b</div>
-    <div>222</div>
-  </TROW>;
-  return <>
-
-    <Main>
-      <THEAD>
-        {
-          arr.map((h) => <Children>
+  const s = (
+    <TROW>
+      <div>bbb</div>
+      <div>111b</div>
+      <div>222</div>
+    </TROW>
+  );
+  return (
+    <>
+      <Main>
+        <THEAD>
+          {arr.map((h) => (
+            <ChildrenGreed>
               <div>{h.i}</div>
               <div>{h.n}</div>
               <div>{h.i}</div>
-            </Children>
-          )
-        }
-
-
-      </THEAD>
-      {s}{s}{s}
-
-    </Main>
-
-
-  </>;
+            </ChildrenGreed>
+          ))}
+        </THEAD>
+        {s}
+        {s}
+        {s}
+      </Main>
+    </>
+  );
 };
 export default HomePage;
-
