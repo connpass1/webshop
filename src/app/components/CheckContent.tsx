@@ -15,9 +15,11 @@ const Check = styled.div`
 `;
 const Component: FunctionComponent<PropsContent1> = (prop) => {
   const status = prop.status;
-  if (status > 200) return <Redirect to={"/Error/" + status} />;
-  if (status === 200) return <Check>{status}</Check>;
-  return <Check> <Spinner /></Check>;
+  if (status < 200) return <Check> <Spinner /></Check>;
+  if (status > 399) return <Redirect to={"/Error/" + status} />;
+  if (status > 200) return <Check> {status}</Check>;
+  return null;
+
 };
 const Connected = connect(mapContent)(Component);
 export default Connected;

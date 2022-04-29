@@ -1,11 +1,5 @@
 import { IOrderItem } from "./IFases";
-// export interface IOrder {
-//   status: number;
-//   id: number;
-//   initDate: Date;
-//   lastUpdateStatus: Date;
-//   orderItems: IOrderItem[];
-// }
+
 export class OrderModel {
   quantity: number;
   id: number;

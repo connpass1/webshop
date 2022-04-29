@@ -2,6 +2,7 @@ import { IEntity, IFetchCart, IFetchContent, IFetchCustomer, IFetchSettings } fr
 import { actionsSettings } from "./storeSettings";
 import { useEffect } from "react";
 import { actionsContent } from "./storeContent";
+import { useLocation } from "react-router-dom";
 
 function isObject(object: any) {
   return object != null && typeof object === "object";
@@ -43,8 +44,14 @@ export function phone(ph: number | undefined) {
   let phone = "" + ph;
   if (phone.length < 10) return "???????????";
   phone = "+7 ( " + phone.slice(0, 4) + " ) " + phone.slice(4, 7) + " " + phone.slice(7, phone.length);
-
   return phone;
+}
+
+export function useFetchLocation(request: any) {
+  const location = useLocation();
+  useEffect(() => {
+    request(location.pathname);
+  }, [location.pathname,request]);
 }
 
 export function useOutsideClick(ref: { current: { contains: (arg0: any) => any; }; }, handler: { (this: Document, ev: MouseEvent): any; (this: Document, ev: MouseEvent): any; }) {

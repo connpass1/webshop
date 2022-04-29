@@ -2,7 +2,7 @@ import React, { FunctionComponent, useCallback, useMemo, useState } from "react"
 import styled from "styled-components";
 import { IItem } from "../../models/IFases";
 import { ButtonSecondary } from "../Elements/Button";
-import { FlexBetween } from "../Elements/Styled";
+import { Row } from "../Elements/Styled";
 import ItemPreview from "./ItemPreview";
 import { device } from "../GlobalStyles";
 
@@ -11,7 +11,11 @@ const Links = styled.div`
   padding: 12px;
   display: flex;
   flex-direction: row;
-  justify-content: center;;
+  justify-content: center;
+
+  button {
+    padding: 0 4px
+  }
 `;
 const Grid = styled.div`
   width: 100%;
@@ -60,7 +64,7 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
 
   const A = useMemo(
     () => f(items, page),
-    [page, items ]
+    [page, items]
   );
   const B = useMemo(
     () => (
@@ -78,7 +82,7 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
     <>
       {A}
       {B}
-      <FlexBetween>
+      <Row className={"between"}  >
         <div>
           <i>Страница {page} </i>
           <i>из {pages} </i>
@@ -86,8 +90,8 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
         <div>
           <i>Всего товаров в категории {items.length} </i>
         </div>
-      </FlexBetween>
+      </Row>
     </>
   );
 };
-export default React.memo(Component)
+export default React.memo(Component);

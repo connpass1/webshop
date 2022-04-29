@@ -1,8 +1,14 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { Icon } from "../components/Elements/Icon";
-import { LINK, Table, Tr } from "../components/Elements/Styled";
+import { H1 } from "../components/Elements/Icon";
 import { OrderModel } from "../models/OrderModel";
+import styled from "styled-components";
+import { Children, GridTable, TD, TF, TH } from "../components/Elements/Table";
+import { Link } from "react-router-dom";
+import { Span } from "../components/Elements/Styled";
 
+const Greed = styled(GridTable)`
+  grid-template-columns: minmax(max-content, 40px) minmax(max-content, 240px) minmax(max-content, 70px) minmax(max-content, 60px)  minmax(max-content, 60px);
+`;
 const Component: FunctionComponent<{ data: OrderModel[] }> = ({ data }) => {
   const [orders, setOrders] = useState<OrderModel[] | undefined>([]);
   useEffect(() => {
@@ -11,7 +17,6 @@ const Component: FunctionComponent<{ data: OrderModel[] }> = ({ data }) => {
           const arr: OrderModel[] = [];
           for (let x in d) {
             let o = new OrderModel(d[x]);
-            console.log(o);
             arr.push(o);
           }
           return arr;
@@ -28,34 +33,34 @@ const Component: FunctionComponent<{ data: OrderModel[] }> = ({ data }) => {
     <p> У вас нет активных заказов </p>
   </>;
   return (
-    <>
-      <h1><Icon src={"order"} />Заказы</h1>
-      <Table>
-        <thead>
-        <tr>
-          <th colSpan={2}> наименоваеие</th>
-          <th> кол-во</th>
-          <th colSpan={2}> цена</th>
-        </tr>
-        </thead>
-        {orders.map(order => < tbody key={order.id}>
-        {order.orderItems.map(oi => <tr key={oi.id}>
-            <td>  {oi.item.icon}  </td>
-            <td><LINK to={"/item/" + oi.item.itemDetailId}> {oi.item.name}</LINK></td>
-            <td>  {oi.quantity}  </td>
-            <td>  {oi.item.price}  </td>
-            <td>  {oi.quantity * oi.item.price}  </td>
-          </tr>
+
+      <Greed>
+        <TH> N</TH>
+        <TH> наименоваеие</TH>
+        <TH> кол-во</TH>
+        <TH> цена</TH>
+        <TH>сумма</TH>
+
+        {orders.map(order => <Children key={order.id}>
+            {order.orderItems.map((oi, n) => <Children key={oi.id}>
+                <TD> {n}  </TD>
+                <TD><Link to={"/item/" + oi.item.itemDetailId}> {oi.item.name}</Link></TD>
+                <TD>  {oi.quantity}  </TD>
+                <TD>   {oi.item.price}  </TD>
+                <TD>  {oi.quantity * oi.item.price}  </TD>
+              </Children>
+            )}
+            <TF> </TF>
+            <TF>
+              {order.initDate.toLocaleDateString()}
+            </TF>
+            <TF> статус: {order.status}  </TF>
+            <TF> </TF>
+            <TF> {order.sum} </TF>
+          </Children>
         )}
-        <Tr>
-          <td colSpan={5}>
-            {order.initDate.toLocaleString()} статус: {order.status}
-            сумма {order.sum}
-          </td>
-        </Tr>
-        </tbody>)}
-      </Table>
-    </>
+      </Greed>
+
   );
 };
 export default Component;

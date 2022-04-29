@@ -1,4 +1,4 @@
-import { call, delay, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { actionsUser, ActionTypesLogin } from "./storeUser";
 import axios from "axios";
 import { getErrorStatus } from "./helper";
@@ -34,7 +34,7 @@ function* loginUser(userNameAndPass: any) {
 }
 
 function* registrationUser(userNameAndPass: any) {
-  console.log(userNameAndPass);
+
   try {
     const response = yield call(axios.post, SERVERNAME + "/register", userNameAndPass);
     console.log(response);
@@ -57,39 +57,32 @@ function* logoutUser() {
 
 function* makeOrder(orderData: any) {
   try {
-    //console.log(JSON.stringify(orderData));
     const { data } = yield call(axios.post, SERVERNAME + "/order", orderData.items.items, { headers: headerParams() });
     yield put(actionsCart.makeOrderSuccess(data));
-    //console.log("makeOrder    " +JSON.stringify(data));
   } catch (e) {
-    // console.log("makeOrder" + e);
     yield put(actionsCart.makeOrderERROR(getErrorStatus(e)));
   }
 }
 
 function* getContent(dataContent: any) {
+  yield put(actionsContent.contentGet());
   try {
-
+    console.log(dataContent.url);
     const { data } = yield call(axios.get, SERVERNAME + dataContent.url, { headers: headerParams() });
-    yield delay(200);
-    // console.log(JSON.stringify(data));
-    if (!data) yield put(actionsContent.contentFiled(404));
-    else yield put(actionsContent.contentSuccess(data));
+    console.log(data);
+    if (!data) yield put(actionsContent.getContentFiled(404));
+    else yield put(actionsContent.getContentSuccess(data));
   } catch (e) {
-    yield put(actionsContent.contentFiled(getErrorStatus(e)));
-    // console.log(JSON.stringify(e));
+    yield put(actionsContent.getContentFiled(getErrorStatus(e)));
   }
 }
 
 function* getSettings() {
+
   try {
-    // const { data } = yield call(axios.get, SERVERNAME + "/settngs", { headers: headerParams() });
-    // if (!data) //
-    //console.log(testInit);
-    // yield delay(3000);
+
     yield put(actionsSettings.initSettings(dataSettingModel));
-    // console.log("getSettings");
-    //  else yield put(actionsSettings.errorSettings(404));
+
   } catch (e) {
     console.log(e);
     yield put(actionsSettings.errorSettings(getErrorStatus(e)));
@@ -97,24 +90,55 @@ function* getSettings() {
   }
 }
 
-function* setContent(dataContent: any) {
+function* saveContent(dataContent: any) {
+  yield put(actionsContent.contentGet());
+  try {
+    //console.log(JSON.stringify(dataContent));
+
+    const url = SERVERNAME + dataContent.data.url;
+
+    console.log(url);
+    console.log("-----------saveContent-------------------");
+    const content = dataContent.data.data;
+    console.log(content);
+    console.log("------------saveContent----------------------");
+    const { data, status } = yield call(axios.post, url, content, {
+      headers: headerParams()
+    });
+    //
+    console.log(status);
+    console.log("---------------saveContent-------------");
+    console.log(JSON.stringify(data));
+
+    if (!data) yield put(actionsContent.saveContentFiled(301));
+    else yield put(actionsContent.saveContentSuccess(data));
+  } catch (e) {
+    yield put(actionsContent.saveContentFiled(getErrorStatus(e)));
+    console.log("---------------saveContent---еннн ----------");
+
+    console.log(JSON.stringify(e));
+  }
+}
+
+function* delContent(dataContent: any) {
+  yield put(actionsContent.contentGet());
   try {
     //console.log(JSON.stringify(dataContent));
     const url = SERVERNAME + dataContent.data.url;
     console.log(url);
-    console.log("----------------------------------");
-    const content = dataContent.data.data;
+    const content = dataContent.data;
     console.log(content);
-    console.log("----------------------------------");
-    const { data } = yield call(axios.post, url, content, {
+    console.log("----------delContent---------------");
+    const { status } = yield call(axios.post, url, content, {
       headers: headerParams()
     });
     //
-    console.log(JSON.stringify(data));
-    if (!data) yield put(actionsContent.contentFiled(404));
-    else yield put(actionsContent.contentSuccess(data));
+    console.log(status);
+    console.log("----------delContent---------------");
+    yield put(actionsContent.delContentSuccess(status));
+
   } catch (e) {
-    yield put(actionsContent.contentFiled(getErrorStatus(e)));
+    yield put(actionsContent.delContentFiled(getErrorStatus(e)));
     console.log(JSON.stringify(e));
   }
 }
@@ -124,9 +148,10 @@ function* watchUserRequest() {
   yield takeEvery(ActionTypesLogin.logoutRequest, logoutUser);
   yield takeEvery(ActionTypesLogin.registrationRequest, registrationUser);
   yield takeEvery(ActionTypesCart.makeOrderRequest, makeOrder);
-  yield takeEvery(ActionTypesContent.contentRequest, getContent);
-  yield takeEvery(ActionTypesContent.saveContentRequest, setContent);
+  yield takeEvery(ActionTypesContent.getContent, getContent);
+  yield takeEvery(ActionTypesContent.saveContent, saveContent);
   yield takeEvery(ActionTypesSettings.settingsRequest, getSettings);
+  yield takeEvery(ActionTypesContent.delContent, delContent);
 }
 
 export { watchUserRequest };

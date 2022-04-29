@@ -1,30 +1,27 @@
-import React, {  useEffect } from "react";
-import { connect } from "react-redux";
-import { mapContent, PropsContent } from "../store/helper";
+import { H1 } from "../components/Elements/Icon";
 import { actionsContent } from "../store/storeContent";
-import { useLocation } from "react-router-dom";
-import { Icon } from "../components/Elements/Icon";
+import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
+import { connect } from "react-redux";
+import React from "react";
+import { ArticleContentModel } from "../models/ArticleModel";
 
-const Component: React.FC<PropsContent> = (props) => {
-  const location = useLocation();
+const Component: React.FC<any> = (props) => {
 
-  useEffect(() => {
-      const contentRequest = ( ) => {
-        props.contentRequest(location.pathname);
-      }
-      return contentRequest( );
-    }
-    , [location]);// eslint-disable-line react-hooks/exhaustive-deps
-
-  if (!props.content) return null;
-  const { icon, title, content } = props.content;
+  const model: ArticleContentModel = new ArticleContentModel(props);
   return <>
-
-    <h1><Icon src={icon} /> {title}</h1>
-    <div dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }}></div>
-
+    <H1 src={model.article.icon}> {model.title}</H1>
+    <main className={"start"}>
+      {JSON.stringify(props)}
+      <div dangerouslySetInnerHTML={{ __html: `<div>${model.content}</div>` }}></div>
+    </main>
   </>;
 };
 
-const connected = connect(mapContent, actionsContent)(Component);
-export default connected;
+const Component1: React.FC<PropsContent> = (props) => {
+  useFetchLocation(props.contentRequest);
+  if (props.status < 200) return null;
+  if (!props.content) return null;
+  return <Component {...props.content} />;
+};
+const FetchContent = connect(mapContent, actionsContent)(Component1);
+export default FetchContent;

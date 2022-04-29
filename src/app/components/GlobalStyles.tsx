@@ -16,7 +16,8 @@ export const theme = {
     secondaryLight: "#b2dfdb",
     error: "#e53935",
     grey: "#424242",
-    greyLight: "#e0e0e0"
+    greyLight: "#e0e0e0",
+    disabled: "#888888"
   },
   size: {
     mobile: Sizes.mobile + "px",
@@ -59,39 +60,80 @@ const GlobalStyles = createGlobalStyle`
     margin-bottom: 8px;
   }
 
-  ;
-
   h1, h2, h3 {
-    padding: 24px;
+    grid-area: h;
+    padding: 12px;
     margin-block-start: 0;
-    display: flex;
     border-bottom: 1px solid currentColor;
+    justify-self: flex-start;
+    display: flex;
     margin-block-end: 0;
+
     color: ${theme.color.primary};
     vertical-align: middle;
-
+    margin-bottom: 12px;
     @media ${device.laptop} {
-      padding: 12px;
+      padding: 8px;
     }
     @media ${device.tablet} {
       padding: 0 0 0.2em 0;
     }
   }
 
-  @media ${device.tablet} {
-    main {
-      font-size: 0.8rem;
-      margin: 0;
-      padding: 0;
-    }
+  h1 {
+    line-height: 24px;
+    height: 24px;
 
+  }
+
+  @media ${device.tablet} {
     nav {
       border-radius: 0;
       box-shadow: none;
     }
   }
+ 
+.start{
+  justify-content: start;
+}
+.between{
+  justify-content: space-between;
+}
+.center{
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  
+}
+.end{
+  justify-content: flex-end;
+}
+  main {
+    
+    grid-area: main;  
+    border-radius: 4px;
+    user-select: text;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    @media ${device.tablet} {
+      font-size: 0.8rem;
+      margin: 0;
+      padding: 0;
+    }
 
-  ;
+    a {
+      font-style: italic;
+      outline: none;
+      color: var(primary-color);
+      white-space: nowrap;
+      text-decoration: underline;
+    }
+  }
+
   a {
     outline: none;
     text-decoration: none;
@@ -101,15 +143,15 @@ const GlobalStyles = createGlobalStyle`
   }
 
   button {
-    border-radius: 8px;
     cursor: pointer;
     align-items: center;
     user-select: none;
     display: inline-flex;
     flex-wrap: nowrap;
     padding: 8px 12px;
-    font-weight: 800;
+    font-weight: bolder;
     font-size: 1.2rem;
+    white-space: nowrap;
   }
 
   button:disabled {
@@ -118,41 +160,6 @@ const GlobalStyles = createGlobalStyle`
     border-color: black;
     opacity: 0.6;
     cursor: initial;
-  }
-
-  button:focus {
-    opacity: 0.8;
-  }
-
-  input,
-  select,
-  optgroup,
-  textarea {
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    border: 1px;
-    border-color: ${theme.color.primary};
-    border-radius: 4px;
-    box-shadow: 0 0 5px ${theme.color.primary};
-  }
-
-  input:focus, textarea:focus {
-    outline: none !important;
-    border: 1px;
-    box-shadow: 0 0 10px ${theme.color.primary};
-  }
-
-  ;
-  textarea {
-    min-width: max-content;
-    min-height: 240px;
-  }
-
-  input, textarea {
-    padding: 4px;
-    font-size: 1.2rem;
   }
 
   button,
@@ -180,26 +187,6 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
-  main {
-    grid-area: main;
-    box-shadow: ${theme.shadow};
-    padding: 10px;
-    border-radius: 4px;
-    user-select: text;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  main a {
-    font-style: italic;
-    outline: none;
-    color: var(primary-color);
-    font-size: 1.2em;
-    white-space: nowrap;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-  }
 
   hr {
     border-bottom: 1px solid currentColor;
@@ -227,6 +214,48 @@ const GlobalStyles = createGlobalStyle`
     align-self: center;
     justify-self: flex-end;
   }
+
+  section {
+    display: grid;
+    box-shadow: ${theme.shadow};
+    color: ${theme.color.primary};
+    font-size: 1rem;
+    border-radius: 8px;
+    align-items: center;
+    gap: 12px;
+
+    div {
+      padding: 0 8px
+    }
+
+    header {
+      text-align: center;
+      display: inline-block;
+      grid-area: h;
+      border-radius: 8px 8px 0 0;
+      color: white;
+      background-color: ${theme.color.primary};
+      margin: 0;
+      padding: 8px;
+      @media ${device.mobile} {
+        box-sizing: content-box ;
+        width: 100vw ;
+        margin: 0 -10px ;
+        border-radius: 0;
+      }
+    }
+  }
+
+  .price {
+    grid-area: price;
+
+    :after {
+      content: " р."
+    }
+  ;
+  }
+
+
 `;
 export default GlobalStyles;
 export const outAnimation = keyframes`

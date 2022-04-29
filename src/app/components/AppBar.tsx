@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Card } from "./Blocks/Card";
 import { Icon } from "./Elements/Icon";
-import { A, FlexAround, FlexCenter, LINK, Span } from "./Elements/Styled";
+import { A, FlexAround, LINK, Row, Span } from "./Elements/Styled";
 import { device, theme } from "./GlobalStyles";
 import { connect } from "react-redux";
 import { mapSettings, phone, PropsSetting } from "../store/helper";
@@ -44,7 +44,7 @@ const Styled = styled.div`
     font-size: 3em;
     padding: 12px;
     @media ${device.tablet} {
-      font-size: 1em;
+      font-size: 1.2em;
       padding: 0;
     }
   }
@@ -88,8 +88,8 @@ const AppBar: FunctionComponent<PropsSetting> = (props) => {
   useEffect(() => {
     const settingsRequest = () => {
       props.settingsRequest();
-    }
-   return settingsRequest();
+    };
+    return settingsRequest();
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
   const phoneNumber = useMemo(() =>
     phone(props.settings?.phoneNumber), [props]);
@@ -101,29 +101,25 @@ const AppBar: FunctionComponent<PropsSetting> = (props) => {
           <Span after={"интернет"} />
           <Icon src={"logo"} />
           <Span after={"магазин"} />
-
         </div>
       </Link>
       <div className="bar">
         <FlexAround className={"tabletNo"}>
-
           {props.settings?.appBarLinks.map((item, key) => (
             <Link key={key} to={"/page/" + item.id}>
               {item.name}
             </Link>
           ))}
         </FlexAround>
-        <FlexCenter>
+        < Row className={"center"}>
           <A href={`tel:${props.settings?.phoneNumber}`}>
             <Icon src={"phone"} />
             <Span after={phoneNumber} />
-
           </A>
           <Card> <Span after={"корзина"} /> </Card>
-          <LINK to="/enter">
+          <LINK to="/profile">
             <Icon src={"person"} /><Span after={"личный кабинет"} />
-
-          </LINK> </FlexCenter>
+          </LINK> </Row>
       </div>
       {props.children}
     </Styled>

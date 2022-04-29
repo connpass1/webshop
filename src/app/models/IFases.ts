@@ -1,5 +1,7 @@
 import { UserModel } from "./UserModel";
 import { SettingModel } from "./SettingModel";
+import { ItemPropertyModel } from "./ItemProperties";
+
 export interface IEntity extends ISlug {
   parent: string;
 }
@@ -10,6 +12,12 @@ export interface ISlug {
   icon?: string;
 }
 
+export interface IPageAble {
+  totalPages: number;
+  content: any[];
+
+}
+
 export interface IItem extends IEntity {
   price: number;
   quantity: number;
@@ -17,11 +25,6 @@ export interface IItem extends IEntity {
   checked: boolean;
 }
 
-export interface IItemProperty {
-  id: number;
-  name: string;
-  property: string;
-}
 
 export interface IItemDetail {
   item: IItem;
@@ -30,7 +33,7 @@ export interface IItemDetail {
   caption: string;
   description: string;
   photos: string[];
-  properties: IItemProperty;
+  properties: ItemPropertyModel[];
 }
 
 export interface ICatalog extends IEntity {

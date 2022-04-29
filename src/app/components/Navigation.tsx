@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useMemo } from "react";
 import styled from "styled-components";
 import { mapSettings, PropsSetting } from "../store/helper";
-import { CatalogLink } from "./Elements/ItemLink";
 import { Link } from "react-router-dom";
 
 import { device, theme } from "./GlobalStyles";
@@ -9,8 +8,11 @@ import { Icon } from "./Elements/Icon";
 import { connect } from "react-redux";
 import { actionsSettings } from "../store/storeSettings";
 import { FlexAround } from "./Elements/Styled";
+import AdminLinks from "./adminka/AdminLinks";
+import { CatalogLink } from "../pages/CatalogPage";
 
 export const Nav = styled.nav`
+          padding-top: 12px;
           grid-area: nav;
           display: flex;
           align-items: stretch;
@@ -22,7 +24,7 @@ export const Nav = styled.nav`
           box-shadow: ${theme.shadow};
           background-color: white;
           border-right: 1px solid ${theme.color.primary};
-          min-height: 100vh;
+
           color: ${theme.color.primary};
           max-width: calc (100% - 84px);
 
@@ -48,7 +50,6 @@ const Footer = styled.footer`
   padding: 10px;
   color: white;
 `;
-
 const Component: FunctionComponent<PropsSetting> = (props) => {
 
   const categoryLinks = useMemo(() =>
@@ -75,6 +76,9 @@ const Component: FunctionComponent<PropsSetting> = (props) => {
         <div className={"tabletUp"}>
           {appBarLinks}
         </div>
+        <AdminLinks />
+
+
       </Nav>
       <Footer>
         <FlexAround>

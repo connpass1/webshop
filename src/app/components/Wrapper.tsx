@@ -1,13 +1,11 @@
-import React, { FunctionComponent, useRef, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import styled from "styled-components";
 import AppBar from "./AppBar";
 import Navigation from "./Navigation";
 import Toggle from "./Elements/Toggle";
 import { device, inAnimation, outAnimation } from "./GlobalStyles";
-import { Icon } from "./Elements/Icon";
-import { useOutsideClick } from "../store/helper";
+import { H1 } from "./Elements/Icon";
 import CheckContent from "./CheckContent";
-
 
 const WRAPPER = styled.div<{ open: boolean }>`
   user-select: none;
@@ -15,65 +13,82 @@ const WRAPPER = styled.div<{ open: boolean }>`
   display: grid;
   max-width: 100vw;
   min-width: 240px;
-  min-height: 100vh;
-  grid-template-rows: min-content   5fr  min-content;
-  grid-template-columns: 1fr 240px 12px 1440px 1fr;
+  grid-template-rows: min-content  min-content  1fr  min-content;
+  grid-template-columns: 1fr 240px 680px 680px 1fr;
   gap: 24px 48px;
+  min-height: 100vh;
   grid-template-areas:
-      ". appBar appBar appBar ."
-      ". nav  .  main  ."
-      ". footer footer  footer .";;
+      " .  appBar appBar appBar   ."
+      " .  nav    h         b  ."
+      " .  nav    main   main  ."
+      " .  footer footer  footer   .";
+  justify-items: stretch;
+  justify-content: stretch;
+  align-content: stretch;
+  align-items: stretch;
   @media ${device.desktop} {
     grid-template-areas:
-      "appBar appBar"  
-      "nav main"
-      "footer footer";
-    grid-template-columns:   240px auto  ;
+      "appBar appBar appBar"  
+      "nav  h  b"
+      "nav main main"
+      "footer footer footer";
+    grid-template-columns:   240px auto  auto ;
     gap: 12px 48px;
-    grid-template-rows: min-content    5fr  min-content;
+    grid-template-rows: min-content min-content  1fr  min-content;
   };
-  //кратно 480
   @media ${device.laptop} {
-    gap: 12px 12px;
+    grid-template-areas:
+      "appBar appBar appBar"  
+      "nav  b  b"
+      "nav  h  h"
+      "nav main main"
+      "footer footer footer";
+    grid-template-columns:   240px auto  auto  ;
+    gap: 12px 24px;
+    grid-template-rows: min-content min-content min-content  1fr   min-content;
+
   };
   @media ${device.tablet} {
     grid-template-areas:
-      " appBar"  
-      "  main"
-      "  footer";
-    grid-template-columns:    auto  ;
-    gap: 0;
+      "appBar" 
+      "h"
+      "main" 
+      "b"
+      "footer"
+  ;
+    grid-template-columns:  auto ;
+    grid-template-rows: min-content min-content   1fr min-content  min-content;
+    gap: 6px;
     nav {
       width: ${(props) => (props.open ? "0" : "280px")};
       animation-name: ${(props) => (props.open ? inAnimation : outAnimation)};
       animation-duration: 0.5s;
       position: absolute;
       left: ${(props) => (props.open ? 0 : "-100%")};
+      min-height: 100vh;
     }
   };
 `;
 
 const Wrapper: FunctionComponent = (props) => {
-  const wrapperRef: React.Ref<any> = useRef(null);
-  // @ts-ignore
-  useOutsideClick(wrapperRef, () => setNavBarOpened(false));
   const [navBarOpened, setNavBarOpened] = useState(false);
-  const toggle = (g: React.SetStateAction<boolean>) => setNavBarOpened(g);
-
+  const openHandler = () => {
+    if (!navBarOpened) setNavBarOpened(true);
+  };
+  const closeHandler = () => {
+    if (navBarOpened) setNavBarOpened(false);
+  };
   return (
     <WRAPPER open={navBarOpened}>
       <AppBar>
-        <Toggle innerRef={wrapperRef} onToggle={toggle} />
+        <Toggle openHandler={openHandler} closeHandler={closeHandler} openBar={navBarOpened} />
       </AppBar>
-      <main>
-        <ErrorBoundary>{props.children}</ErrorBoundary>
-      </main>
+      <ErrorBoundary>{props.children}</ErrorBoundary>
       <CheckContent />
       <Navigation />
     </WRAPPER>
   );
 };
-
 export default Wrapper;
 
 class ErrorBoundary extends React.Component {
@@ -92,9 +107,12 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <>
-          <h1><Icon src={"error"} />Ошибочка.</h1>
-          <p>Что-то пошло не так.</p>
-          <p><a href="/"> обновить страницу </a></p>
+          <H1 src={"error"}> Ошибочка!</H1>
+          <main>
+            <div  >
+              <p>Что-то пошло не так.</p>
+              <p> Oбновите страницу </p></div>
+          </main>
         </>
       );
     }

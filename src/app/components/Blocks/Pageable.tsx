@@ -1,15 +1,26 @@
-import { FlexBetween } from "../Elements/Styled";
 import React, { FunctionComponent, useMemo } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { theme } from "../GlobalStyles";
 import classNames from "classnames";
 
-const Links = styled.div` 
-  padding: 12px;
+const Grid = styled.div`
+  margin: 12px 0;
+  display: grid;
+  grid-template-areas: "i1 l i2";
+  gap: 8px;
+  grid-template-columns: min-content 1fr min-content;
+  white-space: nowrap;
+  align-items: flex-end;
+  justify-self: stretch;
+`;
+const Links = styled.div`
+
   display: flex;
   flex-direction: row;
-  justify-content: center; 
+  justify-content: center;
+  grid-area: l;
+
   a {
     color: ${theme.color.secondary};
     padding: 6px;
@@ -17,13 +28,21 @@ const Links = styled.div`
     font-size: 1.3rem;
   }
 
+  #i1 {
+    grid-area: i1;
+  }
+
+  #i2 {
+    grid-area: i2;
+  }
+
   .big {
-     text-decoration: underline;
+    text-decoration: underline;
     font-weight: bolder;
   }
 `;
 
-const Component: FunctionComponent<{ pages: number }> = ({ pages }) => {
+const Component: FunctionComponent<{ pages: number }> = ({ pages = 0 }) => {
   const location = useLocation();
   const index = location.pathname.lastIndexOf("/");
   const path = location.pathname.slice(0, index + 1);
@@ -35,9 +54,7 @@ const Component: FunctionComponent<{ pages: number }> = ({ pages }) => {
       arr.push(x);
     }
     return { "path": path, "arr": arr };
-
   };
-
   const o = a();
   const B = useMemo(
     () => (
@@ -49,19 +66,15 @@ const Component: FunctionComponent<{ pages: number }> = ({ pages }) => {
     ),
     [a]// eslint-disable-line react-hooks/exhaustive-deps
   );
-if(pages===1) return null
-  return <>
-
-    <FlexBetween>
-
-      <div>
-        <i>Страница {param} </i>
-      </div>
-        {B}
-      <div>
-        <i> Страниц {pages}   </i>
-      </div>
-    </FlexBetween>
-  </>;
+  if (pages < 1) return null;
+  return <Grid>
+    <i id="i1">Страница {param} </i>
+    {B}
+    <i id="i2"> Страниц {pages}   </i>
+  </Grid>;
 };
-export default React.memo(Component)
+const Component1: FunctionComponent<{ pages?: number }> = ({ pages = 0 }) => {
+  if (pages && pages > 1) return <Component pages={pages} />;
+  return <div />;
+};
+export default React.memo(Component1);

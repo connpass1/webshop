@@ -8,12 +8,13 @@ import { applyMiddleware, createStore } from "redux";
 import { watchUserRequest } from "../store/saga";
 import ErrorPage from "../pages/ErrorPage";
 import { reducer } from "../store";
-import FetchRouter from "./FetchRouter";
 import { Spinner } from "../components/Elements/SvgSpinner";
 import HomePage from "../pages/HomePage";
 import GlobalStyles from "../components/GlobalStyles";
 import Article from "../pages/Article";
 import AdminRouter from "./AdminRouter";
+import Catalog from "../pages/CatalogPage";
+import ItemDetailPage from "../pages/ItemPage";
 
 export const initialize = () => {
   const sagaMiddleware = createSagaMiddleware();
@@ -34,8 +35,13 @@ const component: React.FC = () => (
     <BrowserRouter>
       <Switch>
         <Wrapper>
-          <Route exact path={["/catalog/:id", "/item", "/item/:id"]} component={FetchRouter} />
-          <Route exact path={["/enter", "/profile", "/user/:id", "/order"]} component={LoginFilter} />
+          <Route exact path="/catalog/:id">
+            <Catalog />
+          </Route>
+          <Route exact path="/item/:id">
+            <ItemDetailPage />
+          </Route>
+          <Route exact path={[  "/profile",  "/order"]} component={LoginFilter} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path={["/", ""]} component={HomePage} />
           <Route exact path={"/page/:id"} component={Article} />

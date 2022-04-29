@@ -1,6 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
-import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "./Icon";
 import { theme } from "../GlobalStyles";
@@ -13,9 +12,9 @@ interface Props {
 }
 
 export const Button = styled.button<Props>`
-  background-color: ${(props) => (props.outlined ? "white" : theme.color.primary)};
-  color: ${(props) => (props.outlined ? theme.color.primary : "white")};
-  border: ${(props) => (props.outlined ? "4px solid " + theme.color.primary : "none")};
+  background-color: ${(props) => (props.outlined ? "white" : theme.color.secondary)};
+  color: ${(props) => (props.outlined ? theme.color.secondary : "white")};
+  border: ${(props) => (props.outlined ? "4px solid " + theme.color.secondary : "none")};
   align-self: ${(props) => (props.alignSelf ? props.alignSelf : "flex-start")};
 
   svg {
@@ -30,6 +29,8 @@ export const ButtonSecondary = styled.button<Props>`
   text-decoration: ${(props) => (props.outlined ? "underline" : "none")};
   font-weight: ${(props) => (props.outlined ? 800 : 400)};
   align-self: ${(props) => (props.alignSelf ? props.alignSelf : "flex-start")};
+  padding: 0;
+  margin: 0;
 
   :disabled {
     background-color: transparent;
@@ -54,17 +55,11 @@ export const RectButton = styled.button<Props>`
     background-color: white;
   }
 `;
-export const BackToHistory = () => {
-  const history = useHistory();
-  return <ButtonSecondary onClick={history.goBack}><Icon src={"back"} />назад</ButtonSecondary>;
-};
+
 export const BackToCatalog = () => {
   return <RedirectButton to={"/catalog/1"}><Icon src={"home"} /> в каталог</RedirectButton>;
 };
-export const CheckBox: React.FC<{ id: number; handler: any; check: boolean }> = ({ id, handler, check = false }) => {
-  if (check) return <IoIosCheckmarkCircle size={36} onClick={() => handler(id)} />;
-  return <IoIosCloseCircle size={36} className="pointer" onClick={() => handler(id)} />;
-};
+
 export const RedirectButton: React.FC<{ to: string, disabled?: boolean }> = ({ to, disabled = false, children }) => {
   const [redirect, setRedirect] = useState(false);
   useLayoutEffect(

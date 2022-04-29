@@ -4,11 +4,9 @@ import { mapCart } from "../../store/helper";
 import { IItem } from "../../models/IFases";
 import { actionsCart } from "../../store/storeCart";
 import { ButtonSecondary, RectButton } from "../Elements/Button";
-import { FlexCenter } from "../Elements/Styled";
 import styled from "styled-components";
 import { theme } from "../GlobalStyles";
 import { Icon } from "../Elements/Icon";
-
 type Props = ReturnType<typeof mapCart> &
   typeof actionsCart & {
   item: IItem;
@@ -16,49 +14,53 @@ type Props = ReturnType<typeof mapCart> &
 const Grid = styled.div`
   grid-area: add;
   grid-template-areas: 
-         " mes mes mes mes" 
-          " .  input input ." 
-         " del   del    add    add";
+         " mes mes mes  mes mes" 
+          " .  gr gr gr  ." 
+         " del del   .   add  add";
   justify-content: center;
-  grid-template-columns:  min-content  1fr 1fr   min-content;
+  grid-template-columns:  80px  1fr  1fr 1fr  80px;
   grid-template-rows:   min-content 2fr  1fr;
-  gap: 4px;
+  gap: 6px;
   display: grid;
   border-radius: 0 0 8px 8px !important;
   background-color: ${theme.color.primaryLight};
   border: none;
-
-  .input {
-    grid-area: input
-  }
-
+  padding-bottom: 12px; 
   .add {
     grid-area: add;
     justify-self: right;
-  }
-
-  .del {
-    grid-area: del
   } 
-  em {
+  .del {
+    grid-area: del;
+    justify-self: left;
+  };
+
+  b {
     grid-area: mes;
     color: ${theme.color.primary};
     padding: 12px;
-    font-size: 1.2em;
+    font-size: 1.3em;
     border-bottom: 1px solid currentColor;
-  }
-
-  input {
-    margin: 0;
-    width: 4em;
-    margin: 12px;
-  }
-;
+  };
   border-radius: 8px;
   border: ${theme.border};
   justify-content: center;
 `;
-
+const GR = styled.div`
+ display: flex;
+  margin: 0;
+  width: 4em;
+  margin: 4px;
+  font-size: 1.3rem;
+  grid-area:gr;
+  justify-self: center;
+  input{
+    font-size: 1.3rem;
+    width: 60px;
+    margin: 0 12px;
+  }
+  
+  `
 function f(cart: IItem[], item: IItem) {
   return cart.find(it => item.id === it.id);
 }
@@ -99,8 +101,8 @@ const CartBlock: React.FC<Props> = (prop) => {
   };
   return (
     <Grid>
-      {itemInCart&&< em> {itemInCart ? "в корзине " + itemInCart.quantity : " "} </em>}
-      <FlexCenter className={"input"}>
+      {itemInCart && <b> {itemInCart ? "в корзине " + itemInCart.quantity : " "} </b>}
+      <GR className={"center"}>
         <RectButton disabled={state < 1} onClick={handeMinus}>
           <Icon src={"chevron-left"} />
         </RectButton>
@@ -114,11 +116,11 @@ const CartBlock: React.FC<Props> = (prop) => {
         <RectButton onClick={handePlus}>
           <Icon src={"chevron-right"} />
         </RectButton>
-      </FlexCenter>
+      </GR>
       <ButtonSecondary onClick={handelAdd} outlined
                        disabled={(itemInCart && state === itemInCart.quantity) || state === 0}
                        className={"add"}>
-        в корзину
+        в&nbsp;корзину
       </ButtonSecondary>
       <ButtonSecondary onClick={handelDel} outlined disabled={!itemInCart} className={"del"}>отменить </ButtonSecondary>
     </Grid>

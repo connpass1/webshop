@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlexCenter } from "./Styled";
+
 import styled from "styled-components";
 
 const IMG = styled.img<{ state: boolean, size: number }>`
@@ -8,7 +8,7 @@ const IMG = styled.img<{ state: boolean, size: number }>`
   height: ${(props) => props.size}px;
   margin: 10px 0;
 `;
-const DIV = styled(FlexCenter)`
+const DIV = styled.div`
   grid-area: img;
 `;
 export const Image: React.FC<{ src: string, alt?: string, size?: number }> = ({ src, alt = "", size = 200 }) => {
@@ -17,7 +17,7 @@ export const Image: React.FC<{ src: string, alt?: string, size?: number }> = ({ 
     setState(true);
   };
   return (
-    <DIV>
+    <DIV className={"center"}>
       <IMG src={src} alt={alt} state={!state} size={size}
            onLoad={handle}
       />

@@ -1,39 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ProfileModel } from "../models/ProfileModel";
-import { FlexCenter } from "../components/Elements/Styled";
-import { Button } from "../components/Elements/Button";
 import styled from "styled-components";
 import { theme } from "../components/GlobalStyles";
 import InputMask, { BeforeMaskedStateChangeStates, InputState } from "react-input-mask";
 import { ErrorMessage, Formik } from "formik";
-import { CheckFetching } from "../components/Blocks/Fetching";
 import { Group, Input, StyledForm, TextArea } from "../components/Elements/StyledForms";
 import * as Yup from "yup";
-import { isEmpty } from "../store/helper";
+import { isEmpty, PropsContent } from "../store/helper";
 
 const Form = styled(StyledForm)`
   background-color: ${theme.color.primaryLight};
   width: min(800px, 100%);
   padding: 24px;
-  margin-top: 24px; 
+  margin-top: 24px;
 `;
+
+
 const Schema = Yup.object().shape({
   email: Yup.string().email("Некорректен email")
 });
-const Component: React.FC<{ data: any, saveHandler: any, status: number }> = ({ data, saveHandler, status }) => {
-  const [pr, setPr] = useState<ProfileModel | undefined>();
-  useEffect(() => {
-      function f(data: ProfileModel) {
-        try {
-          return new ProfileModel(data);
-        } catch {
-          return undefined;
-        }
-      }
-      return setPr(f(data));
-    },
-    [data]
-  );
+const Component: React.FC<PropsContent> = (props) => {
+  const { content, status, saveContentRequest } = props;
 
   function toNumber(n: string | number) {
     let numb: any = (n + "").match(/\d/g);
@@ -41,7 +28,6 @@ const Component: React.FC<{ data: any, saveHandler: any, status: number }> = ({ 
     return parseInt(numb);
   }
 
-  if (!pr) return <>{JSON.stringify(data)} </>;
   //const error = isEmail(pr.email ) ? isEmail(pr.email ) : isPhone(pr.phone );
   const beforeMaskedStateChange = (
     states: BeforeMaskedStateChangeStates
@@ -64,19 +50,22 @@ const Component: React.FC<{ data: any, saveHandler: any, status: number }> = ({ 
       }
     };
   };
-  return <FlexCenter>
 
+  if (status < 200) return null;
+  //if (  status===201) return <Redirect to={"/enter" }/>;
+
+  if (!content) return null;
+
+  return <>
     <Formik
-      initialValues={pr}
+      initialValues={{ ...(new ProfileModel(content)) }}
       validationSchema={Schema}
       validate={values => {
         const errors: any = {};
         if (!values.phone) {
-          errors.phone = "номер телефона незаполнен";
-        } else if (toNumber(values.phone) > 999999944444) {
-          errors.phone = "номер телефона некорректен" + toNumber(values.phone);
+          errors.phone = "номер телефона незаполнен!";
         } else if ((toNumber(values.phone) + "").length !== 11) {
-          errors.phone = "номер телефона некорректен" + (toNumber(values.phone) + "").length;
+          errors.phone = "номер телефона некорректен!";
         }
         return errors;
       }}
@@ -84,7 +73,7 @@ const Component: React.FC<{ data: any, saveHandler: any, status: number }> = ({ 
         setSubmitting(false);
         let profileModel = new ProfileModel(values);
         profileModel.phone = toNumber(profileModel.phone + "");
-        saveHandler({ "url": "/user/profile", "data": new ProfileModel(profileModel) });
+        saveContentRequest({ "url": "/user/profile", "data": new ProfileModel(profileModel) });
       }}
     >
       {({
@@ -97,7 +86,7 @@ const Component: React.FC<{ data: any, saveHandler: any, status: number }> = ({ 
           isSubmitting
         }) => (
 
-        <Form onSubmit={handleSubmit}>
+        <Form>
           <TextArea name="address" placeholder="адрес" label={"адрес"} />
           <Group>
             <InputMask
@@ -112,20 +101,19 @@ const Component: React.FC<{ data: any, saveHandler: any, status: number }> = ({ 
               onBlur={handleBlur}
             />
             <label htmlFor={"phone"}> телефон </label>
-            <em><ErrorMessage name={"phone"} /></em>
+            <ErrorMessage className={"error"} component={"div"} name={"phone"} />
           </Group>
           <Input name="email" type="text" label={"email"} props={{ placeholder: "email" }} />
-          <FlexCenter><CheckFetching status={status} /></FlexCenter>
 
-          <Button disabled={
-            isEmpty(touched) ||
-            !isEmpty(errors) ||
-            isSubmitting}>сохранить</Button>
+          <div className={"buttons"}>
+            <input type={"reset"} value={"отмена"} disabled={isEmpty(touched)} />
+            <input type={"submit"} value={"сохранить"}
+                   disabled={!isEmpty(errors) || isSubmitting || isEmpty(touched)} />
+          </div>
+
         </Form>
       )}
     </Formik>
-
-
-  </FlexCenter>;
+  </>;
 };
 export default Component;

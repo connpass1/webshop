@@ -1,36 +1,69 @@
-import React from "react";
-import Pageable from "../Blocks/Pageable";
+import React, { useMemo } from "react";
+
+import { H1, Icon } from "../Elements/Icon";
 import { IItem } from "../../models/IFases";
-import {  Table } from "../Elements/Styled";
+import Pageable from "../Blocks/Pageable";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Children, GridTable, TD, TH } from "../Elements/Table";
 
-import { Icon } from "../Elements/Icon";
+import { mapContent, PropsContent, useFetchLocation } from "../../store/helper";
+import { connect } from "react-redux";
+import { actionsContent } from "../../store/storeContent";
+import { FlexEvenly } from "../Elements/Styled";
+import { RedirectButton } from "../Elements/Button";
 
-const Basic: React.FC<any> = (props) => {
-  const { content, totalPages    } = props.content;
-  const items= content as IItem[]
-  return < >
-    <Table>
-      <thead>
-      <tr>
-        <th >артикул</th>
-        <th > наименоваеие</th>
-        <th> кол-во</th>
-        <th> каталог</th>
-        <th colSpan={2}> цена</th>
-      </tr>
-      </thead>
-    {items.map(item=>  <tr key={item.id }>
-      <td>{item.id }</td>
-      <td><Icon src={item.icon}/> {item.name }</td>
-      <td>{item.price }</td>
-      <td>{item.parent }</td>
-    </tr>)}
-      </Table>
-    <Pageable pages={totalPages} />
-  </>;
-
-
+const Catalog: React.FC<{ name?: string }> = ({ name }) => {
+  if (!name) return null;
+  const arr = name.split("@");
+  return <TD><Link to={"/admin/catalog/" + arr[1]}><Icon src={arr[2]} />{arr[0]}</Link></TD>;
 };
 
+const Articular: React.FC<{ id: number }> = ({ id }) => {
+  let s = "" + id;
+  while (s.length < 6) {
+    s = "0" + s;
+  }
+  return <TD>{s}</TD>;
+};
+const Greed = styled(GridTable)`
+  grid-template-columns: 90px  1fr  1fr     60px    80px;
+`;
+const Component: React.FC<any> = (props) => {
+  const { content, totalPages } = props;
+  const items = content as IItem[];
+  const memo = useMemo(() => items.map(item => <Children key={item.id}>
 
-export default Basic;
+
+    <Articular id={item?.id} />
+    <TD><Link to={"/admin/item/" + item?.itemDetailId}><Icon src={item?.icon} /> {item?.name}</Link></TD>
+    <Catalog name={item?.parent} />
+    <TD>{item?.quantity} </TD>
+    <TD><span className={"price"}>{item?.price}</span></TD>
+  </Children>), [items]);
+  return <>
+    <Greed className={"content"}>
+      <TH>артикул</TH>
+      <TH> наименоваеие</TH>
+      <TH> каталог</TH>
+      <TH> кол-во</TH>
+      <TH> цена</TH>
+      {memo}
+    </Greed>
+    <FlexEvenly>
+      <div> {items?.length === 0 && <span>Товаров&nbsp;пока&nbsp;нет.</span>}</div>
+      < RedirectButton to={"/admin/item/0 "}>Добавить&nbsp;товар</RedirectButton>
+    </FlexEvenly>
+    <Pageable pages={totalPages} />
+  </>;
+};
+
+const Component1: React.FC<PropsContent> = (props) => {
+  useFetchLocation(props.contentRequest);
+  return <> <H1 src="list"> Товар</H1>
+    <main>
+      {(props.status > 199) && Array.isArray(props.content?.content) && <Component {...props.content} />}  </main>
+  </>;
+};
+const FetchContent = connect(mapContent, actionsContent)(Component1);
+export default FetchContent;

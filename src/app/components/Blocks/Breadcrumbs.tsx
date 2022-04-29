@@ -3,18 +3,25 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ISlug } from "../../models/IFases";
 import { Icon } from "../Elements/Icon";
-import { theme } from "../GlobalStyles";
+import { device, theme } from "../GlobalStyles";
 
 const UL = styled.ul`
+  grid-area: b;
   color: ${theme.color.secondary};
   flex-direction: row;
+  flex-wrap: nowrap;
   display: flex;
   justify-content: flex-end;
   margin: 0;
+  height: 18px;;
+  line-height: 18px;
+  @media ${device.mobile} {
+    display: none;
+  }
 
   li {
     display: flex;
-    align-content: center;
+    align-content: end;
   }
 
   li a:hover {

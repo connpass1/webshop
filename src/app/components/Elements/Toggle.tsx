@@ -1,102 +1,97 @@
-import React, { CSSProperties, Dispatch, FunctionComponent, ReactNode, SetStateAction, useState } from "react";
+import React, { useRef } from "react";
+import { useOutsideClick } from "../../store/helper";
+import styled from "styled-components";
+import { device } from "../GlobalStyles";
 
-export interface RenderOptions {
-  barStyles: CSSProperties;
-  burgerStyles: CSSProperties;
-  handler: () => void;
-  isToggled: boolean;
-  margin: number;
+const DIV = styled.div`
+ 
+   cursor: pointer;
+  display: none;
+  @media ${device.tablet} {
+    display: flex;
+  }
+  #toggle {
+    opacity: 0;
+  }
 
-  width: number;
-}
+  #toggle:checked ~ .menuBtn > span {
+    transform: rotate(45deg);
+  }
+  #toggle:checked ~ .menuBtn > span::before {
+    top: 0;
+    transform: rotate(0);
+  }
+  #toggle:checked ~ .menuBtn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #toggle:checked ~ .menu__box {
+    visibility: visible;
+    left: 0;
+  }
 
-export interface CommonBurgerProps {
-  innerRef: React.MutableRefObject<null>;
-  onToggle?: (toggled: boolean) => any;
-  toggle?: Dispatch<SetStateAction<boolean>>;
-  toggled?: boolean;
-}
+  .menuBtn {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 0;
+    right: 8px; 
+    width: 22px;
+    height:22px; 
+    cursor: pointer;
+    z-index: 1;
+  }
 
-export interface BurgerProps extends CommonBurgerProps {
-  render: (o: RenderOptions) => ReactNode;
-}
+  
+  .menuBtn > span,
+  .menuBtn > span::before,
+  .menuBtn > span::after {
+    display: block;
+    position: absolute; 
+    width: 100%;
+    height: 2px; 
+    background-color: white; 
+    transition-duration: .25s;
+  }
+  .menuBtn > span::before {
+    content: '';
+    top: -8px;
+  }
+  .menuBtn > span::after {
+    content: '';
+    top: 8px;
+  } 
+`;
 
+export const Component: React.FC<{ openHandler: any, closeHandler: any, openBar: boolean }> = ({
+                                                                                                 openHandler,
+                                                                                                 closeHandler,
+                                                                                                 openBar
+                                                                                               }) => {
+  const wrapperRef: React.Ref<any> = useRef(null);
+  const click = () => {
 
-const transition = "0.4s cubic-bezier(0, 0, 0, 1)";
-const Burger = (({ onToggle, render, toggle, toggled }) => {
-  const [toggledInternal, toggleInternal] = useState(false);
-  const width = 36;
-  const margin = 9;
-
-
-  const burgerStyles: CSSProperties = {
-    cursor: "pointer",
-    height: `36px`,
-    position: "relative",
-    userSelect: "none",
-    width: `36px`,
-    margin: `12px 18px`
+    openHandler();
+    // wrapperRef.current. onChange();
   };
-  const barStyles: CSSProperties = {
-    background: "currentColor",
-    height: `4px`,
-    left: `6px`,
-    position: "absolute"
+  const outsideClick = () => {
+    setTimeout(() => closeHandler(), 200);
+
+    // wrapperRef.current. onChange();
   };
-  const toggleFunction = toggle || toggleInternal;
-  const isToggled = toggled !== undefined ? toggled : toggledInternal;
-  const handler = () => {
-    toggleFunction(!isToggled);
-    if (typeof onToggle === "function") onToggle(!isToggled);
-  };
-  return render({
-    barStyles,
-    burgerStyles,
-    handler,
-    isToggled,
-    margin,
-    width
-  });
-}) as FunctionComponent<BurgerProps>;
+  // @ts-ignore
+  useOutsideClick(wrapperRef, outsideClick);
+
+  return <>
+    <DIV ref={wrapperRef} onClick={click}>
+
+      <  input id="toggle" type="checkbox" checked={openBar} />
+
+      <label className="menuBtn" htmlFor="toggle">
+        <span />
+      </label> </DIV>{!openBar && <div className={"up"} />}
+  </>;
 
 
-const Toggle = ((props) => (
-
-  <Burger
-    {...props}
-    render={(o) => (
-      <div
-        ref={props.innerRef}
-        className="toggle"
-        onClick={o.handler}
-        style={{
-          ...o.burgerStyles,
-          transition: transition,
-
-          transform: `${o.isToggled ? `rotateY(${180}deg) translate( 0 , 4.6px)\`` : "none"}`
-        }}
-        tabIndex={0}
-      >
-        <div
-          style={{
-            ...o.barStyles,
-            width: `${o.width}px`,
-            top: `6px`,
-            transition: transition,
-            transform: `${o.isToggled ? `rotate( -45deg) translate(-4.6px, 4.6px)` : "none"}`
-          }}
-        />
-        <div
-          style={{
-            ...o.barStyles,
-            width: `${o.width}px`,
-            top: `${10 + o.margin}px`,
-            transition: transition,
-            transform: `${o.isToggled ? `rotate( 45deg) translate(-4.6px,-4.6px)` : "none"}`
-          }}
-        />
-      </div>
-    )}
-  />
-)) as FunctionComponent<CommonBurgerProps>;
-export default Toggle;
+};
+export default React.memo(Component);

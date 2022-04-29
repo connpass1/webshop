@@ -8,7 +8,6 @@ import AddToCard from "./AddToCard";
 import { Articular } from "./Articular";
 
 const Section = styled.section`
-
   grid-template-areas:
       "h  h" 
       " img    name" 
@@ -30,7 +29,6 @@ const Section = styled.section`
       " price"
       " add  "
   ;
-
   };
   @media ${device.tablet} {
     grid-template-areas:
@@ -83,4 +81,4 @@ const Component: React.FC<IItem> = (item) => {
     <AddToCard item={item} />
   </Section>;
 };
-export default React.memo(Component)
+export default React.memo(Component);

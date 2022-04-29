@@ -1,39 +1,34 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { BackToCatalog, ButtonSecondary, CheckBox } from "../components/Elements/Button";
-import { FlexBetween, FlexEnd, Table } from "../components/Elements/Styled";
+import { BackToCatalog, Button } from "../components/Elements/Button";
+import { Column, FlexEvenly } from "../components/Elements/Styled";
 import { compare, mapCart, mapCustomer } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
 import styled from "styled-components";
 import { IItem } from "../models/IFases";
 import LoginPage from "../routers/LoginFilter";
-import { Icon } from "../components/Elements/Icon";
-import { theme } from "../components/GlobalStyles";
+import { Children, GridTable, TD, TH, TI } from "../components/Elements/Table";
+import { H1, Icon } from "../components/Elements/Icon";
 
 type Props = ReturnType<typeof mapCart> & typeof actionsCart;
-const TD = styled.td`
-  text-align: center;
-  color: ${theme.color.secondary};;
+const Table = styled(GridTable)`
+  grid-template-columns:  40px  3fr 1fr min-content  40px; 
   svg {
     cursor: pointer;
-  }
+  } 
 `;
-const TH = styled.th`
-  text-align: center;
-  svg {
-    cursor: pointer;
-  }
-`;
+
 type PropsOrder = ReturnType<typeof mapCustomer> & {
   disabled: boolean;
   handler: any;
   items: IItem[];
+  state: boolean;
+  stateHandler: any
 };
 const ButtonOrder: React.FC<PropsOrder> = (props) => {
-  const [state, setState] = useState(false);
   const handler = () => {
-    if (!state) setState(true);
+    if (!props.state) props.stateHandler();
     else if (props.id) {
       const arr = props.items.filter((it) => it.checked);
       const arr1 = [];
@@ -46,16 +41,21 @@ const ButtonOrder: React.FC<PropsOrder> = (props) => {
   };
   return (
     <>
-      {state ? (
-        <LoginPage>
-          <ButtonSecondary disabled={props.disabled} onClick={handler}>
-            подтвердиить заказ
-          </ButtonSecondary>
-        </LoginPage>
+      {props.state ? (
+        <><Column>
+          <LoginPage  >
+          <FlexEvenly> <Button onClick={props.stateHandler}> отмена </Button>
+            <Button   onClick={handler}>
+              подтвердить
+            </Button>
+          </FlexEvenly>
+            </LoginPage>
+          </Column>
+        </>
       ) : (
-        <ButtonSecondary disabled={props.disabled} onClick={handler}>
+        <Button disabled={props.disabled} onClick={handler}>
           заказать
-        </ButtonSecondary>
+        </Button>
       )}
     </>
   );
@@ -63,6 +63,7 @@ const ButtonOrder: React.FC<PropsOrder> = (props) => {
 const Component: React.FC<Props> = (props) => {
   const { cart } = props;
   const [state, setState] = useState<IItem[]>([]);
+  const [login, setLogin] = useState(false);
   const allCheck = useMemo(() => state.find((it) => !it.checked), [state]);
   const oneCheck = useMemo(() => state.find((it) => it.checked), [state]);
   useEffect(() => {
@@ -86,14 +87,21 @@ const Component: React.FC<Props> = (props) => {
       setState([...state]);
     }
   };
+  const loginHandler = () => {
+    setLogin(!login);
+  };
   if (cart.length === 0)
     return (
       <>
-        <h1><Icon src={"cart"} /> Корзина</h1>
-        <FlexBetween>
-          <i>Корзина пуста</i>
-          <BackToCatalog />
-        </FlexBetween>
+        <H1 src={"cart"}> Корзина</H1>
+        <main className={"between"}>
+          <FlexEvenly>
+            <i>Корзина пуста</i>
+            <BackToCatalog />
+          </FlexEvenly>
+          <div />
+          <div />
+        </main>
       </>
     );
   const handlerDel = () => {
@@ -102,49 +110,44 @@ const Component: React.FC<Props> = (props) => {
       return;
     }
     const arrDel = state.filter((it) => !it.checked);
-    console.log("");
     props.delArrayFromCart(arrDel);
   };
+
   const disabled = oneCheck === undefined;
   return (
-    <><FlexEnd>
-      <BackToCatalog /> </FlexEnd>
-
-      <h1><Icon src={"cart"} /> Корзина </h1>
-
-      <Table>
-        <tbody>
-        <tr>
-          <th>icon</th>
-          <th>name</th>
-          <th>quantity</th>
-          <th>price</th>
-          <TH>
-            <CheckBox id={0} handler={handlerAll} check={allCheck === undefined} />
+    <>
+      <H1 src={"cart"}> Корзина </H1><main className={"between"}>
+      {!login &&
+        < Table>
+          <TH>N</TH>
+          <TH>назание</TH>
+          <TH>количество</TH>
+          <TH>цена</TH>
+          <TH onClick={handlerAll}>
+            <Icon src={!allCheck ? "ok" : "rect"} />
           </TH>
-        </tr>
-        {state.map((item) => (
-          <tr key={item.id}>
-            <td>{item.icon}{item.id} </td>
-            <td>
-              <Link to={"/item/" + item.itemDetailId}> {item.name}</Link>
-            </td>
-            <td>{item.quantity} </td>
-            <td>{item.price} </td>
-            <TD>
-              <CheckBox id={item.id} handler={handler} check={item.checked} />
-            </TD>
-          </tr>
-        ))}
-        </tbody>
-      </Table>
-
-      <FlexBetween>
-        <ButtonSecondary onClick={handlerDel} disabled={disabled}>
+          {state.map((item, num) => (
+            <Children key={item.id}>
+              <TD> {num + 1}</TD>
+              <TD>
+                <Link to={"/item/" + item.itemDetailId}><Icon src={item.icon} /> {item.name}</Link>
+              </TD>
+              <TD><span>{item.quantity} </span></TD>
+              <TD>{item.price} </TD>
+              <TI onClick={() => handler(item.id)}>
+                <Icon src={item.checked ? "ok" : "rect"} />
+              </TI>
+            </Children>
+          ))}</Table>}
+      <FlexEvenly>
+        {!login && <Button onClick={handlerDel} disabled={disabled}>
           {allCheck === undefined ? "очистить корзину" : "удалить из корзины"}
-        </ButtonSecondary>
-        <ButtonComponent items={state} disabled={disabled} handler={props.makeOrderRequest} />
-      </FlexBetween>
+        </Button>}
+        <ButtonComponent state={login} stateHandler={loginHandler} items={state} disabled={disabled}
+                         handler={props.makeOrderRequest} />
+      </FlexEvenly>
+    </main>
+
 
     </>
   );
