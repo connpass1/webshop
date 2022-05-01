@@ -14,7 +14,7 @@ const Greed = styled(GridTable)`
   grid-template-columns: 40px 1fr 120px 40px;
 `;
 const Component: React.FC<any> = (props) => {
-  const { content, totalPages } = props;
+  const { content } = props;
   const articles = content as ArticleModel[];
   return (
     <>
@@ -28,8 +28,8 @@ const Component: React.FC<any> = (props) => {
             <TD>{n + 1} </TD>
             <TD>
               <Link key={a.id} to={"/admin/page/" + a.id}>
-                <Icon src={a.icon} /> {a.name}{" "}
-              </Link>{" "}
+                <Icon src={a.icon} /> {a.name}
+              </Link>
             </TD>
             <TD> {a.nav} </TD>
             <TD> {a.position} </TD>
@@ -40,20 +40,18 @@ const Component: React.FC<any> = (props) => {
         <div> {articles?.length === 0 && <span>Статей&nbsp;пока&nbsp;нет.</span>}</div>
         <RedirectButton to={"/admin/page/0 "}>Добавить&nbsp;статью</RedirectButton>
       </FlexEvenly>
-
-      <Pageable pages={totalPages} />
     </>
   );
 };
 
 const Component1: React.FC<PropsContent> = (props) => {
   useFetchLocation(props.contentRequest);
+  const content = props.content;
   return (
     <>
       <H1 src={"list"}>Cтатьи</H1>
-      <main className={"start"}>
-        {props.status > 199 && props.content && Array.isArray(props.content?.content) && <Component {...props.content} />}
-      </main>
+      <main className={"between"}>{props.status > 199 && content && Array.isArray(content?.content) && <Component {...content} />}</main>
+      <Pageable pages={content?.totalPages} />
     </>
   );
 };

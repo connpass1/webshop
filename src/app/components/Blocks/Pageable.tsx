@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useMemo } from "react";
-import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
-import { theme } from "../GlobalStyles";
 import classNames from "classnames";
+import React, { FunctionComponent, useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { theme } from "../GlobalStyles";
 
 const Grid = styled.div`
   margin: 12px 0;
@@ -13,9 +13,10 @@ const Grid = styled.div`
   white-space: nowrap;
   align-items: flex-end;
   justify-self: stretch;
+  grid-area: p;
+  padding: 0 12px;
 `;
 const Links = styled.div`
-
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -53,28 +54,34 @@ const Component: FunctionComponent<{ pages: number }> = ({ pages = 0 }) => {
       let x: number = arr.length + 1;
       arr.push(x);
     }
-    return { "path": path, "arr": arr };
+    return { path: path, arr: arr };
   };
   const o = a();
   const B = useMemo(
     () => (
       <Links>
         {o.arr.map((num) => (
-          <Link className={classNames({ "big": (param) === num })} to={o.path + (num)}>{num} </Link>
+          <Link className={classNames({ big: param === num })} to={o.path + num}>
+            {num}{" "}
+          </Link>
         ))}
       </Links>
     ),
-    [a]// eslint-disable-line react-hooks/exhaustive-deps
+    [a] // eslint-disable-line react-hooks/exhaustive-deps
   );
   if (pages < 1) return null;
-  return <Grid>
-    <i id="i1">Страница {param} </i>
-    {B}
-    <i id="i2"> Страниц {pages}   </i>
-  </Grid>;
+  return (
+    <Grid>
+      <i id="i1">Страница {param} </i>
+      {B}
+      <i id="i2"> Страниц {pages} </i>
+    </Grid>
+  );
 };
-const Component1: FunctionComponent<{ pages?: number }> = ({ pages = 0 }) => {
-  if (pages && pages > 1) return <Component pages={pages} />;
+const Component1: FunctionComponent<{ pages?: number }> = ({ pages }) => {
+  if (!pages) return <div />;
+
+  if (pages > 1) return <Component pages={pages} />;
   return <div />;
 };
 export default React.memo(Component1);

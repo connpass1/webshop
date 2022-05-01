@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { BackToCatalog, Button } from "../components/Elements/Button";
 import { H1, Icon } from "../components/Elements/Icon";
-import { Column, FlexEvenly } from "../components/Elements/Styled";
+import { FlexEvenly, Row } from "../components/Elements/Styled";
 import { ChildrenGreed, GridTable, TD, TH, TI } from "../components/Elements/Table";
 import { IItem } from "../models/IFases";
-import LoginPage from "../routers/LoginFilter";
+import LoginFilter from "../routers/LoginFilter";
 import { compare, mapCart, mapCustomer } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
 
@@ -18,7 +18,17 @@ const Table = styled(GridTable)`
     cursor: pointer;
   }
 `;
-
+const Gr = styled(GridTable)`
+  display: column;
+  justify-self: center;
+  max-width: 400px;
+  b {
+    font-size: 1.5em;
+  }
+  button {
+    flex-grow: 1;
+  }
+`;
 type PropsOrder = ReturnType<typeof mapCustomer> & {
   disabled: boolean;
   handler: any;
@@ -39,19 +49,22 @@ const ButtonOrder: React.FC<PropsOrder> = (props) => {
       props.handler(order);
     }
   };
+
   return (
     <>
       {props.state ? (
         <>
-          <Column>
-            <LoginPage>
-              <FlexEvenly>
-                {" "}
+          <LoginFilter>
+            <Gr>
+              <div>
+                <b>сделать заказ</b>{" "}
+              </div>
+              <Row>
                 <Button onClick={props.stateHandler}> отмена </Button>
                 <Button onClick={handler}>подтвердить</Button>
-              </FlexEvenly>
-            </LoginPage>
-          </Column>
+              </Row>
+            </Gr>
+          </LoginFilter>
         </>
       ) : (
         <Button disabled={props.disabled} onClick={handler}>
@@ -118,7 +131,7 @@ const Component: React.FC<Props> = (props) => {
   return (
     <>
       <H1 src={"cart"}> Корзина </H1>
-      <main className={"between"}>
+      <main>
         {!login && (
           <Table>
             <TH>N</TH>
@@ -132,7 +145,7 @@ const Component: React.FC<Props> = (props) => {
               <ChildrenGreed key={item.id}>
                 <TD> {num + 1}</TD>
                 <TD>
-                  <Link to={"/item/" + item.itemDetailId}>
+                  <Link to={"/item/" + item.detailId}>
                     <Icon src={item.icon} /> {item.name}
                   </Link>
                 </TD>

@@ -34,7 +34,7 @@ const Basic: React.FC<{
   const article = { ...model, ...model.article };
 
   return (
-    <main>
+    <>
       <Formik
         initialValues={article}
         validationSchema={Schema}
@@ -85,8 +85,8 @@ const Basic: React.FC<{
           </StyledForm>
         )}
       </Formik>
-      {children}
-    </main>
+
+    </>
   );
 };
 const Component: React.FC<PropsContent> = (props) => {
@@ -104,16 +104,13 @@ const Component: React.FC<PropsContent> = (props) => {
   }
   return (
     <>
-      {" "}
-      <H1 src={model.id === 0 ? "edit" : "create"}>{id > 0 ? "Редактировать" : "Создать"} статью </H1>
       <Basic model={model} saveContentRequest={props.saveContentRequest}>
         <FlexEvenly>
           <ButtonSecondary disabled={model.id === 0} onClick={handlerDelete}>
-            {" "}
-            удалить статью{" "}
+            удалить статью
           </ButtonSecondary>
           <RedirectButton disabled={model.id === 0} to={"/page/" + model.id}>
-            просмотреть статью{" "}
+            просмотреть статью
           </RedirectButton>
         </FlexEvenly>
       </Basic>
@@ -123,11 +120,18 @@ const Component: React.FC<PropsContent> = (props) => {
 
 const Component1: React.FC<PropsContent> = (props) => {
   useFetchLocation(props.contentRequest);
-  if (props.status < 200) return null;
-  if (props.status === 202) return <Redirect to={"/admin/pages/1"} />;
-  if (!props.content) return null;
+  const { id } = useParams();
+  const { content, status } = props;
+  if (status < 200) return null;
+  if (status === 202) return <Redirect to={"/admin/pages/1"} />;
+  if (!content) return null;
 
-  return <Component {...props} />;
+  return (
+    <>
+      <H1 src={id === 0 ? "edit" : "create"}>{id > 0 ? "Редактировать" : "Создать"} статью</H1>
+      <main>{status > 199 && <Component {...props} />}</main>
+    </>
+  );
 };
 const FetchContent = connect(mapContent, actionsContent)(Component1);
 export default FetchContent;

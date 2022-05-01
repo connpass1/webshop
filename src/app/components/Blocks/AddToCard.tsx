@@ -1,39 +1,43 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
-import { mapCart } from "../../store/helper";
+import styled from "styled-components";
 import { IItem } from "../../models/IFases";
+import { mapCart } from "../../store/helper";
 import { actionsCart } from "../../store/storeCart";
 import { ButtonSecondary, RectButton } from "../Elements/Button";
-import styled from "styled-components";
-import { theme } from "../GlobalStyles";
 import { Icon } from "../Elements/Icon";
+import { device, theme } from "../GlobalStyles";
 type Props = ReturnType<typeof mapCart> &
   typeof actionsCart & {
-  item: IItem;
-};
+    item: IItem;
+  };
 const Grid = styled.div`
   grid-area: add;
-  grid-template-areas: 
-         " mes mes mes  mes mes" 
-          " .  gr gr gr  ." 
-         " del del   .   add  add";
+  grid-template-areas:
+    " mes mes mes  mes mes"
+    " .  gr gr gr  ."
+    " del del   .   add  add";
   justify-content: center;
-  grid-template-columns:  80px  1fr  1fr 1fr  80px;
-  grid-template-rows:   min-content 2fr  1fr;
+  grid-template-columns: max-content 1fr min-content 1fr max-content;
+  grid-template-rows: min-content 1fr min-content;
   gap: 6px;
   display: grid;
-  border-radius: 0 0 8px 8px !important;
+  border-radius: 0 0 8px 8px;
   background-color: ${theme.color.primaryLight};
-  border: none;
-  padding-bottom: 12px; 
+  button {
+    padding: 8px;
+  }
+  @media ${device.mobile} {
+    border-radius: 0;
+  }
   .add {
     grid-area: add;
     justify-self: right;
-  } 
+  }
   .del {
     grid-area: del;
     justify-self: left;
-  };
+  }
 
   b {
     grid-area: mes;
@@ -41,30 +45,27 @@ const Grid = styled.div`
     padding: 12px;
     font-size: 1.3em;
     border-bottom: 1px solid currentColor;
-  };
-  border-radius: 8px;
-  border: ${theme.border};
+  }
+
   justify-content: center;
 `;
 const GR = styled.div`
- display: flex;
+  display: flex;
   margin: 0;
   width: 4em;
   margin: 4px;
   font-size: 1.3rem;
-  grid-area:gr;
+  grid-area: gr;
   justify-self: center;
-  input{
+  input {
     font-size: 1.3rem;
     width: 60px;
     margin: 0 12px;
   }
-  
-  `
+`;
 function f(cart: IItem[], item: IItem) {
-  return cart.find(it => item.id === it.id);
+  return cart.find((it) => item.id === it.id);
 }
-
 
 const CartBlock: React.FC<Props> = (prop) => {
   const { item, adToCart } = prop;
@@ -74,18 +75,17 @@ const CartBlock: React.FC<Props> = (prop) => {
   useEffect(() => {
     if (itemInCart) setState(itemInCart.quantity);
     else setState(1);
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
-  const handelAdd = (event: { preventDefault: () => void; }) => {
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const handelAdd = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const item1 = { ...item };
     item1.quantity = state;
     adToCart(item1);
   };
-  const handePlus = (event: { preventDefault: () => void; }) => {
+  const handePlus = (event: { preventDefault: () => void }) => {
     setState(state + 1);
   };
-  const handeMinus = (event: { preventDefault: () => void; }) => {
-
+  const handeMinus = (event: { preventDefault: () => void }) => {
     setState(state - 1);
   };
   const handelDel = () => {
@@ -94,7 +94,7 @@ const CartBlock: React.FC<Props> = (prop) => {
     adToCart(item1);
     setState(0);
   };
-  const handle = (v: { target: { value: string; }; }) => {
+  const handle = (v: { target: { value: string } }) => {
     let x = parseInt(v.target.value);
     x = isNaN(x) ? 1 : x;
     setState(x);
@@ -106,23 +106,22 @@ const CartBlock: React.FC<Props> = (prop) => {
         <RectButton disabled={state < 1} onClick={handeMinus}>
           <Icon src={"chevron-left"} />
         </RectButton>
-        <input
-          type="number"
-          min="0"
-          name="quantity"
-          value={state}
-          onChange={handle}
-        />
+        <input type="number" min="0" name="quantity" value={state} onChange={handle} />
         <RectButton onClick={handePlus}>
           <Icon src={"chevron-right"} />
         </RectButton>
       </GR>
-      <ButtonSecondary onClick={handelAdd} outlined
-                       disabled={(itemInCart && state === itemInCart.quantity) || state === 0}
-                       className={"add"}>
+      <ButtonSecondary
+        onClick={handelAdd}
+        outlined
+        disabled={(itemInCart && state === itemInCart.quantity) || state === 0}
+        className={"add"}
+      >
         в&nbsp;корзину
       </ButtonSecondary>
-      <ButtonSecondary onClick={handelDel} outlined disabled={!itemInCart} className={"del"}>отменить </ButtonSecondary>
+      <ButtonSecondary onClick={handelDel} outlined disabled={!itemInCart} className={"del"}>
+        отменить{" "}
+      </ButtonSecondary>
     </Grid>
   );
 };

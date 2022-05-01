@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useState } from "react";
 import styled from "styled-components";
 import AppBar from "./AppBar";
-import Navigation from "./Navigation";
+import CheckContent from "./CheckContent";
+import { H1 } from "./Elements/Icon";
 import Toggle from "./Elements/Toggle";
 import { device, inAnimation, outAnimation } from "./GlobalStyles";
-import { H1 } from "./Elements/Icon";
-import CheckContent from "./CheckContent";
+import Navigation from "./Navigation";
 
 const WRAPPER = styled.div<{ open: boolean }>`
   user-select: none;
@@ -13,51 +13,53 @@ const WRAPPER = styled.div<{ open: boolean }>`
   display: grid;
   max-width: 100vw;
   min-width: 240px;
-  grid-template-rows: min-content  min-content  1fr  min-content;
+  grid-template-rows: min-content min-content 1fr min-content min-content;
   grid-template-columns: 1fr 240px 680px 680px 1fr;
   gap: 24px 48px;
   min-height: 100vh;
   grid-template-areas:
-      " .  appBar appBar appBar   ."
-      " .  nav    h         b  ."
-      " .  nav    main   main  ."
-      " .  footer footer  footer   .";
+    " .  appBar appBar appBar   ."
+    " .  nav    h         b  ."
+    " .  nav    main   main  ."
+    " . p   p   p  ."
+    " .  footer footer  footer   .";
   justify-items: stretch;
   justify-content: stretch;
   align-content: stretch;
   align-items: stretch;
   @media ${device.desktop} {
     grid-template-areas:
-      "appBar appBar appBar"  
+      "appBar appBar appBar"
       "nav  h  b"
       "nav main main"
+      "nav p p"
       "footer footer footer";
-    grid-template-columns:   240px auto  auto ;
+    grid-template-columns: 240px auto auto;
     gap: 12px 48px;
-    grid-template-rows: min-content min-content  1fr  min-content;
-  };
+    grid-template-rows: min-content min-content 1fr min-content min-content;
+  }
   @media ${device.laptop} {
     grid-template-areas:
-      "appBar appBar appBar"  
+      "appBar appBar appBar"
       "nav  b  b"
       "nav  h  h"
       "nav main main"
+      "nav p  p"
       "footer footer footer";
-    grid-template-columns:   240px auto  auto  ;
+    grid-template-columns: 240px auto auto;
     gap: 12px 24px;
-    grid-template-rows: min-content min-content min-content  1fr   min-content;
-
-  };
+    grid-template-rows: min-content min-content min-content 1fr min-content min-content;
+  }
   @media ${device.tablet} {
     grid-template-areas:
-      "appBar" 
+      "appBar"
       "h"
-      "main" 
+      "main"
+      "p"
       "b"
-      "footer"
-  ;
-    grid-template-columns:  auto ;
-    grid-template-rows: min-content min-content   1fr min-content  min-content;
+      "footer";
+    grid-template-columns: auto;
+    grid-template-rows: min-content min-content 1fr min-content min-content min-content;
     gap: 6px;
     nav {
       width: ${(props) => (props.open ? "0" : "280px")};
@@ -67,7 +69,7 @@ const WRAPPER = styled.div<{ open: boolean }>`
       left: ${(props) => (props.open ? 0 : "-100%")};
       min-height: 100vh;
     }
-  };
+  } ;
 `;
 
 const Wrapper: FunctionComponent = (props) => {
@@ -109,9 +111,10 @@ class ErrorBoundary extends React.Component {
         <>
           <H1 src={"error"}> Ошибочка!</H1>
           <main>
-            <div  >
+            <div>
               <p>Что-то пошло не так.</p>
-              <p> Oбновите страницу </p></div>
+              <p> Oбновите страницу </p>
+            </div>
           </main>
         </>
       );

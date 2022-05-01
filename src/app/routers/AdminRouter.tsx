@@ -13,6 +13,7 @@ import AdminCatalog from "../components/adminka/AdminCatalog";
 import AdminOder from "../components/adminka/AdminOrder";
 import AdminOderList from "../components/adminka/AdminOrderList";
 import AdminProfile from "../components/adminka/AdminProfile";
+import AdminGroup from "../components/adminka/AdminGroup";
 
 
 const Router: React.FC<PropsContent> = (props) => {
@@ -30,6 +31,9 @@ const Router: React.FC<PropsContent> = (props) => {
     </Route>
     <Route exact path="/admin/pages/:id">
       <AdminArticleList />
+    </Route>
+    <Route exact path="/admin/group/:id">
+      <AdminGroup />
     </Route>
     <Route exact path="/admin/profile/:id">
       <AdminProfile />

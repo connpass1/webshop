@@ -12,32 +12,34 @@ const UL = styled.ul`
   flex-wrap: nowrap;
   display: flex;
   justify-content: flex-end;
-  margin: 0;
-  height: 18px;;
-  line-height: 18px;
+
+  a {
+    font-size: 15px;
+    font-style: italic !important;
+    align-items: center;
+    line-height: 15px;
+    color: currentColor;
+    display: inline-flex;
+    :hover {
+      text-decoration: underline;
+    }
+  }
+
   @media ${device.mobile} {
     display: none;
   }
 
   li {
+    font-size: 15px;
     display: flex;
-    align-content: end;
-  }
-
-  li a:hover {
-    text-decoration: underline;
+    align-content: center;
   }
 
   li + li:after {
-    padding: 0 8px 0 12px;
+    padding: 0 4px 0 6px;
     color: black;
     content: "/\\00a0";
     line-height: 1.5;
-  }
-
-  a {
-    color: currentColor;
-    display: inline-flex;
   }
 `;
 const BreadcrumbsLarge: React.FC<{ parent: string }> = ({ parent }) => {
@@ -55,17 +57,18 @@ const BreadcrumbsLarge: React.FC<{ parent: string }> = ({ parent }) => {
 
   const memo = useMemo(() => f(parent), [parent]);
   return (
-
     <UL>
-      {memo.map(t => <li key={t.id}>
-        <Link to={"/catalog/" + t.id}>
-          {t.icon && <Icon src={t.icon} />} {t.name}    </Link>
-      </li>)}
+      {memo.map((t) => (
+        <li key={t.id}>
+          <Link to={"/catalog/" + t.id}>
+            {t.icon && <Icon src={t.icon} />} {t.name}{" "}
+          </Link>
+        </li>
+      ))}
     </UL>
   );
 };
 export const Breadcrumbs: React.FC<{ parent?: string }> = ({ parent }) => {
-
   if (!parent) return null;
   return <BreadcrumbsLarge parent={parent} />;
 };

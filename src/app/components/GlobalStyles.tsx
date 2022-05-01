@@ -222,8 +222,9 @@ const GlobalStyles = createGlobalStyle`
 
   .price {
     grid-area: price;
+    white-space: nowrap;
     :after {
-      content: " р."
+      content: "р"
     } ;
   }
 

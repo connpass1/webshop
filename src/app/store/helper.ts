@@ -1,8 +1,8 @@
-import { IEntity, IFetchCart, IFetchContent, IFetchCustomer, IFetchSettings } from "../models/IFases";
-import { actionsSettings } from "./storeSettings";
 import { useEffect } from "react";
-import { actionsContent } from "./storeContent";
 import { useLocation } from "react-router-dom";
+import { IEntity, IFetchCart, IFetchContent, IFetchCustomer, IFetchSettings } from "../models/IFases";
+import { actionsContent } from "./storeContent";
+import { actionsSettings } from "./storeSettings";
 
 function isObject(object: any) {
   return object != null && typeof object === "object";
@@ -47,7 +47,7 @@ export function phone(ph: number | undefined) {
   return phone;
 }
 
-export function useFetchLocation(request: any) {
+export function useFetchLocation(request: any) { 
   const location = useLocation();
   useEffect(() => {
     request(location.pathname);

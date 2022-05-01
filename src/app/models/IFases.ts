@@ -21,7 +21,7 @@ export interface IPageAble {
 export interface IItem extends IEntity {
   price: number;
   quantity: number;
-  itemDetailId: number;
+  detailId: number;
   checked: boolean;
 }
 
@@ -36,10 +36,6 @@ export interface IItemDetail {
   properties: ItemPropertyModel[];
 }
 
-export interface ICatalog extends IEntity {
-  childrenCategory: ICatalog[];
-  items: IItem[];
-}
 
 export interface IPage {
   content: IItem[];

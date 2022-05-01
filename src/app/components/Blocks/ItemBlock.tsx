@@ -5,7 +5,6 @@ import { ButtonSecondary } from "../Elements/Button";
 import { Row } from "../Elements/Styled";
 import ItemPreview from "./ItemPreview";
 import { device } from "../GlobalStyles";
-
 const Links = styled.div`
   margin: 12px;
   padding: 12px;
@@ -41,7 +40,7 @@ const Grid = styled.div`
     gap: 24px 0;
   }
 `;
-const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
+const Component: FunctionComponent<{ items:  IItem[] }> = ({ items }) => {
   const pages = items.length / 20;
   const [page, setPage] = useState(1);
   const memoizedCallback = useCallback(
@@ -57,7 +56,7 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
     [pages]
   );
 
-  function f(items: IItem[], page: number) {
+  function f(items:  IItem[], page: number) {
     return <Grid>{items.map((item, key) => key >= (page - 1) * 20 && key < page * 20 &&
       <ItemPreview key={item.id} {...item} />)}</Grid>;
   }

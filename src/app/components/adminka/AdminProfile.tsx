@@ -3,24 +3,20 @@ import { connect } from "react-redux";
 import { ProfileModel } from "../../models/ProfileModel";
 import { mapContent, PropsContent, useFetchLocation } from "../../store/helper";
 import { actionsContent } from "../../store/storeContent";
-import { Row } from "../Elements/Styled";
+import UserInfo from "../Blocks/UserInfo";
+import { H1 } from "../Elements/Icon";
 
 const Component: React.FC<any> = (props) => {
   const user = new ProfileModel(props as ProfileModel);
 
   return (
-    <main className={"start"}>
-      <Row>
-        <div>
-          <a href={"mailto:" + user.email}>{user.email}</a>
-        </div>
-        <div>{user.name}</div>
-        <div>{user.address}</div>
-        <div>
-          <a href={`tel:+${user.phone}`}>+{user.phone}</a>
-        </div>
-      </Row>
-    </main>
+    <>
+      <H1 src="person"> {user.name}</H1>
+      <main className="start">
+        <UserInfo user={user} />
+        <p>{JSON.stringify(user)} </p>
+      </main>
+    </>
   );
 };
 const Component1: React.FC<PropsContent> = (props) => {

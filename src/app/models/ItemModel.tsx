@@ -14,7 +14,7 @@ export class ItemModel implements ISlug {
   photos: string[] = [];
   properties: ItemPropertyModel[] = [];
   detailId = 0;
-
+  checked?: boolean;
   constructor(detail: IItemDetail | undefined) {
     if (!detail) return;
     const item = detail.item;

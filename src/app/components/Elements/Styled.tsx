@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { device } from "../GlobalStyles";
 
 export const FlexAround = styled.div`
   display: flex;
@@ -8,15 +7,7 @@ export const FlexAround = styled.div`
   align-items: center;
   flex-wrap: wrap;
 `;
-export const A = styled.a`
-  display: flex;
-  justify-items: center;
-  justify-content: center;
-  align-items: center;
-  .icon {
-    margin-right: -0.2em;
-  }
-`;
+
 export const LINK = styled(Link)`
   display: flex;
   justify-items: center;
@@ -50,10 +41,6 @@ export const FlexEvenly = styled.div`
   div {
     flex-grow: 1;
     margin: 12px;
-  }
-
-  @media ${device.tablet} {
-    min-width: 100vw;
   }
 `;
 

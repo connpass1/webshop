@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
 import { Breadcrumbs } from "../components/Blocks/Breadcrumbs";
-
 import ItemBlock from "../components/Blocks/ItemBlock";
-import { ICatalog, ISlug } from "../models/IFases";
+import {   ISlug } from "../models/IFases";
 import { H1, Icon } from "../components/Elements/Icon";
 import { theme } from "../components/GlobalStyles";
 import classNames from "classnames";
@@ -11,6 +10,7 @@ import { Link } from "react-router-dom";
 import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
 import { connect } from "react-redux";
 import { actionsContent } from "../store/storeContent";
+import { CategoryModel } from "../models/CategoyModel";
 
 const Main = styled.main`
   justify-items: stretch;
@@ -75,8 +75,8 @@ export const CatalogLink: React.FC<{ item: ISlug, onClick?: any, className?: str
 };
 
 const Component: FunctionComponent<any> = (props) => {
-  const catalog = props as ICatalog;
-  if (!catalog) return <>{JSON.stringify(props)}</>;
+  const catalog = new CategoryModel(props);
+  if (!catalog) return <> </>;
   return (
     <> <Breadcrumbs parent={catalog.parent} />
       <H1 src={catalog.icon}> {catalog.name}</H1>
@@ -90,7 +90,7 @@ const Component: FunctionComponent<any> = (props) => {
                 <CatalogLink key={inner.id} item={inner} />)}
             </div>)}
         </Styled>
-        {catalog.items?.length > 0 && <ItemBlock items={catalog.items} />}
+        {catalog.items.length > 0 && <ItemBlock items={catalog.items} />}
       </Main>
     </>
   );

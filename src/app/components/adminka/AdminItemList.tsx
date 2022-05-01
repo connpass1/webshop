@@ -35,7 +35,7 @@ const Greed = styled(GridTable)`
   grid-template-columns: 90px 1fr 1fr 60px 80px;
 `;
 const Component: React.FC<any> = (props) => {
-  const { content, totalPages } = props;
+  const { content } = props;
   const items = content as IItem[];
   const memo = useMemo(
     () =>
@@ -43,7 +43,7 @@ const Component: React.FC<any> = (props) => {
         <ChildrenGreed key={item.id}>
           <Articular id={item?.id} />
           <TD>
-            <Link to={"/admin/item/" + item?.itemDetailId}>
+            <Link to={"/admin/item/" + item?.detailId}>
               <Icon src={item?.icon} /> {item?.name}
             </Link>
           </TD>
@@ -70,18 +70,18 @@ const Component: React.FC<any> = (props) => {
         <div> {items?.length === 0 && <span>Товаров&nbsp;пока&nbsp;нет.</span>}</div>
         <RedirectButton to={"/admin/item/0 "}>Добавить&nbsp;товар</RedirectButton>
       </FlexEvenly>
-      <Pageable pages={totalPages} />
     </>
   );
 };
 
 const Component1: React.FC<PropsContent> = (props) => {
   useFetchLocation(props.contentRequest);
+  const content = props.content;
   return (
     <>
-      {" "}
       <H1 src="list"> Товар</H1>
-      <main>{props.status > 199 && Array.isArray(props.content?.content) && <Component {...props.content} />} </main>
+      <main>{props.status > 199 && Array.isArray(content?.content) && <Component {...content} />} </main>
+      <Pageable pages={content?.totalPages} />
     </>
   );
 };

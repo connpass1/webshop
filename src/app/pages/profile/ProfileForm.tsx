@@ -10,9 +10,6 @@ import { isEmpty, PropsContent } from "../../store/helper";
 
 const Form = styled(StyledForm)`
   background-color: ${theme.color.primaryLight};
-  width: min(800px, 100%);
-  padding: 24px;
-  margin-top: 24px;
 `;
 
 const Schema = Yup.object().shape({
