@@ -15,49 +15,47 @@ const Greed = styled(GridTable)`
 `;
 
 const Component: React.FC<any> = (props) => {
-  const { content, totalPages } = props;
+  const { content } = props;
   const users = content as ProfileModel[];
   if (!Array.isArray(content)) return null;
   if (users.length < 1) return null;
 
   return (
-    <>
-      <Greed>
-        <TH>N</TH>
-        <TH>email</TH>
-        <TH> логин</TH>
-        <TH> адресс</TH>
-        <TH> телефон</TH>
-        {users?.map((us, n) => (
-          <ChildrenGreed key={us.id}>
-            <TD>{n + 1}</TD>
-            <TD>
-              <a href={"mailto:" + us.email}>{us?.email}</a>
-            </TD>
-            <TD>
-              <Link to={"/admin/profile/" + us?.userId}>{us?.name}</Link>
-            </TD>
-            <TD>{us.address}</TD>
-            <TD>
-              <a href={`tel:+${us?.phone}`}>+{us?.phone}</a>
-            </TD>
-          </ChildrenGreed>
-        ))}
-      </Greed>
-      <Pageable pages={totalPages} />
-    </>
+    <Greed>
+      <TH>N</TH>
+      <TH>email</TH>
+      <TH> логин</TH>
+      <TH> адресс</TH>
+      <TH> телефон</TH>
+      {users?.map((us, n) => (
+        <ChildrenGreed key={us.id}>
+          <TD>{n + 1}</TD>
+          <TD>
+            <a href={"mailto:" + us.email}>{us?.email}</a>
+          </TD>
+          <TD>
+            <Link to={"/admin/profile/" + us?.userId}>{us?.name}</Link>
+          </TD>
+          <TD>{us.address}</TD>
+          <TD>
+            <a href={`tel:+${us?.phone}`}>+{us?.phone}</a>
+          </TD>
+        </ChildrenGreed>
+      ))}
+    </Greed>
   );
 };
 const Component1: React.FC<PropsContent> = (props) => {
   useFetchLocation(props.contentRequest);
+  const content = props.content;
   return (
     <>
-      {" "}
       <H1 src={"users"}> Пользователи</H1>
-      <main className={"between"}>
+      <main className={"start"}>
         {JSON.stringify(props.content)}
-        {props.status > 199 && props.content && Array.isArray(props.content?.content) && <Component {...props.content} />}
+        {props.status > 199 && content && Array.isArray(content?.content) && <Component {...content} />}
       </main>
+      <Pageable pages={content?.totalPages} />
     </>
   );
 };

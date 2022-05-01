@@ -5,10 +5,13 @@ import { ChildrenGreed, GridTable, TD, TF, TH } from "../../components/Elements/
 import { OrderModel } from "../../models/OrderModel";
 
 const Greed = styled(GridTable)`
-  grid-template-columns: minmax(max-content, 40px) minmax(max-content, 240px) minmax(max-content, 70px) minmax(max-content, 60px) minmax(
-      max-content,
-      60px
-    );
+  grid-template-columns: 40px 1fr 60px minmax(max-content, 70px) minmax(max-content, 60px);
+`;
+const TF13 = styled(TF)`
+  grid-column: 1 / 3; ;
+`;
+const TF35 = styled(TF)`
+  grid-column: 3 /5; ;
 `;
 const Component: FunctionComponent<{ data: OrderModel[] }> = ({ data }) => {
   const [orders, setOrders] = useState<OrderModel[] | undefined>([]);
@@ -51,16 +54,16 @@ const Component: FunctionComponent<{ data: OrderModel[] }> = ({ data }) => {
               <TD>
                 <Link to={"/item/" + oi.item.itemDetailId}> {oi.item.name}</Link>
               </TD>
-              <TD> {oi.quantity} </TD>
-              <TD> {oi.item.price} </TD>
-              <TD> {oi.quantity * oi.item.price} </TD>
+              <TD> {oi.quantity}</TD>
+
+              <TD>{oi.item.price} р.</TD>
+              <TD> {oi.quantity * oi.item.price} р.</TD>
             </ChildrenGreed>
           ))}
-          <TF> </TF>
-          <TF>{order.initDate.toLocaleDateString()}</TF>
-          <TF> статус: {order.status} </TF>
-          <TF> </TF>
-          <TF> {order.sum} </TF>
+
+          <TF13>{order.initDate.toLocaleDateString()}</TF13>
+          <TF35> статус: {order.status} </TF35>
+          <TF> {order.sum}р. </TF>
         </ChildrenGreed>
       ))}
     </Greed>

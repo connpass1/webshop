@@ -25,7 +25,7 @@ export const GridTable = styled.div`
   min-width: 600px;
   @media ${device.tablet} {
     overflow-x: auto;
-    min-width: 100vw;
+    
   }
 }
 

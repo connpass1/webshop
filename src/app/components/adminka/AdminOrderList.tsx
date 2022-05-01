@@ -15,22 +15,17 @@ const Greed = styled(GridTable)`
 const Component: React.FC<any> = (props) => {
   const { content, totalPages } = props;
 
-  return (
-    <>
-      {JSON.stringify(content)}
-      <Pageable pages={totalPages} />
-    </>
-  );
+  return <>{JSON.stringify(content)}</>;
 };
 
 const Component1: React.FC<PropsContent> = (props) => {
   useFetchLocation(props.contentRequest);
+  const content = props.content;
   return (
     <>
       <H1 src={"list"}> Заказы</H1>
-      <main className={"between"}>
-        {props.status > 199 && props.content && Array.isArray(props.content?.content) && <Component {...props.content} />}
-      </main>
+      <main className={"between"}>{props.status > 199 && content && Array.isArray(content?.content) && <Component {...content} />}</main>
+      <Pageable pages={content?.totalPages} />
     </>
   );
 };

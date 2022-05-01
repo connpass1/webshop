@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { device } from "../GlobalStyles";
 
 export const FlexAround = styled.div`
   display: flex;
@@ -50,10 +49,6 @@ export const FlexEvenly = styled.div`
   div {
     flex-grow: 1;
     margin: 12px;
-  }
-
-  @media ${device.tablet} {
-    min-width: 100vw;
   }
 `;
 
