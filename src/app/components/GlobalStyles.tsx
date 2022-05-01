@@ -17,26 +17,25 @@ export const theme = {
     error: "#e53935",
     grey: "#424242",
     greyLight: "#e0e0e0",
-    disabled: "#888888"
+    disabled: "#888888",
   },
   size: {
     mobile: Sizes.mobile + "px",
     tablet: Sizes.tablet + "px",
     laptop: Sizes.laptop + "px",
     laptopL: Sizes.laptopL + "px",
-    desktop: Sizes.desktop + "px"
+    desktop: Sizes.desktop + "px",
   },
   shadow: "-1px 1px 12px -2px rgba(0, 0, 0, 0.6)",
-  border: "1px solid rgba(0, 0, 0, 0.4)"
+  border: "1px solid rgba(0, 0, 0, 0.4)",
 };
 export const device = {
   mobile: `(max-width: ${theme.size.mobile})`,
   tablet: `(max-width: ${theme.size.tablet})`,
   laptop: `(max-width: ${theme.size.laptop})`,
   laptopL: `(max-width: ${theme.size.laptopL})`,
-  desktop: `(max-width: ${theme.size.desktop})`
+  desktop: `(max-width: ${theme.size.desktop})`,
 };
-
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -47,11 +46,7 @@ const GlobalStyles = createGlobalStyle`
   header {
     display: flex;
     color: ${theme.color.primary};
-    border-bottom: ${theme.border};
-    margin: 12px 0;
-    @media ${device.tablet} {
-      margin: 0 ;
-    }
+    border:none; 
   }
 
   .root {
@@ -109,7 +104,7 @@ const GlobalStyles = createGlobalStyle`
   justify-content: flex-end;
 }
   main {
-    
+    div{max-width:100%}
     grid-area: main;  
     border-radius: 4px;
     user-select: text;
@@ -118,7 +113,7 @@ const GlobalStyles = createGlobalStyle`
     overflow: hidden;
     align-content: center;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content:stretch;
     @media ${device.tablet} {
       font-size: 0.8rem;
       margin: 0;
@@ -221,40 +216,16 @@ const GlobalStyles = createGlobalStyle`
     color: ${theme.color.primary};
     font-size: 1rem;
     border-radius: 8px;
-    align-items: center;
-    gap: 12px;
-
-    div {
-      padding: 0 8px
-    }
-
-    header {
-      text-align: center;
-      display: inline-block;
-      grid-area: h;
-      border-radius: 8px 8px 0 0;
-      color: white;
-      background-color: ${theme.color.primary};
-      margin: 0;
-      padding: 8px;
-      @media ${device.mobile} {
-        box-sizing: content-box ;
-        width: 100vw ;
-        margin: 0 -10px ;
-        border-radius: 0;
-      }
-    }
+    align-items: center; 
+   
   }
 
   .price {
     grid-area: price;
-
     :after {
       content: " р."
-    }
-  ;
+    } ;
   }
-
 
 `;
 export default GlobalStyles;
