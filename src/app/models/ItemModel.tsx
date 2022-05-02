@@ -1,11 +1,12 @@
 import { ItemPropertyModel } from "./ItemProperties";
-import { IItemDetail, ISlug } from "./IFases";
+import { IEntity, IItemDetail, ISlug } from "./IFases";
 
-export class ItemModel implements ISlug {
+export class ItemModel implements IEntity {
   name = "";
   id = 0;
   quantity = 0;
-  parent?: string;
+  // @ts-ignore
+  parent: string | undefined;
   icon? = "";
   price = 0;
   description = "";
@@ -15,6 +16,8 @@ export class ItemModel implements ISlug {
   properties: ItemPropertyModel[] = [];
   detailId = 0;
   checked?: boolean;
+
+
   constructor(detail: IItemDetail | undefined) {
     if (!detail) return;
     const item = detail.item;
@@ -23,7 +26,7 @@ export class ItemModel implements ISlug {
     this.id = item.id;
     this.price = item.price;
     this.quantity = item.quantity;
-    this.parent = item.parent;
+    this.parent = item .parent;
     this.icon = item?.icon;
     this.price = item.price;
     this.description = detail.description;

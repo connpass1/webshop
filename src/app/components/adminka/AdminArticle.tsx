@@ -51,7 +51,7 @@ const Basic: React.FC<{
           touched,
           values,
           isSubmitting,
-          /* and other goodies */
+
         }) => (
           <StyledForm>
             <Input type="text" name="name" placeholder="название" label={"название"} />
@@ -104,7 +104,7 @@ const Component: React.FC<PropsContent> = (props) => {
   }
   return (
     <>
-      <Basic model={model} saveContentRequest={props.saveContentRequest}>
+      <Basic model={model} saveContentRequest={props.saveContentRequest}/>
         <FlexEvenly>
           <ButtonSecondary disabled={model.id === 0} onClick={handlerDelete}>
             удалить статью
@@ -113,22 +113,23 @@ const Component: React.FC<PropsContent> = (props) => {
             просмотреть статью
           </RedirectButton>
         </FlexEvenly>
-      </Basic>
+
     </>
   );
 };
 
 const Component1: React.FC<PropsContent> = (props) => {
   useFetchLocation(props.contentRequest);
-  const { id } = useParams();
+
   const { content, status } = props;
+  const   id   = content?.id?content?.id:0;
   if (status < 200) return null;
   if (status === 202) return <Redirect to={"/admin/pages/1"} />;
   if (!content) return null;
 
   return (
     <>
-      <H1 src={id === 0 ? "edit" : "create"}>{id > 0 ? "Редактировать" : "Создать"} статью</H1>
+      <H1 src={id === 0 ? "edit" : "create"}>{id > 0 ? "Редактировать" : "Создать"} статью  </H1>
       <main>{status > 199 && <Component {...props} />}</main>
     </>
   );
