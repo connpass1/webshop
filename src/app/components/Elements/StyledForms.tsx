@@ -1,5 +1,5 @@
-import React from "react";
 import { ErrorMessage, Field, Form } from "formik";
+import React from "react";
 import styled from "styled-components";
 import { device, theme } from "../GlobalStyles";
 
@@ -14,13 +14,13 @@ const Grid = styled.div`
 `;
 export const Group = styled(Grid)`
   grid-template-areas: "i l" "i l" "e e";
-  grid-template-columns:  min-content 220px;
+  grid-template-columns: min-content 220px;
   justify-items: stretch;
   gap: 0 12px;
 
   @media ${device.mobile} {
     grid-template-areas: "l " "i " "e";
-    grid-template-columns:  min-content;
+    grid-template-columns: min-content;
     label {
       margin: 0 0 6px 0;
     }
@@ -29,7 +29,7 @@ export const Group = styled(Grid)`
   .error {
     grid-area: e;
     padding: 6px 0 0 0;
-    color: ${theme.color.error};;
+    color: ${theme.color.error};
   }
 `;
 export const Area = styled(Grid)`
@@ -50,8 +50,8 @@ export const Area = styled(Grid)`
 interface Props {
   columns: number;
 }
-
 export const GRID = styled(Grid)<Props>`
+  // grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   grid-template-columns: ${(props) => `repeat(${props.columns},min-content)`};
   grid-area: g;
   //width: 100%;
@@ -71,11 +71,18 @@ align-self: center;
     min-width: 100%;
   }
 
-  label {
+  label,span {
     color: ${theme.color.primary};
-    grid-area: l;
+    
+    font-style:italic;
   }
-
+  label{grid-area: l;}
+  input::placeholder ,textarea::placeholder
+   {
+    color: ${theme.color.secondary};
+    opacity:0.6;
+    font-size:0.9rem
+  }
   .buttons {
     display: flex;
     grid-area: b;
@@ -122,7 +129,7 @@ input[type=reset], input[type=submit] {
   cursor: pointer;
   margin: 12px;
   border-radius: 0;
-
+  border: none;
   :disabled {
     opacity: 1;
     background-color: ${theme.color.disabled};
@@ -130,22 +137,28 @@ input[type=reset], input[type=submit] {
     border: none;
   }
 `;
-export const TextArea: React.FC<{ name: string, label: string, placeholder?: string }>
-  = ({ name, label, placeholder }) => {
-  return <Area>
-    <label htmlFor={name}>{label}</label>
-    <Field as="textarea" name={name} placeholder={placeholder} />
-    <ErrorMessage className="error" component={"div"} name={name} />
-  </Area>;
+export const TextArea: React.FC<{ name: string; label: string; placeholder?: string }> = ({ name, label, placeholder }) => {
+  return (
+    <Area>
+      <label htmlFor={name}>{label}</label>
+      <Field as="textarea" name={name} placeholder={placeholder} />
+      <ErrorMessage className="error" component={"div"} name={name} />
+    </Area>
+  );
 };
 
-export const Input: React.FC<{ name: string, label: string, type?: string, placeholder?: string, props?: any }>
-  = ({
-       name, label, type = "text", placeholder, props
-     }) => {
-  return <Group>
-    <label htmlFor={name}> {label} </label>
-    <Field name={name} type={type} {...props} placeholder={placeholder} />
-    <ErrorMessage className="error" component={"div"} name={name} />
-  </Group>;
+export const Input: React.FC<{ name: string; label: string; type?: string; placeholder?: string; props?: any }> = ({
+  name,
+  label,
+  type = "text",
+  placeholder,
+  props,
+}) => {
+  return (
+    <Group>
+      <label htmlFor={name}> {label} </label>
+      <Field name={name} type={type} {...props} placeholder={placeholder} />
+      <ErrorMessage className="error" component={"div"} name={name} />
+    </Group>
+  );
 };
