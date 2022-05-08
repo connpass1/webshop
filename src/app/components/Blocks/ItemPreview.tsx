@@ -58,9 +58,7 @@ border: 1px solid currentColor;
     grid-area: price;
     padding: 12px;
     font-size: 1.8em;
-  }
-
-  
+  }   
   }
 `;
 const Component: React.FC<IItem> = (item) => {
@@ -68,7 +66,7 @@ const Component: React.FC<IItem> = (item) => {
     <Section>
       <Articular val={item.id} />
       <Image src="/img/box.png" alt={item.name} />
-      <Link className={"name"} to={`/item/${item.detailId}`}>
+      <Link className={"name"} to={`/item/${item.id}`}>
         {item.name}
       </Link>
       <div className="price">цена - &shy; {item.price}</div>

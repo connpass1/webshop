@@ -10,6 +10,7 @@ import { RedirectButton } from "../Elements/Button";
 import { H1, Icon } from "../Elements/Icon";
 import { FlexEvenly } from "../Elements/Styled";
 import { ChildrenGreed, GridTable, TD, TH } from "../Elements/Table";
+import { device } from "../GlobalStyles";
 
 const Catalog: React.FC<{ name?: string }> = ({ name }) => {
   if (!name) return null;
@@ -33,6 +34,10 @@ const Articular: React.FC<{ id: number }> = ({ id }) => {
 };
 const Greed = styled(GridTable)`
   grid-template-columns: 90px 1fr 1fr 60px 80px;
+  justify-content: center;
+  @media ${device.tablet} {
+    grid-template-columns: 40px min-content min-content 40px min-content;
+  }
 `;
 const Component: React.FC<any> = (props) => {
   const { content } = props;
@@ -43,7 +48,7 @@ const Component: React.FC<any> = (props) => {
         <ChildrenGreed key={item.id}>
           <Articular id={item?.id} />
           <TD>
-            <Link to={"/admin/item/" + item?.detailId}>
+            <Link to={"/admin/item/" + item?.id}>
               <Icon src={item?.icon} /> {item?.name}
             </Link>
           </TD>
@@ -58,7 +63,7 @@ const Component: React.FC<any> = (props) => {
   );
   return (
     <>
-      <Greed className={"content"}>
+      <Greed>
         <TH>артикул</TH>
         <TH> наименоваеие</TH>
         <TH> каталог</TH>

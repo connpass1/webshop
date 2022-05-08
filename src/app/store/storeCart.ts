@@ -1,6 +1,5 @@
 import { Reducer } from "redux";
 import { IFetchCart, IItem } from "../models/IFases";
-import { ItemModel } from "../models/ItemModel";
 
 export enum ActionTypesCart {
   adToCart = "AD_TO_CARD",

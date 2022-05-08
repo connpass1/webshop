@@ -34,7 +34,7 @@ const Component: React.FC<any> = (props) => {
             <a href={"mailto:" + us.email}>{us?.email}</a>
           </TD>
           <TD>
-            <Link to={"/admin/profile/" + us?.userId}>{us?.name}</Link>
+            <Link to={"/admin/profile/" + us?.id}>{us?.name}</Link>
           </TD>
           <TD>{us.address}</TD>
           <TD>
@@ -50,7 +50,7 @@ const Component1: React.FC<PropsContent> = (props) => {
   const content = props.content;
   return (
     <>
-      <H1 src={"users"}> Пользователи</H1>
+      <H1 src={"persons"}> Пользователи</H1>
       <main className={"start"}>
         {JSON.stringify(props.content)}
         {props.status > 199 && content && Array.isArray(content?.content) && <Component {...content} />}

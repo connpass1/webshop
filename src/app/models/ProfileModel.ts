@@ -1,5 +1,4 @@
-export class ProfileModel {
-  userId: number;
+export class ProfileModel { 
   id: number;
   address: string;
   name: string;
@@ -12,7 +11,7 @@ export class ProfileModel {
     this.address = data.address ? data.address : "";
     this.email = data.email ? data.email : "";
     this.phone = data.phone ? data.phone : undefined;
-    this.userId = data.userId;
+   
 
   }
 }

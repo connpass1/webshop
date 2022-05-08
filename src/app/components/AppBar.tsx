@@ -2,6 +2,8 @@ import React, { FunctionComponent, useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { mainPhoneNumber, siteNameDown, siteNameUp } from "../../Settings";
+import { ISetting } from "../models/IFases";
 import { mapSettings, phone, PropsSetting } from "../store/helper";
 import { actionsSettings } from "../store/storeSettings";
 import { Card } from "./Blocks/Card";
@@ -108,27 +110,28 @@ const AppBar: FunctionComponent<PropsSetting> = (props) => {
     };
     return settingsRequest();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const phoneNumber = useMemo(() => phone(props.settings?.phoneNumber), [props]);
+  const phoneNumber = useMemo(() => phone(mainPhoneNumber), []);
+  const settings = props.settings as ISetting;
 
   return (
     <Styled>
       <Link to="/">
         <Logo>
-          <Span after={"интернет"} />
+          <Span after={siteNameUp} />
           <Icon src={"logo"} />
-          <Span after={"магазин"} />
+          <Span after={siteNameDown} />
         </Logo>
       </Link>
       <div className="bar">
         <FlexAround className={"tabletNo"}>
-          {props.settings?.appBarLinks.map((item, key) => (
+          {settings?.appBarLinks.map((item, key) => (
             <Link key={key} to={"/page/" + item.id}>
               {item.name}
             </Link>
           ))}
         </FlexAround>
         <Row className={"center"}>
-          <A href={`tel:${props.settings?.phoneNumber}`}>
+          <A href={`tel:${mainPhoneNumber}`}>
             <Icon src={"phone"} />
             <Span after={phoneNumber} />
           </A>
@@ -138,7 +141,7 @@ const AppBar: FunctionComponent<PropsSetting> = (props) => {
           <LINK to="/profile">
             <Icon src={"person"} />
             <Span after={"личный кабинет"} />
-          </LINK>{" "}
+          </LINK>
         </Row>
       </div>
       {props.children}

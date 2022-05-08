@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
-import { Icon } from "./Icon";
 import { theme } from "../GlobalStyles";
+import { Icon } from "./Icon";
 
 interface Props {
   onClick?: any;
@@ -47,8 +47,6 @@ export const RectButton = styled.button<Props>`
     outline: none !important;
     box-shadow: 0 0 5px ${theme.color.primary};
   }
-;
-
   :disabled {
     color: ${theme.color.greyLight};
     border: 1px solid ${theme.color.greyLight};
@@ -57,18 +55,23 @@ export const RectButton = styled.button<Props>`
 `;
 
 export const BackToCatalog = () => {
-  return <RedirectButton to={"/catalog/1"}><Icon src={"home"} /> в каталог</RedirectButton>;
+  return (
+    <RedirectButton to={"/catalog/1"}>
+      <Icon src={"menu"} /> в каталог
+    </RedirectButton>
+  );
 };
 
-export const RedirectButton: React.FC<{ to: string, disabled?: boolean }> = ({ to, disabled = false, children }) => {
+export const RedirectButton: React.FC<{ to: string; disabled?: boolean }> = ({ to, disabled = false, children }) => {
   const [redirect, setRedirect] = useState(false);
-  useLayoutEffect(
-    () => {
-      if (redirect) setRedirect(false);
-    },
-    [redirect]
-  );
+  useLayoutEffect(() => {
+    if (redirect) setRedirect(false);
+  }, [redirect]);
   if (redirect) return <Redirect to={to} />;
   const handle = () => setRedirect(true);
-  return <ButtonSecondary disabled={disabled} onClick={handle}>{children}</ButtonSecondary>;
+  return (
+    <ButtonSecondary disabled={disabled} onClick={handle}>
+      {children}
+    </ButtonSecondary>
+  );
 };

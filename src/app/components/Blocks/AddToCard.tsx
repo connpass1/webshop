@@ -82,10 +82,10 @@ const CartBlock: React.FC<Props> = (prop) => {
     item1.quantity = state;
     adToCart(item1);
   };
-  const handePlus = (event: { preventDefault: () => void }) => {
+  const handelPlus = (event: { preventDefault: () => void }) => {
     setState(state + 1);
   };
-  const handeMinus = (event: { preventDefault: () => void }) => {
+  const handelMinus = (event: { preventDefault: () => void }) => {
     setState(state - 1);
   };
   const handelDel = () => {
@@ -103,12 +103,12 @@ const CartBlock: React.FC<Props> = (prop) => {
     <Grid>
       {itemInCart && <b> {itemInCart ? "в корзине " + itemInCart.quantity : " "} </b>}
       <GR className={"center"}>
-        <RectButton disabled={state < 1} onClick={handeMinus}>
-          <Icon src={"chevron-left"} />
+        <RectButton disabled={state < 1} onClick={handelMinus}>
+          <Icon src={"chevron_l"} />
         </RectButton>
         <input type="number" min="0" name="quantity" value={state} onChange={handle} />
-        <RectButton onClick={handePlus}>
-          <Icon src={"chevron-right"} />
+        <RectButton onClick={handelPlus}>
+          <Icon src={"chevron_r"} />
         </RectButton>
       </GR>
       <ButtonSecondary

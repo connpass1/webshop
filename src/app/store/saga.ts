@@ -1,12 +1,11 @@
+import axios, { AxiosResponse } from "axios";
 import { call, put, takeEvery } from "redux-saga/effects";
-import { actionsUser, ActionTypesLogin } from "./storeUser";
-import axios from "axios";
+import { CUSTOMER } from "../models/UserModel";
 import { getErrorStatus } from "./helper";
 import { actionsCart, ActionTypesCart } from "./storeCart";
 import { actionsContent, ActionTypesContent } from "./storeContent";
 import { actionsSettings, ActionTypesSettings } from "./storeSettings";
-import { dataSettingModel } from "../models/SettingModel";
-import { CUSTOMER } from "../models/UserModel";
+import { actionsUser, ActionTypesLogin } from "./storeUser";
 
 export const SERVERNAME = "http://192.168.1.125:8080";
 export const TokenPREFIX = "WebShop";
@@ -36,7 +35,9 @@ function* loginUser(userNameAndPass: any) {
 function* registrationUser(userNameAndPass: any) {
 
   try {
-    const response = yield call(axios.post, SERVERNAME + "/register", userNameAndPass);
+  
+    const response:AxiosResponse   = yield call(axios.post, SERVERNAME + "/register", userNameAndPass);
+     
     console.log(response);
     if (response.status === 200) {
       yield put(actionsUser.loginUserRequest(userNameAndPass.name, userNameAndPass.password));
@@ -80,8 +81,8 @@ function* getContent(dataContent: any) {
 function* getSettings() {
 
   try {
-
-    yield put(actionsSettings.initSettings(dataSettingModel));
+    const { data } = yield call(axios.get, SERVERNAME + "/settings" ,  { headers: headerParams() });
+    yield put(actionsSettings.initSettings( data));
 
   } catch (e) {
     console.log(e);
@@ -155,3 +156,4 @@ function* watchUserRequest() {
 }
 
 export { watchUserRequest };
+

@@ -6,7 +6,7 @@ export const Icon: React.FC<{ src?: string }> = ({ src }) => {
   else
     return (
       <svg className={"icon"}>
-        <use xlinkHref={`/img/sprite.svg#${src}`} />
+        <use xlinkHref={`/img/svg/_sprite.svg#${src}`} />
       </svg>
     );
 };

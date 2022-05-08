@@ -145,7 +145,8 @@ const Component: React.FC<Props> = (props) => {
               <ChildrenGreed key={item.id}>
                 <TD> {num + 1}</TD>
                 <TD>
-                  <Link to={"/item/" + item.detailId}>
+                  <Link to={"/item/" + item.id}>
+
                     <Icon src={item.icon} /> {item.name}
                   </Link>
                 </TD>

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ChildrenGreed } from "../components/Elements/Table";
+import { Icon } from "../components/Elements/Icon";
 import { device, theme } from "../components/GlobalStyles";
 
 const Styled = styled.div`
@@ -61,18 +61,7 @@ const HomePage: React.FC = (props) => {
   return (
     <>
       <Main>
-        <THEAD>
-          {arr.map((h) => (
-            <ChildrenGreed>
-              <div>{h.i}</div>
-              <div>{h.n}</div>
-              <div>{h.i}</div>
-            </ChildrenGreed>
-          ))}
-        </THEAD>
-        {s}
-        {s}
-        {s}
+        <Icon src={"chevron-right"} />
       </Main>
     </>
   );

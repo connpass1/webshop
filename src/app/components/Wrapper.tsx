@@ -113,7 +113,7 @@ class ErrorBoundary extends React.Component {
           <main>
             <div>
               <p>Что-то пошло не так.</p>
-              <p> Oбновите страницу </p>
+              <p> Обновите страницу </p>
             </div>
           </main>
         </>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { IEntity, IFetchCart, IFetchContent, IFetchCustomer, IFetchSettings } from "../models/IFases";
-import { actionsContent } from "./storeContent";
+import { actionsContent, ActionTypesContent } from "./storeContent";
 import { actionsSettings } from "./storeSettings";
 
 function isObject(object: any) {
@@ -50,7 +50,8 @@ export function phone(ph: number | undefined) {
 export function useFetchLocation(request: any) { 
   const location = useLocation();
   useEffect(() => {
-    request(location.pathname);
+    request(location.pathname); 
+    
   }, [location.pathname,request]);
 }
 
@@ -76,4 +77,4 @@ export const mapFetchUser = (state: { profileReducer: IFetchCustomer }) => state
 export const mapCustomer = (state: { profileReducer: IFetchCustomer }) => state.profileReducer.customer;
 export const mapContent = (state: { contentReducer: IFetchContent }) => state.contentReducer;
 export const mapSettings = (state: { settingsReducer: IFetchSettings }) => state.settingsReducer;
-
+export type PropsReq= (data: any) => { type: ActionTypesContent; data: any } 

@@ -166,6 +166,7 @@ const GlobalStyles = createGlobalStyle`
   select {
     text-transform: none;
     justify-content: center;
+    border: none;
   }
 
   footer {

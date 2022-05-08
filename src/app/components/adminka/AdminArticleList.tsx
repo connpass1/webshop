@@ -10,21 +10,28 @@ import { RedirectButton } from "../Elements/Button";
 import { H1, Icon } from "../Elements/Icon";
 import { FlexEvenly } from "../Elements/Styled";
 import { ChildrenGreed, GridTable, TD, TH } from "../Elements/Table";
+import { device } from "../GlobalStyles";
 const Greed = styled(GridTable)`
   grid-template-columns: 40px 1fr 120px 40px;
+
+  justify-content: center;
+
+  @media ${device.tablet} {
+    grid-template-columns: 40px min-content min-content 40px;
+  }
 `;
 const Component: React.FC<any> = (props) => {
   const { content } = props;
   const articles = content as ArticleModel[];
   return (
     <>
-      <Greed>
+      <Greed className="content">
         <TH>N</TH>
         <TH> название</TH>
         <TH> расположение</TH>
         <TH>вес</TH>
         {articles?.map((a, n) => (
-          <ChildrenGreed>
+          <ChildrenGreed className="content" key={n}>
             <TD>{n + 1} </TD>
             <TD>
               <Link key={a.id} to={"/admin/page/" + a.id}>
@@ -50,7 +57,7 @@ const Component1: React.FC<PropsContent> = (props) => {
   return (
     <>
       <H1 src={"list"}>Cтатьи</H1>
-      <main className={"between"}>{props.status > 199 && content && Array.isArray(content?.content) && <Component {...content} />}</main>
+      <main>{props.status > 199 && content && Array.isArray(content?.content) && <Component {...content} />}</main>
       <Pageable pages={content?.totalPages} />
     </>
   );

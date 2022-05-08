@@ -49,3 +49,9 @@ export const Span = styled.span<{ after: string | undefined }>`
     content: ${(props) => props.after && "'" + props.after + "'"};
   }
 `;
+export const MainStart = styled.main`
+  align-content: flex-start;
+  padding: 0 12px;
+
+  flex-wrap: nowrap;
+`;

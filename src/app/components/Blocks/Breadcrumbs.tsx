@@ -36,39 +36,44 @@ const UL = styled.ul`
   }
 
   li + li:after {
-    padding: 0 4px 0 6px;
+    padding: 0 0 0 2px;
     color: black;
     content: "/\\00a0";
-    line-height: 1.5;
+    justify-self: center;
+    align-self: center;
   }
 `;
-const BreadcrumbsLarge: React.FC<{ parent: string }> = ({ parent }) => {
-  function f(s?: string) {
-    const arr: ISlug[] = [];
-    if (!s) return arr;
-    const ar = s.split("$");
-    for (let i in ar) {
-      let arr1 = ar[i].split("@");
-      const icon = arr1[2] === "null" ? undefined : arr1[2];
-      arr.push({ id: parseInt(arr1[1]), name: arr1[0], icon: icon });
-    }
-    return arr;
-  }
+const BreadcrumbsLarge: React.FC<{ parent: string; isAdmin: boolean }> = ({ parent, isAdmin }) => {
+  const memo = useMemo(() => {
+    function f(s?: string) {
+      const arr: ISlug[] = [];
+      if (!s) return arr;
+      const ar = s.split("$");
+      for (let i in ar) {
+        let arr1 = ar[i].split("@");
+        const icon = arr1[2] === "null" ? "rect" : arr1[2];
+        arr.push({ id: parseInt(arr1[1]), name: arr1[0], icon: icon });
+      }
 
-  const memo = useMemo(() => f(parent), [parent]);
+      return arr;
+    }
+
+    return f(parent);
+  }, [parent]);
   return (
     <UL>
       {memo.map((t) => (
         <li key={t.id}>
-          <Link to={"/catalog/" + t.id}>
-            {t.icon && <Icon src={t.icon} />} {t.name}{" "}
+          <Link to={isAdmin ? "/admin/catalog/" + t.id : "/catalog/" + t.id}>
+            {t.icon && <Icon src={t.icon} />} {t.name}
           </Link>
         </li>
       ))}
     </UL>
   );
 };
-export const Breadcrumbs: React.FC<{ parent?: string }> = ({ parent }) => {
+const Breadcrumbs: React.FC<{ parent?: string; isAdmin?: boolean }> = ({ parent, isAdmin = false }) => {
   if (!parent) return null;
-  return <BreadcrumbsLarge parent={parent} />;
+  return <BreadcrumbsLarge parent={parent} isAdmin={isAdmin} />;
 };
+export default Breadcrumbs;

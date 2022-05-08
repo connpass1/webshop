@@ -1,23 +1,23 @@
+import classNames from "classnames";
 import React, { FunctionComponent } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Breadcrumbs } from "../components/Blocks/Breadcrumbs";
+import Breadcrumbs from "../components/Blocks/Breadcrumbs";
 import ItemBlock from "../components/Blocks/ItemBlock";
-import {   ISlug } from "../models/IFases";
 import { H1, Icon } from "../components/Elements/Icon";
 import { theme } from "../components/GlobalStyles";
-import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { CategoryModel } from "../models/CategoryModel";
+import { ISlug } from "../models/IFases";
 import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
-import { connect } from "react-redux";
 import { actionsContent } from "../store/storeContent";
-import { CategoryModel } from "../models/CategoyModel";
 
 const Main = styled.main`
   justify-items: stretch;
   justify-content: stretch;
 
   div {
-    max-width: 100%
+    max-width: 100%;
   }
 `;
 const Styled = styled.div`
@@ -40,7 +40,6 @@ const Styled = styled.div`
   }
 
   .gr {
-
     border: 1px solid green;
   }
 
@@ -50,18 +49,14 @@ const Styled = styled.div`
     margin: 12px 12px;
     padding: 6px;
   }
-;
-
   a {
     font-size: 1rem;
     text-decoration: none;
-    font-weight: 400;;
+    font-weight: 400;
   }
 `;
 
-
-export const CatalogLink: React.FC<{ item: ISlug, onClick?: any, className?: string }>
-  = ({ item, onClick, className = "catLink" }) => {
+export const CatalogLink: React.FC<{ item: ISlug; onClick?: any; className?: string }> = ({ item, onClick, className = "catLink" }) => {
   const handle = () => {
     if (onClick) onClick();
   };
@@ -78,17 +73,20 @@ const Component: FunctionComponent<any> = (props) => {
   const catalog = new CategoryModel(props);
   if (!catalog) return <> </>;
   return (
-    <> <Breadcrumbs parent={catalog.parent} />
+    <>
+      {" "}
+      <Breadcrumbs parent={catalog.parent} />
       <H1 src={catalog.icon}> {catalog.name}</H1>
       <Main>
         <Styled>
-          {catalog.childrenCategory?.map((cat) =>
-            <div className={classNames("cr", { "gr": cat.childrenCategory?.length > 0 })} key={cat.id}>
-              <CatalogLink key={cat.id} item={cat}
-                           className={classNames({ "root": cat.childrenCategory?.length > 0 })} />
-              {cat.childrenCategory?.map((inner) =>
-                <CatalogLink key={inner.id} item={inner} />)}
-            </div>)}
+          {catalog.childrenCategory?.map((cat) => (
+            <div className={classNames("cr", { gr: cat.childrenCategory?.length > 0 })} key={cat.id}>
+              <CatalogLink key={cat.id} item={cat} className={classNames({ root: cat.childrenCategory?.length > 0 })} />
+              {cat.childrenCategory?.map((inner) => (
+                <CatalogLink key={inner.id} item={inner} />
+              ))}
+            </div>
+          ))}
         </Styled>
         {catalog.items.length > 0 && <ItemBlock items={catalog.items} />}
       </Main>

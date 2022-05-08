@@ -45,17 +45,15 @@ const Component: FunctionComponent<{ data: OrderModel[] }> = ({ data }) => {
       <TH> кол-во</TH>
       <TH> цена</TH>
       <TH>сумма</TH>
-
       {orders.map((order) => (
         <ChildrenGreed key={order.id}>
           {order.orderItems.map((oi, n) => (
             <ChildrenGreed key={oi.id}>
               <TD> {n} </TD>
               <TD>
-                <Link to={"/item/" + oi.item.detailId}> {oi.item.name}</Link>
+                <Link to={"/item/" + oi.item.id}> {oi.item.name}</Link>
               </TD>
               <TD> {oi.quantity}</TD>
-
               <TD>{oi.item.price} р.</TD>
               <TD> {oi.quantity * oi.item.price} р.</TD>
             </ChildrenGreed>

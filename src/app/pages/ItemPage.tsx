@@ -1,28 +1,28 @@
 import React, { FunctionComponent } from "react";
-import { Breadcrumbs } from "../components/Blocks/Breadcrumbs";
-import AddToCart from "../components/Blocks/AddToCard";
-import { Image } from "../components/Elements/Image";
-import { H1 } from "../components/Elements/Icon";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import AddToCart from "../components/Blocks/AddToCard";
 import { Articular } from "../components/Blocks/Articular";
+import Breadcrumbs from "../components/Blocks/Breadcrumbs";
+import { H1 } from "../components/Elements/Icon";
+import { Image } from "../components/Elements/Image";
 import { ItemModel } from "../models/ItemModel";
 import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
-import { connect } from "react-redux";
 import { actionsContent } from "../store/storeContent";
 
 const Section = styled.section`
   justify-self: center;
   align-self: center;
   grid-template-areas:
-      " h h  h " 
-      " c c c " 
-      " n  n n "
-      " d d  d "  
-      " p p  p "
-      " ph ph  ph "
-      " img   img  .  " 
-      " q   .  price  "
-      " add   add    add  ";
+    " h h  h "
+    " c c c "
+    " n  n n "
+    " d d  d "
+    " p p  p "
+    " ph ph  ph "
+    " img   img  .  "
+    " q   .  price  "
+    " add   add    add  ";
 
   .description {
     grid-area: d;
@@ -70,29 +70,21 @@ const Component: FunctionComponent<any> = (detail) => {
           <div className={"price"}>цена {itemModel.price}</div>
           <div className={"quantity"}>на складе {itemModel.quantity}</div>
           <div className={"name"}>{itemModel.name} </div>
-          <div className={"properties"}>
-            {itemModel.properties?.map(prop => <
-                div key={prop.id}>
-                <p>{prop.name} {prop.value} </p>
-              </div>
-            )}
-          </div>
+          <div className={"properties"}></div>
           <div className={"photos"}>
             {itemModel.photos.length === 0 && <Image src="/img/test.jpeg" alt={itemModel.name} />}
-            {itemModel.photos?.map((src, key) => <
-                div key={key}>
-                <p>{src}   </p>
+            {itemModel.photos?.map((src, key) => (
+              <div key={key}>
+                <p>{src} </p>
               </div>
-            )}
+            ))}
           </div>
-
 
           <AddToCart item={detail.item} />
         </Section>
       </main>
     </>
-  )
-    ;
+  );
 };
 const Component1: React.FC<PropsContent> = (props) => {
   useFetchLocation(props.contentRequest);

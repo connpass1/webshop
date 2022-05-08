@@ -20,7 +20,8 @@
 	"extensions": [
 		"dbaeumer.vscode-eslint",
 		"TabNine.tabnine-vscode",
-		"streetsidesoftware.code-spell-checker-russian"
+		"streetsidesoftware.code-spell-checker-russian",
+		"msjsdiag.debugger-for-chrome"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

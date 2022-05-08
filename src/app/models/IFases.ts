@@ -1,6 +1,5 @@
+ 
 import { UserModel } from "./UserModel";
-import { SettingModel } from "./SettingModel";
-import { ItemPropertyModel } from "./ItemProperties";
 
 export interface IEntity extends ISlug {
   parent: string;
@@ -12,6 +11,12 @@ export interface ISlug {
   icon?: string;
 }
 
+export interface ISetting{
+  appBarLinks: ISlug[];
+  footerLinks: ISlug[];
+  categoryLinks: ISlug[];
+
+}
 export interface IPageAble {
   totalPages: number;
   content: any[];
@@ -21,19 +26,18 @@ export interface IPageAble {
 export interface IItem extends IEntity {
   price: number;
   quantity: number;
-  detailId: number;
   checked: boolean;
 }
 
 
 export interface IItemDetail {
-  item: IItem;
   id: number;
+  item: IItem;
   amount: number;
   caption: string;
   description: string;
   photos: string[];
-  properties: ItemPropertyModel[];
+  
 }
 
 
@@ -59,7 +63,7 @@ export interface IFetchCustomer extends IFetch {
 }
 
 export interface IFetchSettings extends IFetch {
-  settings?: SettingModel;
+  settings?: ISetting;
 }
 
 export interface IFetchContent extends IFetch {

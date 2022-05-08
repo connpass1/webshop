@@ -1,39 +1,45 @@
-import { ItemPropertyModel } from "./ItemProperties";
-import { IEntity, IItemDetail, ISlug } from "./IFases";
+import { IItemDetail, ISlug } from "./IFases";
 
-export class ItemModel implements IEntity {
+export class ItemModel implements ISlug {
   name = "";
   id = 0;
-  quantity = 0;
-  // @ts-ignore
-  parent: string | undefined;
+  parent: string | undefined = "";
+  parentId = 0;
+  parentIcon = "";
+  parentName = "";
   icon? = "";
   price = 0;
   description = "";
   amount = 0;
   caption = "";
   photos: string[] = [];
-  properties: ItemPropertyModel[] = [];
-  detailId = 0;
-  checked?: boolean;
-
+  quantity = 0;
 
   constructor(detail: IItemDetail | undefined) {
     if (!detail) return;
-    const item = detail.item;
+    const { id, amount, caption, description, photos, item } = detail;
+
     if (!item) return;
-    this.name = item.name;
-    this.id = item.id;
-    this.price = item.price;
-    this.quantity = item.quantity;
-    this.parent = item .parent;
-    this.icon = item?.icon;
-    this.price = item.price;
-    this.description = detail.description;
-    this.amount = detail.amount;
-    this.caption = detail.caption;
-    this.photos = detail.photos ? detail.photos : [];
-    this.properties = detail.properties ? detail.properties : [];
-    this.detailId = detail.id;
+
+    const { name, icon, price, quantity, parent } = item;
+
+    this.id = id ? id : 0;
+    this.amount = amount ? amount : 0;
+    this.caption = caption ? caption : "";
+    this.description = description ? description : "";
+    this.photos = photos ? photos : [];
+    this.name = name ? name : "";
+    this.quantity = quantity ? quantity : 0;
+    this.icon = icon ? icon : "";
+
+    this.price = price ? price : 0;
+    this.parent = parent ? parent : undefined;
+    if (parent) {
+      const s = parent.split("$");
+      const arr = s[s.length - 1].split("@");
+      this.parentId = Number(arr[1]);
+      this.parentIcon = "" + arr[2];
+      this.parentName = arr[0];
+    }
   }
 }
