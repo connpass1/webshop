@@ -51,7 +51,12 @@ export const Span = styled.span<{ after: string | undefined }>`
 `;
 export const MainStart = styled.main`
   align-content: flex-start;
-  padding: 0 12px;
 
   flex-wrap: nowrap;
+`;
+export const MainCenter = styled.main`
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
 `;

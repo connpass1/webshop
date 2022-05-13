@@ -3,14 +3,32 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { copyrights } from "../../Settings";
-import { CatalogLink } from "../pages/CatalogPage";
+import { ISlug } from "../models/IFaces";
 import { mapSettings, PropsSetting } from "../store/helper";
 import { actionsSettings } from "../store/storeSettings";
 import AdminLinks from "./adminka/AdminLinks";
-import { Icon } from "./Elements/Icon";
+import { Icon, TextIcon } from "./Elements/Icon";
 import { FlexAround } from "./Elements/Styled";
 import { device, theme } from "./GlobalStyles";
 
+const LinkMenu = styled(Link)`
+  ${theme.font.Bold};
+  color: ${theme.color.primary};
+  text-decoration: none;
+`;
+
+const LinkPage = styled(LinkMenu)`
+  display: none;
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+const LinkA = styled(Link)`
+  ${theme.font.Pattaya};
+  color: ${theme.color.primary};
+  text-decoration: none;
+`;
 export const Nav = styled.nav`
   padding-top: 12px;
   grid-area: nav;
@@ -27,21 +45,14 @@ export const Nav = styled.nav`
 
   color: ${theme.color.primary};
   max-width: calc (100% - 84px);
-
-  .tabletUp {
-    display: none;
-    @media ${device.tablet} {
-      margin: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      border-top: 1px solid currentColor;
-    }
+  hr {
   }
-
   a,
   div {
     padding: 4px 18px;
+    :hover {
+      background-color: ${theme.color.primaryLight};
+    }
   }
 `;
 const Footer = styled.footer`
@@ -50,6 +61,17 @@ const Footer = styled.footer`
   padding: 10px;
   color: white;
 `;
+const CatalogLink: React.FC<{ item: ISlug; onClick?: any }> = ({ item, onClick }) => {
+  const handle = () => {
+    if (onClick) onClick();
+  };
+
+  return (
+    <LinkA to={`/catalog/${item.id}`} onClick={handle}>
+      <TextIcon {...item} />
+    </LinkA>
+  );
+};
 const Component: FunctionComponent<PropsSetting> = (props) => {
   const categoryLinks = useMemo(
     () => props.settings?.categoryLinks && props.settings.categoryLinks.map((item) => <CatalogLink key={item.id} item={item} />),
@@ -59,9 +81,9 @@ const Component: FunctionComponent<PropsSetting> = (props) => {
   const appBarLinks = useMemo(
     () =>
       props.settings?.appBarLinks?.map((item) => (
-        <Link key={item.id} to={"/page/" + item.id}>
-          {item.name}
-        </Link>
+        <LinkPage key={item.id} to={"/page/" + item.id}>
+          <TextIcon {...item} />
+        </LinkPage>
       )),
     [props.settings]
   );
@@ -77,12 +99,14 @@ const Component: FunctionComponent<PropsSetting> = (props) => {
   return (
     <>
       <Nav>
-        <Link to="/catalog/1" className={"root"}>
+        <LinkMenu to="/catalog/1">
           <Icon src="home" />
           Меню
-        </Link>
+        </LinkMenu>
+        <hr />
         {categoryLinks}
-        <div className={"tabletUp"}>{appBarLinks}</div>
+        <hr />
+        {appBarLinks}
         <AdminLinks />
       </Nav>
       <Footer>

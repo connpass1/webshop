@@ -21,7 +21,7 @@ const WRAPPER = styled.div<{ open: boolean }>`
     " .  appBar appBar appBar   ."
     " .  nav    h         b  ."
     " .  nav    main   main  ."
-    " . p   p   p  ."
+    " .   p      p     p     ."
     " .  footer footer  footer   .";
   justify-items: stretch;
   justify-content: stretch;

@@ -1,4 +1,4 @@
-import { IOrderItem } from "./IFases";
+import { IOrderItem } from "./IFaces";
 
 export class OrderModel {
   quantity: number;

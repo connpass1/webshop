@@ -1,9 +1,9 @@
-import { IEntity, IItem } from "./IFases";
+import { IItem, ISlug } from "./IFaces";
 
-export class CategoryModel implements IEntity {
+export class CategoryModel  {
   id: number;
   name: string;
-  parent: string;
+  parent: ISlug[];
   
   
   icon: string;
@@ -16,22 +16,22 @@ export class CategoryModel implements IEntity {
     this.name = data?.name ? data.name : "";
     this.icon = data?.icon ? data.icon : "";
     this.items = data?.items ? data.items : [];
-    this.parent = data?.parent ? data.parent : undefined;
+    this.parent = data?.parent ? data.parent : [];
     this.position = data?.position ? data.position : 1;
     this.childrenCategory = data?.childrenCategory ? data.childrenCategory : [];
      
   }
  
-  
-  public getParent() {
-     
-    if (this.parent) {
-      const s = this.parent.split("$");
-      const arr=s[s.length - 1].split("@")
-      return {id:Number(arr[1]),name:arr[0],icon:arr[2]};
-      
-    }
-    else return {id:0,name:"",icon:""};
-  
-  }
+public getParentId() {
+  if(this.parent.length===0)return 0;
+  return this.parent[this.parent.length-1].id 
 }
+ 
+  
+}
+export const createCategoryModel = (data: any) => {
+  if (!data) return undefined;
+  
+  if (!data.name) return undefined;
+  return new CategoryModel(data);
+};

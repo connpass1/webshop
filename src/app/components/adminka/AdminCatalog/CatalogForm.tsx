@@ -1,12 +1,11 @@
 import { Field, Formik } from "formik";
-import React, { useMemo } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { CategoryModel } from "../../../models/CategoryModel";
 import { isEmpty, mapSettings, PropsReq } from "../../../store/helper";
-import { Icon } from "../../Elements/Icon";
-import { GRID, Input, StyledForm } from "../../Elements/StyledForms";
+import { Buttons, FORM, GridSelect, IconLoader, Input, Inputs } from "../../Elements/StyledForms";
 const Schema = Yup.object().shape({
   name: Yup.string()
     .required("обязательное поле")
@@ -18,9 +17,8 @@ const Schema = Yup.object().shape({
 
 const Select: React.FC<ReturnType<typeof mapSettings> & { active: String }> = (props) => {
   const { id } = useParams() as any;
-
   return (
-    <Field as="select" name="parentId">
+    <Field as="select" name="parentId" className="select">
       <option value="menu">Меню</option>
       {props.settings?.categoryLinks
         ?.filter((x) => x.id - id !== 0)
@@ -38,18 +36,12 @@ const Component: React.FC<{
   category: CategoryModel;
   saveContentRequest: PropsReq;
 }> = ({ category, saveContentRequest }) => {
-  const parentId = useMemo(() => {
-    function f(cat: CategoryModel) {
-      return cat.getParent().id;
-    }
-    return f(category);
-  }, [category]);
   const initialValues = {
     id: category.id,
     name: category.name,
     position: category.position,
     icon: category.icon,
-    parentId: parentId,
+    parentId: category.getParentId(),
   };
 
   return (
@@ -57,37 +49,28 @@ const Component: React.FC<{
       initialValues={initialValues}
       validationSchema={Schema}
       onSubmit={(values, { setSubmitting }) => {
-        values.parentId = values.parentId;
+        values.parentId = Number(values.parentId);
         saveContentRequest({ data: values, url: "/admin/category" });
         alert(JSON.stringify(values));
         setSubmitting(false);
       }}
     >
-      {({ errors, touched, values, isSubmitting }) => (
-        <StyledForm>
-          <Input type="text" name="name" placeholder="название" label={"название"} />
-          <Input type="number" name="position" label={"позиция"} />
-          <GRID columns={3}>
-            <div>
-              <Field name="icon" type="text" placeholder="home" />
-            </div>
-            <div>
-              <Icon src={values.icon} />
-            </div>
-            <div>
-              <label htmlFor={"icon"}> иконка </label>
-            </div>
-          </GRID>
-          <GRID columns={2}>
-            <ConnectedSelect active="menu" />
-            группа
-          </GRID>
-
-          <div className={"buttons"}>
+      {({ errors, touched, values, isSubmitting, setFieldValue }) => (
+        <FORM>
+          <Inputs>
+            <Input type="text" name="name" placeholder="название" label={"название"} />
+            <Input type="number" name="position" label={"позиция"} />
+            <IconLoader value={values.icon} handle={(e: any) => setFieldValue("icon", e.base64)} />
+            <GridSelect>
+              <ConnectedSelect active="menu" />
+              <span>группа</span>
+            </GridSelect>
+          </Inputs>
+          <Buttons>
             <input type={"reset"} value={"отмена"} disabled={isEmpty(touched)} />
-            <input type={"submit"} value={"применить"} disabled={!isEmpty(errors) || isSubmitting} />
-          </div>
-        </StyledForm>
+            <input type={"submit"} value={values.id === 0 ? "создать" : "сохранить"} disabled={!isEmpty(errors) || isSubmitting} />
+          </Buttons>
+        </FORM>
       )}
     </Formik>
   );

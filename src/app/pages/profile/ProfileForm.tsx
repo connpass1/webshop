@@ -3,15 +3,10 @@ import React from "react";
 import InputMask, { BeforeMaskedStateChangeStates, InputState } from "react-input-mask";
 import styled from "styled-components";
 import * as Yup from "yup";
-import { Group, Input, StyledForm, TextArea } from "../../components/Elements/StyledForms";
-import { theme } from "../../components/GlobalStyles";
+import { Buttons, FORM, Group, Input, TextArea } from "../../components/Elements/StyledForms";
 import { ProfileModel } from "../../models/ProfileModel";
 import { isEmpty, PropsContent } from "../../store/helper";
-
-const Form = styled(StyledForm)`
-  background-color: ${theme.color.primaryLight};
-`;
-
+const ProfileForm = styled(FORM)``;
 const Schema = Yup.object().shape({
   email: Yup.string().email("Некорректен email"),
 });
@@ -72,10 +67,11 @@ const Component: React.FC<PropsContent> = (props) => {
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-          <Form>
+          <ProfileForm>
             <TextArea name="address" placeholder="адрес" label={"адрес"} />
             <Group>
               <InputMask
+                className="input"
                 name={"phone"}
                 mask={"+7 (9999) 999 999"}
                 placeholder={"+ _ (____) ___ ___"}
@@ -91,11 +87,11 @@ const Component: React.FC<PropsContent> = (props) => {
             </Group>
             <Input name="email" type="text" label={"email"} props={{ placeholder: "email" }} />
 
-            <div className={"buttons"}>
+            <Buttons>
               <input type={"reset"} value={"отмена"} disabled={isEmpty(touched)} />
               <input type={"submit"} value={"сохранить"} disabled={!isEmpty(errors) || isSubmitting || isEmpty(touched)} />
-            </div>
-          </Form>
+            </Buttons>
+          </ProfileForm>
         )}
       </Formik>
     </>

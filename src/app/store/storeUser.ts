@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { IFetchCustomer } from "../models/IFases";
+import { IFetchCustomer } from "../models/IFaces";
 import { initCustomer, saveToLocalStorage, UserModel } from "../models/UserModel";
 
 export enum ActionTypesLogin {

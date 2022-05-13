@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { IEntity, IFetchCart, IFetchContent, IFetchCustomer, IFetchSettings } from "../models/IFases";
-import { actionsContent, ActionTypesContent } from "./storeContent";
+import { IFetchCart, IFetchContent, IFetchCustomer, IFetchSettings, ISlug } from '../models/IFaces';
+import { ActionTypesContent } from "./storeContent";
 import { actionsSettings } from "./storeSettings";
 
 function isObject(object: any) {
@@ -33,7 +33,7 @@ export function getErrorStatus(e: any, status?: number) {
   }
 }
 
-export function compare(a: IEntity, b: IEntity) {
+export function compare(a: ISlug, b:  ISlug) {
   if (a.name < b.name) return -1;
   if (a.id > b.id) return 1;
   return 0;
@@ -52,7 +52,7 @@ export function useFetchLocation(request: any) {
   useEffect(() => {
     request(location.pathname); 
     
-  }, [location.pathname,request]);
+  }, [location.pathname ]);
 }
 
 export function useOutsideClick(ref: { current: { contains: (arg0: any) => any; }; }, handler: { (this: Document, ev: MouseEvent): any; (this: Document, ev: MouseEvent): any; }) {
@@ -70,7 +70,7 @@ export function isEmpty(obj: {}) {
 }
 
 export type PropsContent1 = ReturnType<typeof mapContent>;
-export type PropsContent = ReturnType<typeof mapContent> & typeof actionsContent;
+//export type PropsContent = ReturnType<typeof mapContent> & typeof actionsContent;
 export type PropsSetting = ReturnType<typeof mapSettings> & typeof actionsSettings;
 export const mapCart = (state: { cartReducer: IFetchCart }) => state.cartReducer;
 export const mapFetchUser = (state: { profileReducer: IFetchCustomer }) => state.profileReducer;
@@ -78,3 +78,19 @@ export const mapCustomer = (state: { profileReducer: IFetchCustomer }) => state.
 export const mapContent = (state: { contentReducer: IFetchContent }) => state.contentReducer;
 export const mapSettings = (state: { settingsReducer: IFetchSettings }) => state.settingsReducer;
 export type PropsReq= (data: any) => { type: ActionTypesContent; data: any } 
+
+
+export  type PropsContent = IFetchContent & {
+  contentRequest: (url: string) => {
+    type: ActionTypesContent;
+    url: string;
+  };
+  delContentRequest: (data: any) => {
+    type: ActionTypesContent;
+    data: any;
+  };
+  saveContentRequest: (data: any) => {
+    type: ActionTypesContent;
+    data: any;
+  };
+}

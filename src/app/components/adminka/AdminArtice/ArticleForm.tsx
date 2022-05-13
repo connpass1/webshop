@@ -4,8 +4,7 @@ import * as Yup from "yup";
 import { ArticleModel } from "../../../models/ArticleModel";
 import { isEmpty } from "../../../store/helper";
 import { ActionTypesContent } from "../../../store/storeContent";
-import { Icon } from "../../Elements/Icon";
-import { GRID, Input, StyledForm, TextArea } from "../../Elements/StyledForms";
+import { Buttons, FORM, GridSelect, IconLoader, Input, TextArea } from "../../Elements/StyledForms";
 
 const Schema = Yup.object().shape({
   name: Yup.string()
@@ -39,37 +38,29 @@ const Basic: React.FC<{
           setSubmitting(false);
         }}
       >
-        {({ errors, touched, values, isSubmitting }) => (
-          <StyledForm>
+        {({ errors, touched, values, isSubmitting, setFieldValue }) => (
+          <FORM>
             <Input type="text" name="name" placeholder="название" label={"название"} />
             <Input type="text" name="title" placeholder="заголовок" label={"заголовок"} />
             <Input type="number" name="position" label={"позиция"} />
             <TextArea name="content" placeholder="контент" label={"контент"} />
-            <GRID columns={3}>
-              <div>
-                <Field name="icon" type="text" placeholder="home" />
-              </div>
-              <div>
-                <Icon src={values.icon} />
-              </div>
-              <div>
-                <label htmlFor={"icon"}> иконка </label>
-              </div>
-            </GRID>
-            <GRID columns={2}>
-              <Field as="select" name="nav">
+            <IconLoader value={values.icon} handle={(e: any) => setFieldValue("icon", e.base64)} />
+
+            <GridSelect>
+              <Field as="select" name="nav" className="select">
                 <option value="OTHER">нет</option>
                 <option value="MENU">меню</option>
                 <option value="FOOTER">футер</option>
                 <option value="NAV">нав</option>
               </Field>
               <span> размещение </span>
-            </GRID>
-            <div className={"buttons"}>
+            </GridSelect>
+            <Buttons>
+              <input type={"button"} value={"Удалить"} disabled={!isEmpty(errors) || isSubmitting} />
               <input type={"reset"} value={"отмена"} disabled={isEmpty(touched)} />
               <input type={"submit"} value={"применить"} disabled={!isEmpty(errors) || isSubmitting} />
-            </div>
-          </StyledForm>
+            </Buttons>
+          </FORM>
         )}
       </Formik>
     </>

@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { IFetchSettings } from "../models/IFases";
+import { IFetchSettings } from "../models/IFaces";
 
 export enum ActionTypesSettings {
   initSettings = "ADD_SETTINGS",

@@ -12,13 +12,13 @@ const DIV = styled.div`
   display: flex;
   justify-content: center;
 `;
-export const Image: React.FC<{ src: string; alt?: string; size?: number }> = ({ src, alt = "", size = 200 }) => {
+export const Image: React.FC<{ src?: string; alt?: string; size?: number }> = ({ src = "/img/box.png", alt = "", size = 200 }) => {
   const [state, setState] = useState(false);
   const handle = () => {
     setState(true);
   };
   return (
-    <DIV className={"center"}>
+    <DIV>
       <IMG src={src} alt={alt} state={!state} size={size} onLoad={handle} />
       <IMG src={"/img/box.png"} alt={alt} state={state} size={size} />
     </DIV>

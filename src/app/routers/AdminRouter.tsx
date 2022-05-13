@@ -11,6 +11,7 @@ import AdminOder from "../components/adminka/AdminOrder";
 import AdminOderList from "../components/adminka/AdminOrderList";
 import AdminProfile from "../components/adminka/AdminProfile";
 import AdminProfileList from "../components/adminka/AdminProfileList";
+import { ErrorPath } from "../pages/ErrorPage";
 import { mapContent, mapFetchUser, PropsContent } from "../store/helper";
 import { actionsContent } from "../store/storeContent";
 
@@ -23,10 +24,13 @@ const Router: React.FC<PropsContent> = (props) => {
       <Route exact path="/admin/item/:id/:cat">
         <AdminItem {...props} />
       </Route>
+      <Route exact path="/admin/item/:id">
+        <AdminItem {...props} />
+      </Route>
       <Route exact path="/admin/items/:id">
         <AdminItemList />
       </Route>
-      <Route exact path="/admin/pages/:id">
+      <Route exact path="/admin/pages">
         <AdminArticleList />
       </Route>
       <Route exact path="/admin/group/:id">
@@ -41,11 +45,17 @@ const Router: React.FC<PropsContent> = (props) => {
       <Route exact path="/admin/catalog/:id">
         <AdminCatalog />
       </Route>
+      <Route exact path="/admin/catalog">
+        <AdminCatalog />
+      </Route>
       <Route exact path="/admin/order/:id">
         <AdminOder />
       </Route>
       <Route exact path="/admin/orders/**">
         <AdminOderList />
+      </Route>
+      <Route path="/admin/**">
+        <ErrorPath />
       </Route>
     </Switch>
   );

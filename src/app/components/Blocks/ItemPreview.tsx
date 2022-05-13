@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IItem } from "../../models/IFases";
+import { IItem } from "../../models/IFaces";
 import { Image } from "../Elements/Image";
 import { device, theme } from "../GlobalStyles";
 import AddToCard from "./AddToCard";
@@ -9,6 +9,18 @@ import { Articular } from "./Articular";
 
 const Section = styled.section`
 border: 1px solid currentColor;
+
+display:grid;
+grid-template-areas:
+      "h  h" 
+      " name    ."
+      " img    img "
+      " price    price"
+     
+      " add    add  ";
+      grid-column:140px 140px;
+
+border-radius: 8px;
   header {
     text-align: center;
     display: inline-block;
@@ -18,7 +30,7 @@ border: 1px solid currentColor;
     justify-items:stretch;
     justify-content: stretch;
     align-items: stretch;
-    
+    justify-self: stretch;
     background-color: ${theme.color.primary};
     padding: 12px;
     @media ${device.mobile} {
@@ -28,15 +40,8 @@ border: 1px solid currentColor;
   }
   @media ${device.mobile} {
     border-radius: 0;
-  }
+  } 
  
-   
-   
-    grid-template-areas:
-      "h  h"
-      " img    name"
-      " img    price"
-      " add    add  ";
   
   @media ${device.mobile} {
     grid-template-areas:
@@ -65,7 +70,7 @@ const Component: React.FC<IItem> = (item) => {
   return (
     <Section>
       <Articular val={item.id} />
-      <Image src="/img/box.png" alt={item.name} />
+      <Image src={item.icon} alt={item.name} />
       <Link className={"name"} to={`/item/${item.id}`}>
         {item.name}
       </Link>

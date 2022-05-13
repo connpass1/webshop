@@ -6,15 +6,23 @@ import { Articular } from "../components/Blocks/Articular";
 import Breadcrumbs from "../components/Blocks/Breadcrumbs";
 import { H1 } from "../components/Elements/Icon";
 import { Image } from "../components/Elements/Image";
+import { theme } from "../components/GlobalStyles";
 import { ItemModel } from "../models/ItemModel";
 import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
 import { actionsContent } from "../store/storeContent";
-
+const Main = styled.main`
+  flex-wrap: no-wrap;
+  justify-content: center;
+  align-content: center;
+`;
 const Section = styled.section`
+  display: grid;
+  border-radius: 8px;
+  box-shadow: ${theme.shadow};
   justify-self: center;
   align-self: center;
   grid-template-areas:
-    " h h  h "
+    " h h  pn "
     " c c c "
     " n  n n "
     " d d  d "
@@ -23,23 +31,28 @@ const Section = styled.section`
     " img   img  .  "
     " q   .  price  "
     " add   add    add  ";
-
+  grid-template-columns: 2fr 2fr 2fr;
+  grid-template-rows: auto;
+  gap: 12px;
   .description {
     grid-area: d;
   }
 
-  .properties {
-    grid-area: p;
-  }
-
   .photos {
     grid-area: ph;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    background-color: ${theme.color.greyLight};
   }
 
   .name {
     grid-area: n;
   }
-
+  .parentName {
+    grid-area: pn;
+    text-align: end;
+  }
   .caption {
     grid-area: c;
   }
@@ -57,32 +70,28 @@ const Component: FunctionComponent<any> = (detail) => {
   if (!detail.item) return null;
   const itemModel = new ItemModel(detail);
   if (!itemModel?.name) return null;
-
   return (
     <>
       <Breadcrumbs parent={itemModel.parent} />
       <H1 src={itemModel.icon}>{itemModel.name}</H1>
-      <main>
+      <Main>
         <Section>
           <Articular val={itemModel.id} />
-          <div className={"caption"}>caption {itemModel.caption} </div>
-          <div className={"description"}>description {itemModel.description}</div>
-          <div className={"price"}>цена {itemModel.price}</div>
-          <div className={"quantity"}>на складе {itemModel.quantity}</div>
-          <div className={"name"}>{itemModel.name} </div>
-          <div className={"properties"}></div>
+          <p className={"name"}>{itemModel.name} </p>
+          <span className={"parentName"}> {itemModel.parent.name} </span>
+          <p className={"description"}>description {itemModel.description}</p>
+          <p className={"price"}>цена {itemModel.price}</p>
+          <p className={"quantity"}>на складе {itemModel.quantity}</p>
+
+          <p className={"properties"}></p>
           <div className={"photos"}>
-            {itemModel.photos.length === 0 && <Image src="/img/test.jpeg" alt={itemModel.name} />}
-            {itemModel.photos?.map((src, key) => (
-              <div key={key}>
-                <p>{src} </p>
-              </div>
+            {itemModel.photo?.map((src, key) => (
+              <Image src={src} key={key} />
             ))}
           </div>
-
           <AddToCart item={detail.item} />
         </Section>
-      </main>
+      </Main>
     </>
   );
 };

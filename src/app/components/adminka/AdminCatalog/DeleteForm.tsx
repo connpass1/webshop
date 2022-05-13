@@ -1,45 +1,45 @@
 import { Formik } from "formik";
 import React from "react";
 import styled from "styled-components";
-import { StyledForm } from "../../Elements/StyledForms";
+import { FORM } from "../../Elements/StyledForms";
 import { theme } from "../../GlobalStyles";
 
-const FORM = styled(StyledForm)`
-  display: flex;
-  color: ${theme.color.primary};
-  flex-direction: column;
-  min-width: 280px;
-  header {
-    font-size: 1.2rem;
-    border-bottom: 1px solid ${theme.color.primary};
-  }
-  .center {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
+const DeleteForm = styled(FORM)`
   color: ${theme.color.primary};
 `;
+const Header = styled.div`
+  border-bottom: 2px solid currentColor;
+  ${theme.font.Pattaya}
+  font-size:1.5em;
+  padding: 12px;
+`;
+const Caption = styled.div`
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  ${theme.font.Bold}
+  font-size:1.8rem;
+`;
+
 const Div = styled.div`
   display: flex;
-
   box-sizing: border-box;
-  min-height: 100%;
+
   justify-content: center;
+  align-self: center;
 `;
 
 const Component: React.FC<{ req: () => void; header: string; caption: string }> = ({ req, header, caption, children }) => {
   return (
     <Div>
       <Formik onSubmit={req} initialValues={{}}>
-        <FORM>
-          <header>{header}</header>
-          <div className="center">{caption}</div>
+        <DeleteForm>
+          <Header>{header}</Header>
+          <Caption>{caption}</Caption>
           {children}
-          <div className={"buttons"}>
-            <input type={"submit"} value={"удалить"} />
-          </div>
-        </FORM>
+          <input type={"submit"} value={"удалить"} />
+        </DeleteForm>
       </Formik>
     </Div>
   );

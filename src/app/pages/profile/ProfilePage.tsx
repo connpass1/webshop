@@ -5,12 +5,12 @@ import Logout from "../../components/Blocks/Logout";
 import UserInfo from "../../components/Blocks/UserInfo";
 import { ButtonSecondary } from "../../components/Elements/Button";
 import { H1 } from "../../components/Elements/Icon";
+import { MainStart } from "../../components/Elements/Styled";
 import { UserModel } from "../../models/UserModel";
 import { mapContent, useFetchLocation } from "../../store/helper";
 import { actionsContent } from "../../store/storeContent";
 import Orders from "./Orders";
 import ProfileForm from "./ProfileForm";
-
 const Div = styled.div`
   display: flex;
   justify-content: space-between;
@@ -33,7 +33,7 @@ const RouterComponent: FunctionComponent<Props> = (props) => {
   return (
     <>
       <H1 src={"person"}>Личный кабинет</H1>
-      <main>
+      <MainStart>
         <Div>
           <span>
             Вы вошли как <em>{content?.name}</em>
@@ -44,7 +44,7 @@ const RouterComponent: FunctionComponent<Props> = (props) => {
         <div>{!showOrders && <ProfileForm {...props} />}</div>
         {showOrders && <UserInfo user={content} />}
         {showOrders && <>{content?.orders && <Orders data={content.orders} />}</>}
-      </main>
+      </MainStart>
     </>
   );
 };

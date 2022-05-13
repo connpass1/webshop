@@ -66,11 +66,11 @@ function* makeOrder(orderData: any) {
 }
 
 function* getContent(dataContent: any) {
-  yield put(actionsContent.contentGet());
+   
   try {
-    console.log(dataContent.url);
+   // console.log(dataContent.url);
     const { data } = yield call(axios.get, SERVERNAME + dataContent.url, { headers: headerParams() });
-    console.log(data);
+    //console.log(data);
     if (!data) yield put(actionsContent.getContentFiled(404));
     else yield put(actionsContent.getContentSuccess(data));
   } catch (e) {
@@ -92,7 +92,7 @@ function* getSettings() {
 }
 
 function* saveContent(dataContent: any) {
-  yield put(actionsContent.contentGet());
+ // yield put(actionsContent.contentGet());
   try {
     //console.log(JSON.stringify(dataContent));
 
@@ -122,7 +122,7 @@ function* saveContent(dataContent: any) {
 }
 
 function* delContent(dataContent: any) {
-  yield put(actionsContent.contentGet());
+ // yield put(actionsContent.contentGet());
   try {
     //console.log(JSON.stringify(dataContent));
     const url = SERVERNAME + dataContent.data.url;

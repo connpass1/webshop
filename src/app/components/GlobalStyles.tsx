@@ -9,6 +9,17 @@ export enum Sizes {
 }
 
 export const theme = {
+  font: {
+    cursive: `font-family: 'Bad Script', cursive !important; font-weight: 400;`,
+    Pattaya: `font-family: 'Pattaya', sans-serif !important; font-weight: 400;`,
+    Bold: `font-family: 'Oswald', sans-serif !important; font-weight:700; `,
+    Roboto: `font-family: "Roboto", sans-serif; font-weight:400;`,
+
+    //font-family: 'Bad Script', cursive;
+    //font-family: 'Oswald', sans-serif;
+    //font-family: 'Pattaya', sans-serif;
+    //font-family: 'Roboto', sans-serif;
+  },
   color: {
     primary: "#5d4037",
     primaryLight: "#d7ccc8",
@@ -16,7 +27,7 @@ export const theme = {
     secondaryLight: "#b2dfdb",
     error: "#e53935",
     grey: "#424242",
-    greyLight: "#e0e0e0",
+    greyLight: "#bbb",
     disabled: "#888888",
   },
   size: {
@@ -38,10 +49,10 @@ export const device = {
 };
 
 const GlobalStyles = createGlobalStyle`
+
   body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
-  }
+  
 
   header {
     display: flex;
@@ -49,24 +60,35 @@ const GlobalStyles = createGlobalStyle`
     border:none; 
   }
 
-  .root {
-    padding-bottom: 2px;
-    border-bottom: 1px solid currentColor;
-    margin-bottom: 8px;
-  }
 
+.center {
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+ 
+
+h1{
+ 
+ ${theme.font.Bold} ;
+}
+h2, h3  {
+  ${theme.font.Pattaya} ;
+ 
+   
+}
   h1, h2, h3 {
-    grid-area: h;
-    padding: 12px;
+ grid-area:h;
+  white-space: nowrap;
     margin-block-start: 0;
-    border-bottom: 1px solid currentColor;
+   
     justify-self: flex-start;
     display: flex;
     margin-block-end: 0;
 
     color: ${theme.color.primary};
     vertical-align: middle;
-    margin-bottom: 12px;
+   
     @media ${device.laptop} {
       padding: 8px;
     }
@@ -88,40 +110,32 @@ const GlobalStyles = createGlobalStyle`
     }
   }
  
-.start{
-  justify-content: start;
-}
-.between{
-  justify-content: space-between;
-}
-.center{
-  justify-items: center;
-  justify-content: center;
-  align-items: center;
-  
-}
-.end{
-  justify-content: flex-end;
-}
+ 
   main {
     div{max-width:100%}
+    background-color: white;
     grid-area: main;  
     border-radius: 4px;
     user-select: text;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    align-content: center;
-    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+  
     justify-content:stretch;
+    flex-wrap:wrap;
     @media ${device.tablet} {
       font-size: 0.8rem;
       margin: 0;
       padding: 0;
+      align-content: space-around;
+      justify-content: stretch;
+      align-items: stretch;
     }
 
     a {
-      font-style: italic;
+ 
       outline: none;
       color: var(primary-color);
       white-space: nowrap;
@@ -129,7 +143,7 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
-  a {
+  a { font-family: "Pangolin", sans-serif;
     outline: none;
     text-decoration: none;
     color: currentColor;
@@ -137,7 +151,7 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
-  button {
+  button, input[type=reset], input[type=submit],  input[type=button]  {
     cursor: pointer;
     align-items: center;
     user-select: none;
@@ -147,12 +161,19 @@ const GlobalStyles = createGlobalStyle`
     font-weight: bolder;
     font-size: 1.2rem;
     white-space: nowrap;
+
+    :disabled {
+    opacity: 1;
+    background-color: ${theme.color.disabled};
+    cursor: initial;
+    border: none;
+  }
   }
 
   button:disabled {
     color: white;
     background-color: black;
-    border-color: black;
+    
     opacity: 0.6;
     cursor: initial;
   }
@@ -209,26 +230,9 @@ const GlobalStyles = createGlobalStyle`
     padding-right: 8px;
     align-self: center;
     justify-self: flex-end;
-  }
-
-  section {
-    display: grid;
-    box-shadow: ${theme.shadow};
-    color: ${theme.color.primary};
-    font-size: 1rem;
-    border-radius: 8px;
-    align-items: center; 
    
   }
-
-  .price {
-    grid-area: price;
-    white-space: nowrap;
-    :after {
-      content: "р"
-    } ;
-  }
-
+}
 `;
 export default GlobalStyles;
 export const outAnimation = keyframes`

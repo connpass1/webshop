@@ -17,7 +17,7 @@ const Component: FunctionComponent<Props> = (props) => {
         <Link to={"/admin/item/6/0"}> создать товар</Link>
         <Link to={"/admin/profiles/1"}> список пользователей</Link>
         <Link to={"/admin/items/1"}> список товаров</Link>
-        <Link to={"/admin/pages/1"}> список статей</Link>
+        <Link to={"/admin/pages"}> список статей</Link>
         <Link to={"/admin/orders/1"}> заказ</Link>
         <Link to={"/admin/catalog/1"}>каталог</Link>
 

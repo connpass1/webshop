@@ -1,45 +1,43 @@
-import { IItemDetail, ISlug } from "./IFases";
+import { ISlug } from "./IFaces";
 
 export class ItemModel implements ISlug {
   name = "";
   id = 0;
-  parent: string | undefined = "";
-  parentId = 0;
-  parentIcon = "";
-  parentName = "";
+  parent: ISlug = { id: 0, name: "" };
+  parents: ISlug[] = [];
   icon? = "";
   price = 0;
-  description = "";
-  amount = 0;
   caption = "";
-  photos: string[] = [];
+  description = "";
+  photo: string[] = [];
+  composition: string[] = [];
   quantity = 0;
-
-  constructor(detail: IItemDetail | undefined) {
+  mass: number = 0;
+  measure: number = 0;
+  constructor(detail: any) {
     if (!detail) return;
-    const { id, amount, caption, description, photos, item } = detail;
+    const { id, description, photo, item, parents } = detail;
 
     if (!item) return;
 
-    const { name, icon, price, quantity, parent } = item;
-
+    const { name, icon, price, quantity, caption, parent, mass, measure } = item;
     this.id = id ? id : 0;
-    this.amount = amount ? amount : 0;
     this.caption = caption ? caption : "";
     this.description = description ? description : "";
-    this.photos = photos ? photos : [];
+    this.photo = photo ? photo : [];
     this.name = name ? name : "";
     this.quantity = quantity ? quantity : 0;
     this.icon = icon ? icon : "";
-
+    this.mass = mass ? mass : 0;
+    this.measure = measure ? measure : 0;
     this.price = price ? price : 0;
-    this.parent = parent ? parent : undefined;
-    if (parent) {
-      const s = parent.split("$");
-      const arr = s[s.length - 1].split("@");
-      this.parentId = Number(arr[1]);
-      this.parentIcon = "" + arr[2];
-      this.parentName = arr[0];
-    }
+    this.parent = parent;
+    this.parents = parents ? parents : [];
+    if (this.photo.length === 0) this.photo.push("/img/box.png");
   }
 }
+export const createItemModel = (data: any) => {
+  if (!data) return undefined;
+  if (!data.item) return undefined;
+  return new ItemModel(data);
+};

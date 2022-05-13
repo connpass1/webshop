@@ -1,10 +1,7 @@
  
 import { UserModel } from "./UserModel";
 
-export interface IEntity extends ISlug {
-  parent: string;
-}
-
+ 
 export interface ISlug {
   id: number;
   name: string;
@@ -17,29 +14,18 @@ export interface ISetting{
   categoryLinks: ISlug[];
 
 }
-export interface IPageAble {
-  totalPages: number;
-  content: any[];
+ 
 
-}
-
-export interface IItem extends IEntity {
+export interface IItem extends ISlug {
   price: number;
   quantity: number;
   checked: boolean;
+  parent: ISlug;
+    measure: string;
+  mass: number;
 }
 
-
-export interface IItemDetail {
-  id: number;
-  item: IItem;
-  amount: number;
-  caption: string;
-  description: string;
-  photos: string[];
-  
-}
-
+ 
 
 export interface IPage {
   content: IItem[];

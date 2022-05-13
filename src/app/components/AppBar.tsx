@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mainPhoneNumber, siteNameDown, siteNameUp } from "../../Settings";
-import { ISetting } from "../models/IFases";
+import { ISetting } from "../models/IFaces";
 import { mapSettings, phone, PropsSetting } from "../store/helper";
 import { actionsSettings } from "../store/storeSettings";
 import { Card } from "./Blocks/Card";
@@ -14,8 +14,7 @@ import { device, theme } from "./GlobalStyles";
 const Styled = styled.div`
   grid-area: appBar;
   display: flex;
-  justify-content: space-between; 
-   
+  justify-content: space-between;  
   align-items: center;
   padding: 10px;
   font-size: 1.2rem;
@@ -26,12 +25,12 @@ const Styled = styled.div`
     background-color: ${theme.color.primary};
     padding: 4px;
     color: white;
+  } 
+  a {  
+    ${theme.font.Bold};
+   letter-spacing: 0.05em;
   }
-
-  a {
-    padding: 8px;
-    font-weight: 700;
-  }
+  
   @media ${device.tablet} {
     
     span {display:none;}
@@ -47,7 +46,6 @@ const Styled = styled.div`
     }
   }
  
-}
  
 .bar {
   display: flex;
@@ -57,6 +55,7 @@ const Styled = styled.div`
   height: 100%;
   svg{
     font-size:1em;
+    padding-left:1em;
   }
 }
 
@@ -70,14 +69,7 @@ const Styled = styled.div`
     @media ${device.tablet} {
       display: block;
     }
-  }
-
-  .links {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-  }
-
+  } 
   svg {
     padding: 0 0.5em 0 1em;
   }

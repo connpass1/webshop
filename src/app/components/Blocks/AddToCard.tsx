@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { IItem } from "../../models/IFases";
+import { IItem } from "../../models/IFaces";
 import { mapCart } from "../../store/helper";
 import { actionsCart } from "../../store/storeCart";
 import { ButtonSecondary, RectButton } from "../Elements/Button";

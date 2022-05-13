@@ -6,7 +6,7 @@ import { BackToCatalog, Button } from "../components/Elements/Button";
 import { H1, Icon } from "../components/Elements/Icon";
 import { FlexEvenly, Row } from "../components/Elements/Styled";
 import { ChildrenGreed, GridTable, TD, TH, TI } from "../components/Elements/Table";
-import { IItem } from "../models/IFases";
+import { IItem } from "../models/IFaces";
 import LoginFilter from "../routers/LoginFilter";
 import { compare, mapCart, mapCustomer } from "../store/helper";
 import { actionsCart } from "../store/storeCart";
@@ -146,7 +146,6 @@ const Component: React.FC<Props> = (props) => {
                 <TD> {num + 1}</TD>
                 <TD>
                   <Link to={"/item/" + item.id}>
-
                     <Icon src={item.icon} /> {item.name}
                   </Link>
                 </TD>

@@ -1,8 +1,8 @@
 import { Reducer } from "redux";
-import { IFetchContent } from "../models/IFases";
+import { IFetchContent } from "../models/IFaces";
 
 export enum ActionTypesContent {
-  get = "GET",
+ 
   getContent = "GET_CONTENT_REQUEST",
   delContent = "DELETE_CONTENT_REQUEST",
   saveContent = "SAVE_CONTENT_REQUEST",
@@ -15,7 +15,7 @@ export enum ActionTypesContent {
 }
 
 export const actionsContent = {
-  contentGet: () => ({ type: ActionTypesContent.get }),
+   
   contentRequest: (url: string) => ({ type: ActionTypesContent.getContent, url }),
   delContentRequest: (data: any) => ({ type: ActionTypesContent.delContent, data }),
   saveContentRequest: (data: any) => ({ type: ActionTypesContent.saveContent, data }),
@@ -28,6 +28,7 @@ export const actionsContent = {
   delContentFiled: (status: number) => ({ type: ActionTypesContent.delContentFiled, status }),
   saveContentFiled: (status: number) => ({ type: ActionTypesContent.saveContentFiled, status })
 };
+ 
 // @ts-ignore
 export const contentReducer: Reducer<any> = (
   state: IFetchContent = {
@@ -37,9 +38,11 @@ export const contentReducer: Reducer<any> = (
   action: any
 ) => {
   switch (action.type) {
-    case ActionTypesContent.get:
+    case ActionTypesContent.delContent:
+    case ActionTypesContent.getContent:
+      case ActionTypesContent.getContent:
       state = {
-        content: state.content,
+        content: undefined,
         status: 100
       };
       return { ...state };

@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IItem } from "../../models/IFases";
+import { IItem } from "../../models/IFaces";
 import { mapContent, PropsContent, useFetchLocation } from "../../store/helper";
 import { actionsContent } from "../../store/storeContent";
 import Pageable from "../Blocks/Pageable";
@@ -52,7 +52,7 @@ const Component: React.FC<any> = (props) => {
               <Icon src={item?.icon} /> {item?.name}
             </Link>
           </TD>
-          <Catalog name={item?.parent} />
+          <Catalog name={item?.parent.name} />
           <TD>{item?.quantity} </TD>
           <TD>
             <span className={"price"}>{item?.price}</span>
