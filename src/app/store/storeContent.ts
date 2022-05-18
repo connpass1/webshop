@@ -33,49 +33,50 @@ export const actionsContent = {
 export const contentReducer: Reducer<any> = (
   state: IFetchContent = {
     content: undefined,
-    status: 200
+    status: 200,
+    url:""
   },
   action: any
 ) => {
+  console.log(action);
+  
   switch (action.type) {
     case ActionTypesContent.delContent:
     case ActionTypesContent.getContent:
-      case ActionTypesContent.getContent:
-      state = {
-        content: undefined,
-        status: 100
-      };
-      return { ...state };
+      case ActionTypesContent.saveContent: 
+      return { content:state.content,
+        status: 100,url: action.url};
     case ActionTypesContent.getContentSuccess:
-      state = {
+      
+      return {
         content: action.content,
-        status: 200
-      };
-      return { ...state };
+        status: 200,
+        url:state.url
+      };;
 
     case ActionTypesContent.saveContentSuccess:
-      state = {
+      return {
         content: action.content,
-        status: 201
+        status: 201,
+        url:state.url,
       };
-      return { ...state };
+     
     case ActionTypesContent.getContentFiled:
-      state = {
+      return {
         content: undefined,
-        status: action.status
+        status: action.status,
+        url:state.url
       };
-      return { ...state };
+       
     case ActionTypesContent.delContentSuccess:
     case ActionTypesContent.delContentFiled:
-    case ActionTypesContent.saveContentFiled:
-
-      state = {
-        content: state.content,
-        status: action.status
-      };
-
-
-      return { ...state };
+    case ActionTypesContent.saveContentFiled: 
+      return {
+        content: action.content,
+        status: action.status,
+        url:state.url,
+      }; 
+     
     default:
       return state;
   }

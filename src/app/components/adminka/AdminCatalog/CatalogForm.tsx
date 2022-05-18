@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { CategoryModel } from "../../../models/CategoryModel";
 import { isEmpty, mapSettings, PropsReq } from "../../../store/helper";
-import { Buttons, FORM, GridSelect, IconLoader, Input, Inputs } from "../../Elements/StyledForms";
+import { Buttons, FORM, IconLoader, Input, Inputs } from "../../Elements/StyledForms";
 const Schema = Yup.object().shape({
   name: Yup.string()
     .required("обязательное поле")
@@ -50,7 +50,7 @@ const Component: React.FC<{
       validationSchema={Schema}
       onSubmit={(values, { setSubmitting }) => {
         values.parentId = Number(values.parentId);
-        saveContentRequest({ data: values, url: "/admin/category" });
+        saveContentRequest({ data: values, url: "/admin/catalog" });
         alert(JSON.stringify(values));
         setSubmitting(false);
       }}
@@ -60,11 +60,7 @@ const Component: React.FC<{
           <Inputs>
             <Input type="text" name="name" placeholder="название" label={"название"} />
             <Input type="number" name="position" label={"позиция"} />
-            <IconLoader value={values.icon} handle={(e: any) => setFieldValue("icon", e.base64)} />
-            <GridSelect>
-              <ConnectedSelect active="menu" />
-              <span>группа</span>
-            </GridSelect>
+            <IconLoader value={values.icon} handle={(s: string) => setFieldValue("icon", s)} />
           </Inputs>
           <Buttons>
             <input type={"reset"} value={"отмена"} disabled={isEmpty(touched)} />

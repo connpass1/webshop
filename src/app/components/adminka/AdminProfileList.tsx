@@ -1,10 +1,7 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ProfileModel } from "../../models/ProfileModel";
-import { mapContent, PropsContent, useFetchLocation } from "../../store/helper";
-import { actionsContent } from "../../store/storeContent";
 import Pageable from "../Blocks/Pageable";
 import { H1 } from "../Elements/Icon";
 import { ChildrenGreed, GridTable, TD, TH } from "../Elements/Table";
@@ -45,19 +42,17 @@ const Component: React.FC<any> = (props) => {
     </Greed>
   );
 };
-const Component1: React.FC<PropsContent> = (props) => {
-  useFetchLocation(props.contentRequest);
-  const content = props.content;
+const Basic: React.FC<{ content: any }> = ({ content }) => {
   return (
     <>
       <H1 src={"persons"}> Пользователи</H1>
       <main className={"start"}>
-        {JSON.stringify(props.content)}
-        {props.status > 199 && content && Array.isArray(content?.content) && <Component {...content} />}
+        {JSON.stringify(content)}
+        {content && Array.isArray(content?.content) && <Component {...content} />}
       </main>
       <Pageable pages={content?.totalPages} />
     </>
   );
 };
-const FetchContent = connect(mapContent, actionsContent)(Component1);
-export default FetchContent;
+
+export default Basic;

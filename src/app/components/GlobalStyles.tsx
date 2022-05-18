@@ -143,11 +143,10 @@ h2, h3  {
     }
   }
 
-  a { font-family: "Pangolin", sans-serif;
+  a { 
     outline: none;
     text-decoration: none;
-    color: currentColor;
-    font-size: 1.2em;
+    color: currentColor; 
     cursor: pointer;
   }
 

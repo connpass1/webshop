@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { IItem } from "../../models/IFaces";
 import { mapCart } from "../../store/helper";
 import { actionsCart } from "../../store/storeCart";
-import { ButtonSecondary, RectButton } from "../Elements/Button";
 import { Icon } from "../Elements/Icon";
+import { ButtonSecondary } from "../Elements/Styled";
 import { device, theme } from "../GlobalStyles";
 type Props = ReturnType<typeof mapCart> &
   typeof actionsCart & {
@@ -66,7 +66,22 @@ const GR = styled.div`
 function f(cart: IItem[], item: IItem) {
   return cart.find((it) => item.id === it.id);
 }
+const RectButton = styled.button`
+  color: ${theme.color.secondary};
+  border: 1px solid ${theme.color.primary};
+  background-color: white;
+  font-size: 1.2rem;
 
+  :focus {
+    outline: none !important;
+    box-shadow: 0 0 5px ${theme.color.primary};
+  }
+  :disabled {
+    color: ${theme.color.greyLight};
+    border: 1px solid ${theme.color.greyLight};
+    background-color: white;
+  }
+`;
 const CartBlock: React.FC<Props> = (prop) => {
   const { item, adToCart } = prop;
 

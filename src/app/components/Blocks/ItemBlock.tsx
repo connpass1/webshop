@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import { IItem } from "../../models/IFaces";
-import { ButtonSecondary } from "../Elements/Button";
-import { Row } from "../Elements/Styled";
+import { ButtonSecondary, Row } from "../Elements/Styled";
 import ItemPreview from "./ItemPreview";
 const Links = styled.div`
   margin: 12px;
@@ -59,7 +58,7 @@ const Component: FunctionComponent<{ items: IItem[] }> = ({ items }) => {
       {pages > 1 && (
         <>
           {B}
-          <Row className={"between"}>
+          <Row>
             <div>
               <i>Страница {page} </i>
               <i>из {pages} </i>

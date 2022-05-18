@@ -2,9 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { BackToCatalog, Button } from "../components/Elements/Button";
 import { H1, Icon } from "../components/Elements/Icon";
-import { FlexEvenly, Row } from "../components/Elements/Styled";
+import { Button, MainStart, Row } from "../components/Elements/Styled";
 import { ChildrenGreed, GridTable, TD, TH, TI } from "../components/Elements/Table";
 import { IItem } from "../models/IFaces";
 import LoginFilter from "../routers/LoginFilter";
@@ -108,14 +107,9 @@ const Component: React.FC<Props> = (props) => {
     return (
       <>
         <H1 src={"cart"}> Корзина</H1>
-        <main className={"between"}>
-          <FlexEvenly>
-            <i>Корзина пуста</i>
-            <BackToCatalog />
-          </FlexEvenly>
-          <div />
-          <div />
-        </main>
+        <MainStart>
+          <i>Корзина пуста</i>
+        </MainStart>
       </>
     );
   const handlerDel = () => {
@@ -160,14 +154,13 @@ const Component: React.FC<Props> = (props) => {
             ))}
           </Table>
         )}
-        <FlexEvenly>
-          {!login && (
-            <Button onClick={handlerDel} disabled={disabled}>
-              {allCheck === undefined ? "очистить корзину" : "удалить из корзины"}
-            </Button>
-          )}
-          <ButtonComponent state={login} stateHandler={loginHandler} items={state} disabled={disabled} handler={props.makeOrderRequest} />
-        </FlexEvenly>
+
+        {!login && (
+          <Button onClick={handlerDel} disabled={disabled}>
+            {allCheck === undefined ? "очистить корзину" : "удалить из корзины"}
+          </Button>
+        )}
+        <ButtonComponent state={login} stateHandler={loginHandler} items={state} disabled={disabled} handler={props.makeOrderRequest} />
       </main>
     </>
   );

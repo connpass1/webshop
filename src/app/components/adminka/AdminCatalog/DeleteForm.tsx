@@ -1,9 +1,9 @@
 import { Formik } from "formik";
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import { FORM } from "../../Elements/StyledForms";
 import { theme } from "../../GlobalStyles";
-
 const DeleteForm = styled(FORM)`
   color: ${theme.color.primary};
 `;
@@ -22,26 +22,32 @@ const Caption = styled.div`
   font-size:1.8rem;
 `;
 
-const Div = styled.div`
-  display: flex;
-  box-sizing: border-box;
-
-  justify-content: center;
-  align-self: center;
-`;
-
-const Component: React.FC<{ req: () => void; header: string; caption: string }> = ({ req, header, caption, children }) => {
+const Component: React.FC<{ req: () => void; caption: string }> = ({ req, caption, children }) => {
   return (
-    <Div>
-      <Formik onSubmit={req} initialValues={{}}>
-        <DeleteForm>
-          <Header>{header}</Header>
-          <Caption>{caption}</Caption>
-          {children}
-          <input type={"submit"} value={"удалить"} />
-        </DeleteForm>
-      </Formik>
-    </Div>
+    <Formik onSubmit={req} initialValues={{}}>
+      <DeleteForm>
+        <Header>
+          Удалить&nbsp;
+          <Switch>
+            <Route exact path="/admin/page/**">
+              статью
+            </Route>
+            <Route exact path="/admin/catalog/**">
+              группу
+            </Route>
+            <Route exact path="/admin/item/**">
+              товар
+            </Route>
+            <Route exact path="/admin/**">
+              контент
+            </Route>
+          </Switch>
+        </Header>
+        <Caption>{caption}</Caption>
+        {children}
+        <input type={"submit"} value={"удалить"} />
+      </DeleteForm>
+    </Formik>
   );
 };
 export default Component;

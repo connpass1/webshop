@@ -1,82 +1,38 @@
-import classNames from "classnames";
-import React, { useCallback, useMemo, useState } from "react";
-import { connect } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { ArticleModel, createArticleModel } from "../../../models/ArticleModel";
-import { mapContent, PropsContent, useFetchLocation } from "../../../store/helper";
-import { actionsContent, ActionTypesContent } from "../../../store/storeContent";
+import React, { useCallback, useMemo } from "react";
+import { useParams } from "react-router-dom";
+import { ArticleModel } from "../../../models/ArticleModel";
+import { PropsContent } from "../../../store/helper";
 import { H1 } from "../../Elements/Icon";
 import { MainStart } from "../../Elements/Styled";
-import { Tabs } from "../AdminCatalog/AdminCatalog";
-import ContentUpdated from "../AdminCatalog/ContentUpdated";
+import DeletedContent from "../AdminCatalog/DeletedContent";
 import DeleteForm from "../AdminCatalog/DeleteForm";
+import Tabs from "../AdminCatalog/Tabs";
 import ArticleForm from "./ArticleForm";
 import ViewArticle from "./VewArticle";
-const Component: React.FC<{
-  model: ArticleModel;
-  handlerDelete: () => void;
-  saveContentRequest: (data: any) => {
-    type: ActionTypesContent;
-    data: any;
-  };
-}> = ({ model, handlerDelete, saveContentRequest }) => {
+const Component: React.FC<PropsContent> = (props) => {
   const { id } = useParams() as any;
+  const { content, delContentRequest, saveContentRequest } = props;
+  const model = useMemo(() => new ArticleModel(content), [content]);
+  const handlerDelete = useCallback(() => {
+    if (model) delContentRequest({ id: model.id, url: "/delete/page" });
+  }, [delContentRequest, model]);
 
-  const [state, setState] = useState(model.id === 0 ? 1 : 0);
+  const DelForm = useMemo(() => <DeleteForm req={handlerDelete} caption={model.name}></DeleteForm>, [handlerDelete, model.name]);
+  if (props.status === 202) return <DeletedContent />;
   return (
     <>
       <H1 src={model?.icon && model.icon.length > 3 ? model.icon : "edit"}>
         {model?.title && model.title.length > 3 ? model.title : "Создать статью"}
       </H1>
       <MainStart>
-        <Tabs>
-          <button className={classNames({ active: state === 0 })} disabled={model.id === 0} onClick={() => setState(0)}>
-            Просмотр
-          </button>
-          <button className={classNames({ active: state === 1 })} onClick={() => setState(1)}>
-            Создать
-          </button>
-          <button className={classNames({ active: state === 2 })} disabled={model.id === 0} onClick={() => setState(2)}>
-            Редактировать
-          </button>
-          <button className={classNames({ active: state === 3 })} disabled={model.id === 0} onClick={() => setState(3)}>
-            Удалить
-          </button>
+        <Tabs status={props.status}>
+          {model.id > 0 && <ViewArticle {...model} />}
+          <ArticleForm model={model} saveContentRequest={saveContentRequest} />
+          {model.id > 0 && DelForm}
         </Tabs>
-        {state === 0 && <ViewArticle {...model} />}
-        {state === 1 && <ArticleForm model={new ArticleModel(undefined)} saveContentRequest={saveContentRequest} />}
-        {state === 2 && <ArticleForm model={model} saveContentRequest={saveContentRequest} />}
-        {state === 3 && <DeleteForm req={handlerDelete} header={"Удалить статью"} caption={model.name}></DeleteForm>}
       </MainStart>
     </>
   );
 };
 
-const Component1: React.FC<PropsContent> = (props) => {
-  useFetchLocation(props.contentRequest);
-  const { content, status, delContentRequest, saveContentRequest } = props;
-  const model = useMemo(() => createArticleModel(content), [content]);
-  const handlerDelete = useCallback(() => {
-    if (model) delContentRequest({ id: model.id, url: "/delete/page" });
-  }, [delContentRequest, model]);
-
-  if (!model) return null;
-  if (status === 202)
-    return (
-      <>
-        <H1 src={"error"}>Статья удалена</H1>
-        <main>
-          <Link to="/admin/pages">todo</Link>
-        </main>
-      </>
-    );
-
-  return (
-    <>
-      {props.status > 200 && <ContentUpdated />}
-      {props.status > 199 && <Component model={model} handlerDelete={handlerDelete} saveContentRequest={saveContentRequest} />}
-    </>
-  );
-};
-const FetchContent = connect(mapContent, actionsContent)(Component1);
-export default FetchContent;
+export default Component;

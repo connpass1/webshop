@@ -5,7 +5,6 @@ import { ArticleModel } from "../../../models/ArticleModel";
 import { isEmpty } from "../../../store/helper";
 import { ActionTypesContent } from "../../../store/storeContent";
 import { Buttons, FORM, GridSelect, IconLoader, Input, TextArea } from "../../Elements/StyledForms";
-
 const Schema = Yup.object().shape({
   name: Yup.string()
     .required("обязательное поле")
@@ -44,7 +43,7 @@ const Basic: React.FC<{
             <Input type="text" name="title" placeholder="заголовок" label={"заголовок"} />
             <Input type="number" name="position" label={"позиция"} />
             <TextArea name="content" placeholder="контент" label={"контент"} />
-            <IconLoader value={values.icon} handle={(e: any) => setFieldValue("icon", e.base64)} />
+            <IconLoader value={values.icon} handle={(e: string) => setFieldValue("icon", e)} />
 
             <GridSelect>
               <Field as="select" name="nav" className="select">
@@ -56,7 +55,6 @@ const Basic: React.FC<{
               <span> размещение </span>
             </GridSelect>
             <Buttons>
-              <input type={"button"} value={"Удалить"} disabled={!isEmpty(errors) || isSubmitting} />
               <input type={"reset"} value={"отмена"} disabled={isEmpty(touched)} />
               <input type={"submit"} value={"применить"} disabled={!isEmpty(errors) || isSubmitting} />
             </Buttons>

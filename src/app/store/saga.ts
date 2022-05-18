@@ -34,10 +34,8 @@ function* loginUser(userNameAndPass: any) {
 
 function* registrationUser(userNameAndPass: any) {
 
-  try {
-  
-    const response:AxiosResponse   = yield call(axios.post, SERVERNAME + "/register", userNameAndPass);
-     
+  try { 
+    const response:AxiosResponse   = yield call(axios.post, SERVERNAME + "/register", userNameAndPass); 
     console.log(response);
     if (response.status === 200) {
       yield put(actionsUser.loginUserRequest(userNameAndPass.name, userNameAndPass.password));

@@ -1,29 +1,28 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { IFetchCart, IFetchContent, IFetchCustomer, IFetchSettings, ISlug } from '../models/IFaces';
 import { ActionTypesContent } from "./storeContent";
 import { actionsSettings } from "./storeSettings";
 
-function isObject(object: any) {
-  return object != null && typeof object === "object";
-}
+//  unction isObject(object: any) {
+ // return object != null && typeof object === "object";
+//}
 
-export function isEqual(obj1: any, obj2: any) {
-  let props1 = Object.getOwnPropertyNames(obj1);
-  let props2 = Object.getOwnPropertyNames(obj2);
-  if (props1.length !== props2.length) {
-    return false;
-  }
-  for (let i = 0; i < props1.length; i++) {
-    let val1 = obj1[props1[i]];
-    let val2 = obj2[props1[i]];
-    let isObjects = isObject(val1) && isObject(val2);
-    if ((isObjects && !isEqual(val1, val2)) || (!isObjects && val1 !== val2)) {
-      return false;
-    }
-  }
-  return true;
-}
+// export function isEqual(obj1: any, obj2: any) {
+//   let props1 = Object.getOwnPropertyNames(obj1);
+//   let props2 = Object.getOwnPropertyNames(obj2);
+//   if (props1.length !== props2.length) {
+//     return false;
+//   }
+//   for (let i = 0; i < props1.length; i++) {
+//     let val1 = obj1[props1[i]];
+//     let val2 = obj2[props1[i]];
+//     let isObjects = isObject(val1) && isObject(val2);
+//     if ((isObjects && !isEqual(val1, val2)) || (!isObjects && val1 !== val2)) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
 
 export function getErrorStatus(e: any, status?: number) {
   try {
@@ -47,13 +46,7 @@ export function phone(ph: number | undefined) {
   return phone;
 }
 
-export function useFetchLocation(request: any) { 
-  const location = useLocation();
-  useEffect(() => {
-    request(location.pathname); 
-    
-  }, [location.pathname ]);
-}
+ 
 
 export function useOutsideClick(ref: { current: { contains: (arg0: any) => any; }; }, handler: { (this: Document, ev: MouseEvent): any; (this: Document, ev: MouseEvent): any; }) {
   useEffect(() => {
@@ -77,8 +70,7 @@ export const mapFetchUser = (state: { profileReducer: IFetchCustomer }) => state
 export const mapCustomer = (state: { profileReducer: IFetchCustomer }) => state.profileReducer.customer;
 export const mapContent = (state: { contentReducer: IFetchContent }) => state.contentReducer;
 export const mapSettings = (state: { settingsReducer: IFetchSettings }) => state.settingsReducer;
-export type PropsReq= (data: any) => { type: ActionTypesContent; data: any } 
-
+export type PropsReq= (data: any) => { type: ActionTypesContent; data: any }  
 
 export  type PropsContent = IFetchContent & {
   contentRequest: (url: string) => {
@@ -94,3 +86,4 @@ export  type PropsContent = IFetchContent & {
     data: any;
   };
 }
+ 

@@ -1,16 +1,11 @@
 import React, { useMemo } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IItem } from "../../models/IFaces";
-import { mapContent, PropsContent, useFetchLocation } from "../../store/helper";
-import { actionsContent } from "../../store/storeContent";
-import Pageable from "../Blocks/Pageable";
-import { RedirectButton } from "../Elements/Button";
-import { H1, Icon } from "../Elements/Icon";
-import { FlexEvenly } from "../Elements/Styled";
-import { ChildrenGreed, GridTable, TD, TH } from "../Elements/Table";
-import { device } from "../GlobalStyles";
+import { IItem } from "../../../models/IFaces";
+import Pageable from "../../Blocks/Pageable";
+import { H1, Icon } from "../../Elements/Icon";
+import { ChildrenGreed, GridTable, TD, TH } from "../../Elements/Table";
+import { device } from "../../GlobalStyles";
 
 const Catalog: React.FC<{ name?: string }> = ({ name }) => {
   if (!name) return null;
@@ -71,24 +66,18 @@ const Component: React.FC<any> = (props) => {
         <TH> цена</TH>
         {memo}
       </Greed>
-      <FlexEvenly>
-        <div> {items?.length === 0 && <span>Товаров&nbsp;пока&nbsp;нет.</span>}</div>
-        <RedirectButton to={"/admin/item/0 "}>Добавить&nbsp;товар</RedirectButton>
-      </FlexEvenly>
     </>
   );
 };
 
-const Component1: React.FC<PropsContent> = (props) => {
-  useFetchLocation(props.contentRequest);
-  const content = props.content;
+const Basic: React.FC<{ content?: any }> = ({ content }) => {
   return (
     <>
       <H1 src="list"> Товар</H1>
-      <main>{props.status > 199 && Array.isArray(content?.content) && <Component {...content} />} </main>
+      <main>{Array.isArray(content?.content) && <Component {...content} />} </main>
       <Pageable pages={content?.totalPages} />
     </>
   );
 };
-const FetchContent = connect(mapContent, actionsContent)(Component1);
-export default FetchContent;
+
+export default Basic;

@@ -72,7 +72,6 @@ const ImageGrid = styled.div`
   justify-self: stretch;
   display: flex;
   height: 280px;
-
   overflow-y: auto;
 `;
 
@@ -95,7 +94,6 @@ export const OL = styled.ol`
   }
   li {
     align-items: center;
-
     position: relative;
     ::marker {
       ${theme.font.Pattaya}
@@ -103,16 +101,12 @@ export const OL = styled.ol`
     }
   }
 `;
+
 const HomePage: React.FC = (props) => {
   const [state, setState] = useState("");
   return (
     <Main>
       <h1>меню</h1>
-      <OL>
-        <li>iiiiiiii</li>
-        <li>iiiiiiii</li>
-        <li>iiiiiiii</li>
-      </OL>
 
       <GridItems>
         <Div2 className="center">

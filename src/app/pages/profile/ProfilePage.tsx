@@ -3,11 +3,10 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import Logout from "../../components/Blocks/Logout";
 import UserInfo from "../../components/Blocks/UserInfo";
-import { ButtonSecondary } from "../../components/Elements/Button";
 import { H1 } from "../../components/Elements/Icon";
-import { MainStart } from "../../components/Elements/Styled";
+import { ButtonSecondary, MainStart } from "../../components/Elements/Styled";
 import { UserModel } from "../../models/UserModel";
-import { mapContent, useFetchLocation } from "../../store/helper";
+import { mapContent } from "../../store/helper";
 import { actionsContent } from "../../store/storeContent";
 import Orders from "./Orders";
 import ProfileForm from "./ProfileForm";
@@ -23,7 +22,6 @@ const Div = styled.div`
 
 type Props = ReturnType<typeof mapContent> & typeof actionsContent & { customer: UserModel };
 const RouterComponent: FunctionComponent<Props> = (props) => {
-  useFetchLocation(props.contentRequest);
   const [state, setState] = useState(false);
   const { content } = props;
   const handlerState = () => setState(!state);

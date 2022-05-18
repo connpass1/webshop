@@ -11,25 +11,25 @@ export class ItemModel implements ISlug {
   description = "";
   photo: string[] = [];
   composition: string[] = [];
-  quantity = 0;
-  mass: number = 0;
-  measure: number = 0;
+  quantity = "UNLIMITED";
+  mass = 0;
+  measure = "gram";
   constructor(detail: any) {
+    console.log(detail);
+
     if (!detail) return;
     const { id, description, photo, item, parents } = detail;
-
     if (!item) return;
-
     const { name, icon, price, quantity, caption, parent, mass, measure } = item;
     this.id = id ? id : 0;
     this.caption = caption ? caption : "";
     this.description = description ? description : "";
     this.photo = photo ? photo : [];
     this.name = name ? name : "";
-    this.quantity = quantity ? quantity : 0;
+    this.quantity = quantity ? quantity : "UNLIMITED";
     this.icon = icon ? icon : "";
     this.mass = mass ? mass : 0;
-    this.measure = measure ? measure : 0;
+    this.measure = measure ? measure : "gram";
     this.price = price ? price : 0;
     this.parent = parent;
     this.parents = parents ? parents : [];

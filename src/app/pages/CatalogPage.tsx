@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Breadcrumbs from "../components/Blocks/Breadcrumbs";
@@ -8,8 +7,6 @@ import { ChildrenGreed } from "../components/Elements/Table";
 import { theme } from "../components/GlobalStyles";
 import { CategoryModel } from "../models/CategoryModel";
 import { ISlug } from "../models/IFaces";
-import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
-import { actionsContent } from "../store/storeContent";
 
 const GridItems = styled.div`
   padding: 12px;
@@ -124,8 +121,8 @@ const Group: FunctionComponent<{ category: CategoryModel }> = ({ category }) => 
   );
 };
 
-const Component: FunctionComponent<any> = (props) => {
-  const catalog = new CategoryModel(props);
+const Component: FunctionComponent<{ content: any }> = ({ content }) => {
+  const catalog = new CategoryModel(content);
   if (!catalog) return null;
   return (
     <>
@@ -141,12 +138,5 @@ const Component: FunctionComponent<any> = (props) => {
     </>
   );
 };
-const Component1: React.FC<PropsContent> = (props) => {
-  useFetchLocation(props.contentRequest);
 
-  if (props.status < 200) return null;
-  if (!props.content) return null;
-  return <Component {...props.content} />;
-};
-const FetchContent = connect(mapContent, actionsContent)(Component1);
-export default FetchContent;
+export default Component;

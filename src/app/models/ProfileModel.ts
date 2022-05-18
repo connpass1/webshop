@@ -10,8 +10,6 @@ export class ProfileModel {
     this.id = data.id ? data.id : 0;
     this.address = data.address ? data.address : "";
     this.email = data.email ? data.email : "";
-    this.phone = data.phone ? data.phone : undefined;
-   
-
+    this.phone = data.phone ? data.phone : undefined; 
   }
 }

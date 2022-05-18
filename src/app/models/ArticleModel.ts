@@ -17,24 +17,4 @@ export class ArticleModel {
     if (!this.id) this.id = 0;
   }
 }
-export const createArticleModel = (data: any) => {
-  if (!data) return undefined; 
  
-  if (!data.nav) return undefined;
-  return new ArticleModel(data);
-};
-
-export const createArticleModelList = (data: any) => {
- 
-    if (!data) return undefined; 
-  if (!Array.isArray(data)) return null;
-  const arr:ArticleModel[]=[]
-  for (let i=0; i<data.length; i++)
-  {
-     const article=createArticleModel(data[i])
-    if (!article) return undefined; 
-    arr.push(article)
-  }
-  
-  return  arr;
-};

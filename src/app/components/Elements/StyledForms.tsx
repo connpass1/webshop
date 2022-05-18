@@ -1,8 +1,8 @@
 import { ErrorMessage, Field, Form } from "formik";
 import React from "react";
+import ImageUploading, { ImageListType } from "react-images-uploading";
 import styled from "styled-components";
 import { Icon } from "../../components/Elements/Icon";
-import FileBase64 from "../adminka/FileBase64";
 import { device, theme } from "../GlobalStyles";
 const Grid = styled.div`
   display: grid;
@@ -16,6 +16,7 @@ const Grid = styled.div`
     border: none;
   }
 `;
+
 export const GridIcon = styled(Grid)`
   .select {
     grid-area: s !important;
@@ -29,12 +30,9 @@ export const GridIcon = styled(Grid)`
     align-items: center;
   }
 
-  grid-template-areas: " icon i  s ." "l  i  b  b";
-  grid-template-columns: 40px auto min-content min-content;
-  @media ${device.mobile} {
-    grid-template-areas: " icon i  i s" "l  b  b  b";
-    grid-template-columns: 40px 1fr 1fr min-content;
-  }
+  grid-template-areas: " icon   . s " "  b  b   b   ";
+  grid-template-columns: 40px auto;
+  word-wrap: break-word;
 `;
 
 export const IconUpload = styled(Grid)`
@@ -130,6 +128,7 @@ export const FORM = styled(Form)`
     grid-area: l;
   }
 
+  button,
   input[type="submit"],
   input[type="button"],
   input[type="reset"] {
@@ -174,7 +173,6 @@ export const Inputs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 2fr);
   gap: 12px;
-
   @media ${device.laptopL} {
     display: flex;
     flex-direction: column;
@@ -216,11 +214,55 @@ export const Input: React.FC<{ name: string; label: string; type?: string; place
     </Group>
   );
 };
+export const StyledD = styled.div<{ isDragging: boolean }>`
+  color: ${(props) => (props.isDragging ? theme.color.error : theme.color.secondary)} !important;
+  background-color: white;
+  border: 1px solid;
+  border-color: currentColor;
+  display: flex;
+  font-size: 0.8 rem;
+  font-style: italic;
+  cursor: pointer;
+  align-self: stretch;
+  padding: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  @media ${device.mobile} {
+    flex-direction: column;
+  }
+`;
+export const DIVUploader = styled.div`
+  grid-area: b;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  flex-wrap: wrap;
+`;
+export const SingleLoader: React.FC<{ handle: any }> = ({ handle }) => {
+  return (
+    <ImageUploading
+      multiple={false}
+      maxFileSize={100000}
+      value={[]}
+      onChange={(imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
+        handle(imageList[0].dataURL);
+      }}
+      maxNumber={1}
+    >
+      {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
+        <DIVUploader className="upload__image-wrapper">
+          <StyledD isDragging={isDragging} onClick={onImageUpload} {...dragProps}>
+            <div> нажмите сюда или </div> <div> перетащите файл для загрузки</div>
+          </StyledD>
+        </DIVUploader>
+      )}
+    </ImageUploading>
+  );
+};
 export const IconLoader: React.FC<{ value?: string; handle: any }> = ({ handle, value = "empty" }) => {
   return (
     <GridIcon>
       <Icon src={value} />
-      <label htmlFor={"icon"}> иконка </label>
       <Field name="icon" type="text" placeholder="home" />
       <Field as="select" name="icon" className="select">
         <option value="empty">....</option>
@@ -228,7 +270,7 @@ export const IconLoader: React.FC<{ value?: string; handle: any }> = ({ handle, 
         <option value="bear">bear</option>
         <option value="cake">cake</option>
       </Field>
-      <FileBase64 text="загрузить&nbsp;иконку" onDone={handle} />
+      <SingleLoader handle={handle} />
     </GridIcon>
   );
 };

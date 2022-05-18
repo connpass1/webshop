@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ISlug } from "../../models/IFaces";
@@ -28,9 +27,9 @@ const DIV = styled.div`
   justify-content: center;
   width: 1em;
   height: 1em;
-  .none {
-    display: none;
-  }
+`;
+const StyledImg = styled.img<{ show: boolean }>`
+  display: ${(props) => (props.show ? "none" : "inherit")} !important;
 `;
 export const TextIcon: React.FC<ISlug> = (props) => {
   return (
@@ -47,8 +46,8 @@ export const Image: React.FC<{ src: string }> = ({ src = "/img/box.png" }) => {
   };
   return (
     <DIV>
-      <img src={src} alt="иконка" onLoad={handle} className={classNames({ none: !state })} />
-      <img src={"/img/box.png"} alt="иконка" className={classNames({ "none ": state })} />
+      <StyledImg src={src} alt="иконка" onLoad={handle} show={!state} />
+      <StyledImg src={"/img/box.png"} alt="иконка" show={state} />
     </DIV>
   );
 };

@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
 import AddToCart from "../components/Blocks/AddToCard";
 import { Articular } from "../components/Blocks/Articular";
@@ -8,8 +7,6 @@ import { H1 } from "../components/Elements/Icon";
 import { Image } from "../components/Elements/Image";
 import { theme } from "../components/GlobalStyles";
 import { ItemModel } from "../models/ItemModel";
-import { mapContent, PropsContent, useFetchLocation } from "../store/helper";
-import { actionsContent } from "../store/storeContent";
 const Main = styled.main`
   flex-wrap: no-wrap;
   justify-content: center;
@@ -65,10 +62,9 @@ const Section = styled.section`
     grid-area: p;
   }
 `;
-const Component: FunctionComponent<any> = (detail) => {
-  if (!detail) return null;
-  if (!detail.item) return null;
-  const itemModel = new ItemModel(detail);
+const Component: FunctionComponent<{ content: any }> = ({ content }) => {
+  if (!content.item) return null;
+  const itemModel = new ItemModel(content);
   if (!itemModel?.name) return null;
   return (
     <>
@@ -89,18 +85,11 @@ const Component: FunctionComponent<any> = (detail) => {
               <Image src={src} key={key} />
             ))}
           </div>
-          <AddToCart item={detail.item} />
+          <AddToCart item={content.item} />
         </Section>
       </Main>
     </>
   );
 };
-const Component1: React.FC<PropsContent> = (props) => {
-  useFetchLocation(props.contentRequest);
-  if (props.status < 200) return null;
-  if (!props.content) return null;
 
-  return <Component {...props.content} />;
-};
-const FetchContent = connect(mapContent, actionsContent)(Component1);
-export default FetchContent;
+export default Component;

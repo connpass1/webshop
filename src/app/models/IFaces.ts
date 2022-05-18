@@ -54,6 +54,7 @@ export interface IFetchSettings extends IFetch {
 
 export interface IFetchContent extends IFetch {
   content: any;
+  url: string;
 }
 
 export interface IFetchCart extends IFetch {

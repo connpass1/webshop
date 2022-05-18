@@ -43,11 +43,16 @@ const UL = styled.ul`
   }
 `;
 const BreadcrumbsLarge: React.FC<{ parent: ISlug[]; isAdmin: boolean }> = ({ parent, isAdmin }) => {
+  function getPath(slug: ISlug) {
+    let s = isAdmin ? "/admin/catalog/" : "/catalog/";
+    if (slug.name === "Меню") return s;
+    return s + slug.id;
+  }
   return (
     <UL>
       {parent.map((t) => (
         <li key={t.id}>
-          <Link to={isAdmin ? "/admin/catalog/" + t.id : "/catalog/" + t.id}>
+          <Link to={getPath(t)}>
             {t.icon && <Icon src={t.icon} />} {t.name}
           </Link>
         </li>

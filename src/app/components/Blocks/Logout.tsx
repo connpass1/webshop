@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
-import { actionsUser } from "../../store/storeUser";
 import { mapFetchUser } from "../../store/helper";
-import { Button } from "../Elements/Button";
+import { actionsUser } from "../../store/storeUser";
 import { Icon } from "../Elements/Icon";
+import { Button } from "../Elements/Styled";
 
 type Props = ReturnType<typeof mapFetchUser> & typeof actionsUser;
 const Component: FunctionComponent<Props> = (props) => {

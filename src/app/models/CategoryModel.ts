@@ -25,13 +25,15 @@ export class CategoryModel  {
 public getParentId() {
   if(this.parent.length===0)return 0;
   return this.parent[this.parent.length-1].id 
-}
- 
-  
+  } 
+  public getParentName() {
+    if(this.parent.length===0)return undefined;
+    return this.parent[this.parent.length-1].name 
+  } 
 }
 export const createCategoryModel = (data: any) => {
   if (!data) return undefined;
   
-  if (!data.name) return undefined;
+  
   return new CategoryModel(data);
 };

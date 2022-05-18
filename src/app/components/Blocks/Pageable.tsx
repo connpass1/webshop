@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import React, { FunctionComponent, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -22,13 +21,6 @@ const Links = styled.div`
   justify-content: center;
   grid-area: l;
 
-  a {
-    color: ${theme.color.secondary};
-    padding: 6px;
-    text-decoration: none;
-    font-size: 1.3rem;
-  }
-
   #i1 {
     grid-area: i1;
   }
@@ -36,13 +28,19 @@ const Links = styled.div`
   #i2 {
     grid-area: i2;
   }
-
-  .big {
-    text-decoration: underline;
-    font-weight: bolder;
-  }
 `;
+interface PropsStyledLink {
+  big: boolean;
+}
+const StyledLink = styled(Link)<PropsStyledLink>`
+  color: ${theme.color.secondary};
+  padding: 6px;
+  text-decoration: none;
+  font-size: 1.3rem;
+  text-decoration: ${(props) => (props.big ? "underline" : "inherit")} !important;
 
+  font-weight: ${(props) => (props.big ? "bold" : "inherit")} !important;
+`;
 const Component: FunctionComponent<{ pages: number }> = ({ pages = 0 }) => {
   const location = useLocation();
   const index = location.pathname.lastIndexOf("/");
@@ -69,9 +67,9 @@ const Component: FunctionComponent<{ pages: number }> = ({ pages = 0 }) => {
       return (
         <Links>
           {arr.map((num) => (
-            <Link className={classNames({ big: param === num })} to={path + num}>
+            <StyledLink big={param === num} to={path + num}>
               {num}
-            </Link>
+            </StyledLink>
           ))}
         </Links>
       );
